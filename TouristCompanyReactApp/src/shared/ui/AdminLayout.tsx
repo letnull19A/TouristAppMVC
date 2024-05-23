@@ -19,7 +19,7 @@ export const AdminLayout = (props: { children: ReactNode }) => {
 		<div className="grid">
 			<div
 				className="col-5 sm:col-6 md:col-4 lg:col-3 p-0"
-				style={{ maxWidth: '300px' }}
+				style={{ maxWidth: '350px' }}
 			>
 				<SideBar />
 			</div>

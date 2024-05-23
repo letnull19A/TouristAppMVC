@@ -45,20 +45,21 @@ export const TourList = () => {
 		<div className="px-4">
 			<ConfirmDialog />
 			<AdminPageTitle title='Список туров'/>
-			<div className="card p-fluid">
-				<TourDataTable
-					data={tours}
-					selected={selected}
-					setSelected={setSelected}
-				/>
-				<div className="col-2">
+			<div className="card p-fluid mt-5">
+				<div className="">
 					<Button
+						className='w-10rem'
 						label={`Удалить (${selected.length})`}
 						severity="danger"
 						disabled={selected.length === 0}
 						onClick={() => confirm2()}
 					/>
 				</div>
+				<TourDataTable
+					data={tours}
+					selected={selected}
+					setSelected={setSelected}
+				/>
 			</div>
 		</div>
 	)

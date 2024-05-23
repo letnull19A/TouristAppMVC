@@ -49,9 +49,10 @@ export const Filter = () => {
 	const context = useContext(SearchContext)
 
 	return (
-		<>
-			<div className="flex flex-column lg:flex-row justify-content-between gap-3">
-				<div className="flex flex-column gap-2 col-12 lg:col-3 p-0">
+		<div className='flex flex-column col-2'>
+			<h2>Опции</h2>
+			<div className="flex flex-column gap-5 mt-3">
+				<div className="flex flex-column gap-2 p-0">
 					<label>Город вылета</label>
 					<AirportsDropdown
 						onChange={(e) => {
@@ -77,8 +78,7 @@ export const Filter = () => {
 						hideOnRangeSelection
 					/>
 				</div>
-				<div className="col-12 lg:col-4 p-0 flex flex-row gap-3">
-					<div className="flex flex-column gap-2 col-5 p-0">
+					<div className="flex flex-column gap-2 p-0">
 						<label>Кол-во человек</label>
 						<InputNumber
 							value={humans}
@@ -97,7 +97,7 @@ export const Filter = () => {
 							mode="decimal"
 						/>
 					</div>
-					<div className="flex flex-column gap-2 col-5 p-0">
+					<div className="flex flex-column gap-2 p-0">
 						<label>Кол-во дней</label>
 						<InputNumber
 							value={days}
@@ -116,9 +116,8 @@ export const Filter = () => {
 							decrementButtonIcon="pi pi-minus"
 							mode="decimal"
 						/>
-					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	)
 }

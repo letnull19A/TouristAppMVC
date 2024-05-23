@@ -12,7 +12,7 @@ export const AdminPageTitle = (props: TAdminPAgeTitleProps) => {
 	const navigate = useNavigate()
 
 	return (
-		<div className="flex align-items-center pt-3 flex-shrink-0">
+		<div className="flex align-items-center pt-4 flex-shrink-0">
 			<span className="inline-flex align-items-center gap-2">
 				{toMain && (
 					<Button
