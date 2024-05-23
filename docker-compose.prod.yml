@@ -4,7 +4,7 @@ services:
   gateway:
     build: ./gateway
     ports:
-      - '9088:9088'
+      - '7778:7778'
     restart: always
     volumes:
       - './gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
@@ -14,7 +14,7 @@ services:
       - backend
     networks:
       network:
-        ipv4_address: 22.98.1.22
+        ipv4_address: 26.42.1.22
 
   postgres:
     image: postgres:latest
@@ -27,11 +27,11 @@ services:
     environment:
       - POSTGRES_DB=voyage-db
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=egor_letow
+      - POSTGRES_PASSWORD=super_password
       - MAX_LOGIN_ATTEMPTS=0
     networks:
       network:
-        ipv4_address: 22.98.1.4
+        ipv4_address: 26.42.1.4
 
   pgadmin:
     image: dpage/pgadmin4
@@ -49,7 +49,7 @@ services:
       - pgadmin:/var/lib/pgadmin
     networks:
       network:
-        ipv4_address: 22.98.1.5
+        ipv4_address: 26.42.1.5
 
   backend:
     build:
@@ -66,7 +66,7 @@ services:
       ASPNETCORE_URLS: http://+:4590
     networks:
       network:
-        ipv4_address: 22.98.1.57
+        ipv4_address: 26.42.1.57
 
   frontend:
     build: ./TouristCompanyReactApp
@@ -81,7 +81,7 @@ services:
       - './TouristCompanyReactApp/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
     networks:
       network:
-        ipv4_address: 22.98.1.64
+        ipv4_address: 26.42.1.64
 
   tickets:
     build: ./TouristCompanyAviaTickets
@@ -89,7 +89,7 @@ services:
       - '7865:7865'
     networks:
       network:
-        ipv4_address: 22.98.1.99
+        ipv4_address: 26.42.1.99
 
 volumes:
   postgres-data:
@@ -100,5 +100,5 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 22.98.0.0/16
-          gateway: 22.98.0.1
+        - subnet: 26.42.0.0/16
+          gateway: 26.42.0.1
