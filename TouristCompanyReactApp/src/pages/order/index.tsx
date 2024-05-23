@@ -1,16 +1,15 @@
-import { tourApi, hotelTourApi, hotelApi, tourPriceApi } from '@api'
-import { AuthContext } from '@contexts'
-import { TTour, THotel, THotelTour, TTourPrice } from '@entities'
+import { hotelApi, hotelTourApi, tourApi, tourPriceApi } from '@api'
+import { THotel, THotelTour, TTour, TTourPrice } from '@entities'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
 import { Calendar } from 'primereact/calendar'
 import { Dropdown } from 'primereact/dropdown'
-import { useContext, useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 export const OrderPage = () => {
-	const [currentTour, setCurrentTour] = useState<TTour>()
-	const [currentHotel, setCurrentHotel] = useState<THotel>()
+	const [, setCurrentTour] = useState<TTour>()
+	const [, setCurrentHotel] = useState<THotel>()
 	const [, setCurrentHotelTour] = useState<THotelTour>()
 	const [prices, setPrices] = useState<Array<TTourPrice>>([])
 
@@ -30,10 +29,6 @@ export const OrderPage = () => {
 			})
 		})
 	}, [id])
-
-	const navigate = useNavigate()
-
-	const context = useContext(AuthContext)
 
 	return (
 		<>
