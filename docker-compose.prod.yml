@@ -74,7 +74,7 @@ services:
       - '8014:5523'
     restart: always
     environment:
-      - VITE_API_URL=http://87.242.117.193:9088/api
+      - VITE_API_URL=http://176.123.162.178:7778/api
     depends_on:
       - backend
     volumes:
