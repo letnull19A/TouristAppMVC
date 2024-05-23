@@ -26,12 +26,12 @@ export function SideBar() {
 
 	return (
 		<div
-			className="min-h-screen flex fixed p-0 surface-ground col-6 sm:col-7 md:col-5 lg:col-4 p-0"
-			style={{ maxWidth: '350px' }}
+			className="min-h-screen flex fixed p-0 col-6 sm:col-7 md:col-5 lg:col-4 p-0"
+			style={{ maxWidth: '350px', backgroundColor: 'var(--surface-200)' }}
 		>
 			<div
 				id="app-sidebar-2"
-				className="surface-section h-screen hidden block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border select-none col-12"
+				className="h-screen hidden block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border select-none col-12"
 			>
 				<div className="flex flex-column h-full">
 					<div className="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">

@@ -1,10 +1,10 @@
 import { hotelApi } from '@api'
 import { THotel } from '@entities'
+import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
 import { Column } from 'primereact/column'
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 import { DataTable } from 'primereact/datatable'
-import { InputText } from 'primereact/inputtext'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -48,18 +48,17 @@ export const HotelList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<div className="flex align-items-center pt-3 flex-shrink-0">
-				<span className="inline-flex align-items-center gap-2">
-					<span className="font-semibold text-2xl text-primary">
-						Список стран
-					</span>
-				</span>
-				<span className="p-input-icon-left ml-7">
-					<i className="pi pi-search" />
-					<InputText placeholder="Поиск" />
-				</span>
-			</div>
+			<AdminPageTitle title="Список отелей" />
 			<div className="card p-fluid">
+				<div className="mt-5">
+					<Button
+						className='w-10rem'
+						label={`Удалить (${selected.length})`}
+						severity="danger"
+						disabled={selected.length === 0}
+						onClick={() => confirm2()}
+					/>
+				</div>
 				<DataTable
 					paginator
 					rowsPerPageOptions={[5, 10, 25, 50]}
@@ -105,14 +104,6 @@ export const HotelList = () => {
 						bodyStyle={{ textAlign: 'center' }}
 					></Column>
 				</DataTable>
-				<div className="col-2">
-					<Button
-						label={`Удалить (${selected.length})`}
-						severity="danger"
-						disabled={selected.length === 0}
-						onClick={() => confirm2()}
-					/>
-				</div>
 			</div>
 		</div>
 	)
