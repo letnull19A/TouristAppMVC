@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { CardGrid } from './CardGrid'
 import { Filter } from './Filter'
 import { Search } from './Search'
-import { Title } from './Title'
 
 export const SearchPage = () => {
 	const [tours, setTours] = useState<Array<TTour>>([])
@@ -19,8 +18,7 @@ export const SearchPage = () => {
 	}, [])
 
 	return (
-		<div className="">
-			<SearchContext.Provider
+		<SearchContext.Provider
 				value={{
 					data: tours,
 					setData: setTours,
@@ -30,12 +28,13 @@ export const SearchPage = () => {
 					setCountry: setCountry
 				}}
 			>
-				<Title content="Поиск туров" />
-				<Search />
+			<div className="flex flex-row">
 				<Filter />
-				<Title content="Результаты:" />
-				<CardGrid />
+				<div className="flex flex-column col-10">
+					<Search />
+					<CardGrid />
+				</div>
+			</div>
 			</SearchContext.Provider>
-		</div>
 	)
 }

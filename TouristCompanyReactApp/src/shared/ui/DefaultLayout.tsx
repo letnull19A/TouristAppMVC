@@ -14,11 +14,10 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 	return (
 		<>
 			<div
-				className="flex justify-content-center"
-				style={{ width: '100%', height: '64px', backgroundColor: '' }}
+				className="flex justify-content-center col-10"
+				style={{ width: '100%', height: '64px' }}
 			>
-				<div className="col-12 xl:col-9 flex flex-row align-items-center justify-content-between">
-					<img onClick={() => navigate('/')} style={{ width: '150px' }} src="/logo.svg" />
+				<div className="col-12 xl:col-9 flex flex-row align-items-center justify-content-end">
 					<div>
 						{context.isAuth() ? (
 							<div className="flex flex-row gap-3">
