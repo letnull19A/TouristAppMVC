@@ -1,11 +1,12 @@
 import { hotelApi, hotelTourApi, tourApi } from '@api'
+import { AuthContext } from '@contexts'
 import { THotel, THotelTour, TTour } from '@entities'
 import { TourInfo, TourPrices } from '@features'
 import { AdminPageTitle } from '@widgets'
 import { Accordion, AccordionTab } from 'primereact/accordion'
 import { Button } from 'primereact/button'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export const TourView = () => {
 	const [currentTour, setCurrentTour] = useState<TTour>()
@@ -28,9 +29,17 @@ export const TourView = () => {
 		})
 	}, [id])
 
+	const navigate = useNavigate()
+
+	const context = useContext(AuthContext)
+
+	const handleMakeOrder = () => {
+		navigate(context.isAuth() ? `/tour/${id}/order` : '/auth')
+	}
+
 	return (
 		<>
-			<AdminPageTitle title="Обозреватель тура" toMain/>
+			<AdminPageTitle title="Обозреватель тура" toMain />
 			<div className="grid mt-5 flex flex-column md:flex-row">
 				<div className="col-12 md:col-7">
 					<img
@@ -43,9 +52,13 @@ export const TourView = () => {
 					{id && <TourInfo tourId={id} />}
 					{id && <TourPrices tourId={id} />}
 					<Button
+						onClick={() => handleMakeOrder()}
 						className="w-full"
 						label="Оставить заявку"
 					/>
+					{context.isAuth() && (
+						<Button outlined className="w-full" label="В избранное" />
+					)}
 				</div>
 			</div>
 			<p className="text-2xl">Дополнительная информация</p>
