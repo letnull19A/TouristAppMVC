@@ -89,7 +89,7 @@ services:
       - '7865:7865'
     networks:
       network:
-        ipv4_address: 26.42.1.99
+        ipv4_address: 26.42.1.32
 
 volumes:
   postgres-data:
