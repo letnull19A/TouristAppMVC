@@ -15,7 +15,7 @@
 			"launchBrowser": true,
 			"launchUrl": "swagger",
 			"dotnetRunMessages": true,
-			"applicationUrl": "http://87.242.117.193:8080"
+			"applicationUrl": "http://176.123.162.178:8080"
 		},
 		"IIS Express": {
 			"commandName": "IISExpress",

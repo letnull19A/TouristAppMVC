@@ -1,4 +1,4 @@
-name: 'amir_tourist_service'
+name: 'mvp_tourist_service'
 
 services:
   gateway:
