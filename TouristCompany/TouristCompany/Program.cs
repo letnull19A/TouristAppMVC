@@ -15,8 +15,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient<TicketService>(client =>
 {
     client.BaseAddress = new Uri("http://176.123.162.178:7778/api/tickets");
-    client.DefaultRequestHeaders.Add("Accept", "application/json");
-    client.DefaultRequestHeaders.Add("Content-Type", "application/json");
 });
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddSingleton<ISearchService, SearchService>();
