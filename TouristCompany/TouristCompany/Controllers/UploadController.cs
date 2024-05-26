@@ -51,7 +51,7 @@ public sealed class UploadController(
 
             var currentFileName = Guid.NewGuid() + "__" + file.FileName;
 
-            var filePath = Path.Combine(uploadPath, currentFileName);
+            var filePath = Path.Combine(uploadDirectory, currentFileName);
 
             await using (var stream = new FileStream(filePath, FileMode.Create))
             {
