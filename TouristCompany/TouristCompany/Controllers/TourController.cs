@@ -71,6 +71,7 @@ namespace TouristCompany.Controllers
                 Description = tour.Description,
                 Category = category.Adapt<CategoryLiteDto>(),
                 Country = country.Adapt<CountryLiteDto>(),
+                ImageUrl = tour.ImageUrl,
                 City = city.Adapt<CityLiteDto>()
             };
 
