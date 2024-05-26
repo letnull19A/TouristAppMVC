@@ -63,6 +63,7 @@ services:
       - postgres
     volumes:
       - './TouristCompany/TouristCompany/appsettings.json:/app/appsettings.json:ro'
+      - '/mnt/tour-uploads:/app/Uploads'
     environment:
       ASPNETCORE_URLS: http://+:4590
     networks:
@@ -80,7 +81,6 @@ services:
       - backend
     volumes:
       - './TouristCompanyReactApp/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
-      - '/mnt/tour-uploads:/mnt/Uploads'
     networks:
       network:
         ipv4_address: 26.42.1.64
