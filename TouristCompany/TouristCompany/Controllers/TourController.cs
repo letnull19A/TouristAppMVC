@@ -97,6 +97,7 @@ namespace TouristCompany.Controllers
             currentTour.CategoryId = tour.CategoryId;
             currentTour.Description = tour.Description;
             currentTour.Name = tour.Name;
+            currentTour.ImageUrl = tour.ImageUrl;
 
             tourRepository.Update(currentTour);
             return NoContent();
