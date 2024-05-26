@@ -55,6 +55,10 @@ export const TourEditForm = () => {
 	}, [getById, id])
 
 	useEffect(() => {
+		setFileName(tourData?.imageUrl)
+	}, [tourData?.imageUrl])
+
+	useEffect(() => {
 		if (tourData !== undefined && tourData.id !== undefined) {
 			categoryApi
 				.getById(tourData.category.id)
@@ -306,19 +310,6 @@ export const TourEditForm = () => {
 							/>
 						</div>
 					)}
-				/>
-				<img
-					src={`${import.meta.env.VITE_API_URI}/bucket/${tourData.imageUrl}`}
-					className="mb-3"
-				/>
-				<FileUpload
-					mode="basic"
-					name="files"
-					url={`${import.meta.env.VITE_API_URI}/api/files/upload`}
-					accept="image/*"
-					chooseLabel="Выберите файл для обложки (png, jpg, jpeg)"
-					maxFileSize={1000000}
-					onUpload={onUpload}
 				/>
 				<img
 					src={`${import.meta.env.VITE_API_URI}/bucket/${fileName}`}
