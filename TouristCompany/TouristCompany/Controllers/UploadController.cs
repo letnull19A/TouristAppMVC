@@ -32,9 +32,12 @@ public sealed class UploadController(
         if (string.IsNullOrEmpty(uploadDirectory))
             throw new NullReferenceException(nameof(uploadDirectory));
 
-        logger.LogInformation(uploadDirectory);
+        Console.WriteLine(uploadDirectory);
 
         var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), uploadDirectory);
+
+        Console.WriteLine(uploadPath);
+
         if (!Directory.Exists(uploadPath))
         {
             Directory.CreateDirectory(uploadPath);
@@ -48,7 +51,7 @@ public sealed class UploadController(
 
             var currentFileName = Guid.NewGuid() + "__" + file.FileName;
 
-            var filePath = Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), uploadPath), currentFileName);
+            var filePath = Path.Combine(uploadPath, currentFileName);
 
             await using (var stream = new FileStream(filePath, FileMode.Create))
             {
