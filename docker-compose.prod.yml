@@ -63,7 +63,7 @@ services:
       - postgres
     volumes:
       - './TouristCompany/TouristCompany/appsettings.json:/app/appsettings.json:ro'
-      - '/home/user1/TouristAppMVC/Uploads:/app/Uploads'
+      - './Uploads:/app/Uploads'
     environment:
       ASPNETCORE_URLS: http://+:4590
     networks:
