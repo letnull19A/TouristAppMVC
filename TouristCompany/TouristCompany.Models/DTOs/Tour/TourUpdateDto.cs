@@ -7,4 +7,5 @@ public sealed class TourUpdateDto
     public Guid CityId { get; set; }
     public Guid CountryId { get; set; }
     public Guid CategoryId { get; set; }
+    public string ImageUrl { get; set; }
 }
