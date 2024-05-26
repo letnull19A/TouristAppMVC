@@ -25,10 +25,12 @@ import {
 	HotelDropdown
 } from '@ui'
 import { Button } from 'primereact/button'
+import { FileUpload } from 'primereact/fileupload'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
+import { Toast } from 'primereact/toast'
 import { classNames } from 'primereact/utils'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
@@ -141,11 +143,11 @@ export const TourEditForm = () => {
 
 		tourApi.edit({
 			id: data.id,
-            name: data.name ?? '',
-            description: data.description ?? '',
-            countryId: data.countryId ?? '',
-            cityId: data.cityId ?? '',
-            categoryId: data.categoryId ?? ''
+			name: data.name ?? '',
+			description: data.description ?? '',
+			countryId: data.countryId ?? '',
+			cityId: data.cityId ?? '',
+			categoryId: data.categoryId ?? ''
 		})
 	}
 
@@ -181,12 +183,23 @@ export const TourEditForm = () => {
 		setAddedList(origin)
 	}
 
+	const toast = useRef<Toast>(null)
+
+	const onUpload = () => {
+		toast.current?.show({
+			severity: 'info',
+			summary: 'Success',
+			detail: 'File Uploaded'
+		})
+	}
+
 	return (
 		tourData !== undefined && (
 			<form
 				onSubmit={handleSubmit(onSubmit)}
 				className="flex flex-column gap-40 w-12"
 			>
+				<Toast ref={toast}></Toast>
 				<Controller
 					name="name"
 					control={control}
@@ -286,6 +299,16 @@ export const TourEditForm = () => {
 							/>
 						</div>
 					)}
+				/>
+				<FileUpload
+					mode="basic"
+					name="files"
+					url={`${import.meta.env.VITE_API_URI}/api/files/upload`}
+					accept="image/*"
+					chooseLabel='Выберите файл для обложки (png, jpg, jpeg)'
+					
+					maxFileSize={1000000}
+					onUpload={onUpload}
 				/>
 				<AddPriceTourContext.Provider
 					value={{ fields: fields ?? [], setFields: setFields }}

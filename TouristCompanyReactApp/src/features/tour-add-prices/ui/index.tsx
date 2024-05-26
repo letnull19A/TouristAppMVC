@@ -64,6 +64,11 @@ export const TourAddPricesForm = (props: TTourAddPricesFormProps) => {
 	return (
 		<div className="flex flex-column">
 			<p>Добавление цен</p>
+			<div className="flex flex-row justify-content-between">
+				<span className='col-5'>Цена</span>
+				<span className='col-4'>Дни</span>
+				<span className='col-2'>Действие</span>
+			</div>
 			<div className="flex flex-column gap-3 mb-3">
 				{context.fields.map((item) => (
 					<TourAddPricesFormItem
@@ -77,8 +82,8 @@ export const TourAddPricesForm = (props: TTourAddPricesFormProps) => {
 				))}
 			</div>
 			<Button
-				label="Добавить"
-				severity="info"
+				label="Добавить новый пункт"
+				outlined
 				onClick={(e) => {
 					hanbleAddToList()
 					e.preventDefault()

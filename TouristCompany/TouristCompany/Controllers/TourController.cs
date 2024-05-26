@@ -31,6 +31,7 @@ namespace TouristCompany.Controllers
                 Description = u.Description,
                 CategoryId = u.CategoryId,
                 CityId = u.CityId,
+                ImageUrl = u.ImageUrl,
                 Country = v.Adapt<CountryLiteDto>()
             }).Join(cities, t => t.CityId, p => p.Id, (t, p) => new
             {
@@ -38,6 +39,7 @@ namespace TouristCompany.Controllers
                 Name = t.Name,
                 Description = t.Description,
                 Country = t.Country,
+                ImageUrl = t.ImageUrl,
                 CategoryId = t.CategoryId,
                 City = p.Adapt<CityLiteDto>()
             }).Join(categories, w => w.CategoryId, q => q.Id, (w, q) => new
@@ -47,6 +49,7 @@ namespace TouristCompany.Controllers
                 w.Name,
                 w.Country,
                 w.City,
+                w.ImageUrl,
                 Category = categoryRepository.GetById(w.CategoryId).Adapt<CategoryLiteDto>()
             });
 

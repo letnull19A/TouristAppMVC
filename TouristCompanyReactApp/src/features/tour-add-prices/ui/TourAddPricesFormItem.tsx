@@ -18,17 +18,28 @@ export const TourAddPricesFormItem = (props: TTourAddPricesFormItemProps) => {
 			<InputText
 				type="number"
 				className="col-5"
+				min={0}
+				step={1000}
 				defaultValue={data.price}
 				onChange={(e) => {
-					onPriceChange(id, Number.parseInt(e.target.value))
+					const parcedPrice = Number.parseInt(e.target.value)
+					if (parcedPrice > 0) {
+						onPriceChange(id, parcedPrice)
+					}
 				}}
 			/>
 			<InputText
 				type="number"
 				className="col-4"
+				min={0}
+				step={7}
+				max={45}
 				defaultValue={data.days}
 				onChange={(e) => {
-					onDaysChange(id, Number.parseInt(e.target.value))
+					const parcedDays = Number.parseInt(e.target.value)
+					if (parcedDays > 0) {
+						onDaysChange(id, parcedDays)
+					}
 				}}
 			/>
 			<Button

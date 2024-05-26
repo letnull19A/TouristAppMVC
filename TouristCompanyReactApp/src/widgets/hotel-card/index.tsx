@@ -19,7 +19,7 @@ export const HotelCard = (props: HotelCardProps) => {
 
 	const title = <div style={{ height: 70, width: '100%', textWrap: 'wrap', overflow: 'hidden' }}>{name}</div>
 
-	const header = <img style={{ height: 170 }} alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
+	const header = <img style={{ height: 170 }} alt="Card" src={`${import.meta.env.VITE_API_URI}/bucket/a9c88cd5-c614-464b-8597-01492fd44dbc__1930f47d8910c77a3cd9d0f803eac04b81a7b3cd.png`} />
 	const footer = (
 		<>
 			<Button onClick={() => navigate(`tour/${tourData.id}/view`)} label="Подробнее" style={{ width: '100%' }} />
