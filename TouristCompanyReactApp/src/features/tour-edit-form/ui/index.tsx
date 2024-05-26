@@ -25,7 +25,7 @@ import {
 	HotelDropdown
 } from '@ui'
 import { Button } from 'primereact/button'
-import { FileUpload } from 'primereact/fileupload'
+import { FileUpload, FileUploadUploadEvent } from 'primereact/fileupload'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { Toast } from 'primereact/toast'
@@ -46,6 +46,7 @@ export const TourEditForm = () => {
 	const [editedList, setEditedList] = useState<Set<string>>(new Set<string>())
 	const [addedList, setAddedList] = useState<Set<string>>(new Set<string>())
 	const [deleteList, setDeleteList] = useState<Set<string>>(new Set<string>())
+	const [fileName, setFileName] = useState<string>()
 
 	const { id } = useParams()
 
@@ -148,7 +149,7 @@ export const TourEditForm = () => {
 			countryId: data.countryId ?? '',
 			cityId: data.cityId ?? '',
 			categoryId: data.categoryId ?? '',
-			imageUrl: data.imageUrl ?? '',
+			imageUrl: data.imageUrl ?? ''
 		})
 	}
 
@@ -186,12 +187,17 @@ export const TourEditForm = () => {
 
 	const toast = useRef<Toast>(null)
 
-	const onUpload = () => {
-		toast.current?.show({
-			severity: 'info',
-			summary: 'Success',
-			detail: 'File Uploaded'
-		})
+	const onUpload = (event: FileUploadUploadEvent) => {
+		if (event.xhr.status === 200) {
+			const response = JSON.parse(event.xhr.responseText)
+
+			setFileName(response.files[0].fileName)
+			toast.current?.show({
+				severity: 'info',
+				summary: 'Success',
+				detail: 'File Uploaded'
+			})
+		}
 	}
 
 	return (
@@ -301,13 +307,29 @@ export const TourEditForm = () => {
 						</div>
 					)}
 				/>
-				<img src={`${import.meta.env.VITE_API_URI}/bucket/${tourData.imageUrl}`} className='mb-3'/>
+				<img
+					src={`${import.meta.env.VITE_API_URI}/bucket/${tourData.imageUrl}`}
+					className="mb-3"
+				/>
 				<FileUpload
 					mode="basic"
 					name="files"
 					url={`${import.meta.env.VITE_API_URI}/api/files/upload`}
 					accept="image/*"
-					chooseLabel='Выберите файл для обложки (png, jpg, jpeg)'
+					chooseLabel="Выберите файл для обложки (png, jpg, jpeg)"
+					maxFileSize={1000000}
+					onUpload={onUpload}
+				/>
+				<img
+					src={`${import.meta.env.VITE_API_URI}/bucket/${fileName}`}
+					className="mb-3"
+				/>
+				<FileUpload
+					mode="basic"
+					name="files"
+					url={`${import.meta.env.VITE_API_URI}/api/files/upload`}
+					accept="image/*"
+					chooseLabel="Выберите файл для обложки (png, jpg, jpeg)"
 					maxFileSize={1000000}
 					onUpload={onUpload}
 				/>
