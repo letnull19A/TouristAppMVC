@@ -12,14 +12,14 @@ type HotelCardProps = {
 
 export const HotelCard = (props: HotelCardProps) => {
 	const { tourData } = props
-	const { name, description, country, city } = tourData
+	const { name, description, country, city, imageUrl } = tourData
 	const [stars, setStars] = useState<number>(0)
 
 	const navigate = useNavigate()
 
 	const title = <div style={{ height: 70, width: '100%', textWrap: 'wrap', overflow: 'hidden' }}>{name}</div>
 
-	const header = <img style={{ height: 170 }} alt="Card" src={`${import.meta.env.VITE_API_URI}/bucket/a9c88cd5-c614-464b-8597-01492fd44dbc__1930f47d8910c77a3cd9d0f803eac04b81a7b3cd.png`} />
+	const header = <img style={{ height: 170 }} alt="Card" src={`${import.meta.env.VITE_API_URI}/bucket/${imageUrl}`} />
 	const footer = (
 		<>
 			<Button onClick={() => navigate(`tour/${tourData.id}/view`)} label="Подробнее" style={{ width: '100%' }} />

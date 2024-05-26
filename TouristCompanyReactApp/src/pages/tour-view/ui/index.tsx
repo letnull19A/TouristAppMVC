@@ -44,7 +44,7 @@ export const TourView = () => {
 				<div className="col-12 md:col-7">
 					<img
 						className="w-full"
-						src="https://placehold.co/500x400"
+						src={`${import.meta.env.VITE_API_URI}/bucket/${currentTour?.imageUrl}`}
 						style={{ objectFit: 'contain' }}
 					/>
 				</div>

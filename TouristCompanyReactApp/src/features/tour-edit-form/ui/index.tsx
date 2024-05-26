@@ -147,7 +147,8 @@ export const TourEditForm = () => {
 			description: data.description ?? '',
 			countryId: data.countryId ?? '',
 			cityId: data.cityId ?? '',
-			categoryId: data.categoryId ?? ''
+			categoryId: data.categoryId ?? '',
+			imageUrl: data.imageUrl ?? '',
 		})
 	}
 
@@ -300,13 +301,13 @@ export const TourEditForm = () => {
 						</div>
 					)}
 				/>
+				<img src={`${import.meta.env.VITE_API_URI}/bucket/${tourData.imageUrl}`} className='mb-3'/>
 				<FileUpload
 					mode="basic"
 					name="files"
 					url={`${import.meta.env.VITE_API_URI}/api/files/upload`}
 					accept="image/*"
 					chooseLabel='Выберите файл для обложки (png, jpg, jpeg)'
-					
 					maxFileSize={1000000}
 					onUpload={onUpload}
 				/>
