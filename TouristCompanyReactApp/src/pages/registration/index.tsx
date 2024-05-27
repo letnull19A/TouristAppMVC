@@ -48,9 +48,16 @@ export const Registration = () => {
 	const navigate = useNavigate()
 
 	return (
-		<div className="w-full h-screen flex align-items-center flex-column justify-content-center">
-			<img onClick={() => navigate('/')} className='m-0-auto mb-4 w-7 sm:w-4 md:w-3 lg:w-2' src="/logo.svg"/>
-			<form className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem mt-5" onSubmit={handleSubmit(onSubmit)}>
+		<div className="w-full h-screen flex align-items-center flex-column justify-content-center pt-5">
+			<img
+				onClick={() => navigate('/')}
+				className="m-0-auto mb-2 mt-5 w-7 sm:w-4 md:w-3 lg:w-2"
+				src="/logo.svg"
+			/>
+			<form
+				className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem mt-5"
+				onSubmit={handleSubmit(onSubmit)}
+			>
 				<Card title="Регистрация">
 					<Controller
 						name="name"
@@ -212,11 +219,25 @@ export const Registration = () => {
 						)}
 					/>
 					<Button
-						disabled={!formState.isDirty || !formState.isValid}
+						disabled={
+							(!formState.isDirty || !formState.isValid) &&
+							formState.defaultValues?.password ===
+								formState.defaultValues?.rePassword
+						}
 						label="Зарегистрироваться"
 						className="w-12 mt-5"
 						value={'d'}
 					/>
+					<p className="mt-3">
+						Есть аккаунт,{' '}
+						<span
+							className="text-primary"
+							style={{ cursor: 'pointer', textDecoration: 'underline' }}
+							onClick={() => navigate('/auth')}
+						>
+							войти
+						</span>
+					</p>
 				</Card>
 			</form>
 		</div>

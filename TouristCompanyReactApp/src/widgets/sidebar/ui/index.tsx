@@ -1,6 +1,7 @@
 import { StyleClass } from 'primereact/styleclass'
 import { useRef } from 'react'
 import { SideBarItem } from './../../sidebar-item'
+import { useNavigate } from 'react-router-dom'
 
 export function SideBar() {
 	const btnRef2 = useRef(null)
@@ -10,19 +11,7 @@ export function SideBar() {
 	const btnRef8 = useRef(null)
 	const btnRef9 = useRef(null)
 
-	// const context = useContext(AuthContext)
-
-	// const confirm2 = () => {
-	// 	confirmDialog({
-	// 		message: `Вы действительно хотите выйти?`,
-	// 		header: 'Подтверждение действий',
-	// 		icon: 'pi pi-info-circle',
-	// 		defaultFocus: 'reject',
-	// 		rejectLabel: 'Нет',
-	// 		acceptLabel: 'Да',
-	// 		accept: () => context.logout()
-	// 	})
-	// }
+	const navigate = useNavigate()
 
 	return (
 		<div
@@ -36,7 +25,13 @@ export function SideBar() {
 				<div className="flex flex-column h-full">
 					<div className="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
 						<span className="inline-flex align-items-center gap-2">
-							<span className="font-semibold text-2xl text-primary">
+							<span className="font-semibold text-2xl text-primary flex align-items-center gap-3">
+								<img
+									onClick={() => navigate('/')}
+									style={{ width: '40px', cursor: 'pointer' }}
+									src="/logo.svg"
+									className="col-1 p-0 m-0"
+								/>
 								Панель управления
 							</span>
 						</span>
@@ -193,7 +188,9 @@ export function SideBar() {
 												className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
 											>
 												<i className="pi pi-map mr-2"></i>
-												<span className="font-medium">Достопримечательности</span>
+												<span className="font-medium">
+													Достопримечательности
+												</span>
 												<i className="pi pi-chevron-down ml-auto mr-1"></i>
 											</a>
 										</StyleClass>
