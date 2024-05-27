@@ -3,8 +3,9 @@ import { AuthContext } from '@contexts'
 import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { InputText } from 'primereact/inputtext'
+import { Toast } from 'primereact/toast'
 import { classNames } from 'primereact/utils'
-import { useContext } from 'react'
+import { useContext, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -23,6 +24,17 @@ export const Authentication = () => {
 	const navigation = useNavigate()
 
 	const { control, handleSubmit } = useForm({ defaultValues })
+
+	const toast = useRef<Toast>(null)
+
+	const showError = () => {
+		toast.current?.show({
+			severity: 'error',
+			summary: 'Ошибка!',
+			detail: 'Пользователь не найден',
+			life: 3000
+		})
+	}
 
 	const onSubmit = (data: TForm) => {
 		authApi(data)
@@ -43,6 +55,13 @@ export const Authentication = () => {
 
 					navigation('/tour/list')
 				}
+
+				if (result.status === 404) {
+					showError()
+				}
+			})
+			.catch(() => {
+				showError()
 			})
 	}
 
@@ -50,8 +69,16 @@ export const Authentication = () => {
 
 	return (
 		<div className="w-full h-screen flex align-items-center flex-column justify-content-center">
-			<img onClick={() => navigate('/')} className='m-0-auto mb-4 w-7 sm:w-4 md:w-3 lg:w-2' src="/logo.svg"/>
-			<form className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem" onSubmit={handleSubmit(onSubmit)}>
+			<Toast ref={toast} />
+			<img
+				onClick={() => navigate('/')}
+				className="m-0-auto mb-4 w-7 sm:w-4 md:w-3 lg:w-2"
+				src="/logo.svg"
+			/>
+			<form
+				className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem"
+				onSubmit={handleSubmit(onSubmit)}
+			>
 				<Card title="Войти">
 					<Controller
 						name="login"
@@ -69,13 +96,16 @@ export const Authentication = () => {
 									/>
 									<label htmlFor={field.name}>Ваш логин</label>
 								</span>
+								{fieldState.error && (
+									<span className="p-error">{fieldState.error.message}</span>
+								)}
 							</div>
 						)}
 					/>
 					<Controller
 						name="password"
 						control={control}
-						rules={{ required: 'Введите логин' }}
+						rules={{ required: 'Введите пароль' }}
 						render={({ field, fieldState }) => (
 							<div className="mt-5">
 								<label htmlFor={field.name}></label>
@@ -90,10 +120,23 @@ export const Authentication = () => {
 									/>
 									<label htmlFor={field.name}>Ваш пароль</label>
 								</span>
+								{fieldState.error && (
+									<span className="p-error">{fieldState.error.message}</span>
+								)}
 							</div>
 						)}
 					/>
 					<Button label="Войти" className="w-12 mt-5" value={'d'} />
+					<p className="mt-3">
+						Нет аккаунта,{' '}
+						<span
+							className="text-primary"
+							style={{ cursor: 'pointer', textDecoration: 'underline' }}
+							onClick={() => navigate('/registration')}
+						>
+							зарегистрироваться
+						</span>
+					</p>
 				</Card>
 			</form>
 		</div>
