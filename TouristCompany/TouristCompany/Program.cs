@@ -30,6 +30,7 @@ builder.Services.AddRepository<UserTour, UserTourRepository>();
 builder.Services.AddRepository<TourPrice, TourPriceRepository>();
 builder.Services.AddRepository<HotelTour, HotelTourRepository>();
 builder.Services.AddRepository<Role, RoleRepository>();
+builder.Services.AddRepository<Favourite, FavouriteRepository>();
 
 builder.Services.AddCors(options =>
 {

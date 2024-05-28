@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TouristCompany.Contexts;
@@ -11,9 +12,11 @@ using TouristCompany.Contexts;
 namespace TouristCompany.Migrations
 {
     [DbContext(typeof(TouristDbContext))]
-    partial class TouristDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240527111727_LargeDescriptionAndUrl")]
+    partial class LargeDescriptionAndUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,30 +146,6 @@ namespace TouristCompany.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("countries");
-                });
-
-            modelBuilder.Entity("TouristCompany.Models.Entities.Favourite", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<Guid>("TourId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("tour_id");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TourId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("favourites");
                 });
 
             modelBuilder.Entity("TouristCompany.Models.Entities.File", b =>
@@ -440,25 +419,6 @@ namespace TouristCompany.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("TouristCompany.Models.Entities.Favourite", b =>
-                {
-                    b.HasOne("TouristCompany.Models.Entities.Tour", "Tour")
-                        .WithMany()
-                        .HasForeignKey("TourId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TouristCompany.Models.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tour");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TouristCompany.Models.Entities.Hotel", b =>

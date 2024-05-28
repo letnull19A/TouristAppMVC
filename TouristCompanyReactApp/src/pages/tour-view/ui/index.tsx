@@ -1,4 +1,4 @@
-import { hotelApi, hotelTourApi, tourApi } from '@api'
+import { favouritesApi, hotelApi, hotelTourApi, tourApi } from '@api'
 import { AuthContext } from '@contexts'
 import { THotel, THotelTour, TTour } from '@entities'
 import { TourInfo, TourPrices } from '@features'
@@ -12,8 +12,10 @@ export const TourView = () => {
 	const [currentTour, setCurrentTour] = useState<TTour>()
 	const [currentHotel, setCurrentHotel] = useState<THotel>()
 	const [, setCurrentHotelTour] = useState<THotelTour>()
+	const [isFavorite, setIsFavorite] = useState<boolean>(false)
 
 	const { id } = useParams()
+	const context = useContext(AuthContext)
 
 	useEffect(() => {
 		if (id === undefined) return
@@ -29,13 +31,53 @@ export const TourView = () => {
 		})
 	}, [id])
 
-	const navigate = useNavigate()
+	useEffect(() => {
+		if (context.data?.id === undefined || id === undefined) return
 
-	const context = useContext(AuthContext)
+		favouritesApi.getAll(context.data?.id).then((res) => {
+			const isFav = res.map((i) => i.tourId).includes(id)
+
+			setIsFavorite(isFav)
+		})
+	}, [context.data?.id, id])
+
+	const navigate = useNavigate()
 
 	const handleMakeOrder = () => {
 		navigate(context.isAuth() ? `/tour/${id}/order` : '/auth')
 	}
+
+	const toFavourite = () => {
+		if (context.data?.id === undefined || id === undefined) return
+
+		favouritesApi.addFavourite(context.data?.id, id).then(() => {
+			setIsFavorite(true)
+		})
+	}
+
+	const deleteFromFavourite = () => {
+		if (context.data?.id === undefined || id === undefined) return
+
+		favouritesApi.delete(context.data?.id, id).then(() => {
+			setIsFavorite(false);
+		})
+	}
+
+	const favouriteButton = !isFavorite ? (
+		<Button
+			onClick={() => toFavourite()}
+			outlined
+			className="w-full"
+			label="Добавить в избранное"
+		/>
+	) : (
+		<Button
+			onClick={() => deleteFromFavourite()}
+			outlined
+			className="w-full"
+			label="Уже находится в избранном"
+		/>
+	)
 
 	return (
 		<>
@@ -44,7 +86,9 @@ export const TourView = () => {
 				<div className="col-12 md:col-7">
 					<img
 						className="w-full"
-						src={`${import.meta.env.VITE_API_URI}/bucket/${currentTour?.imageUrl}`}
+						src={`${import.meta.env.VITE_API_URI}/bucket/${
+							currentTour?.imageUrl
+						}`}
 						style={{ objectFit: 'contain' }}
 					/>
 				</div>
@@ -56,9 +100,7 @@ export const TourView = () => {
 						className="w-full"
 						label="Оставить заявку"
 					/>
-					{context.isAuth() && (
-						<Button outlined className="w-full" label="В избранное" />
-					)}
+					{context.isAuth() && favouriteButton}
 				</div>
 			</div>
 			<p className="text-2xl">Дополнительная информация</p>
