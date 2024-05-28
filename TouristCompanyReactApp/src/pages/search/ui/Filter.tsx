@@ -90,8 +90,6 @@ export const Filter = () => {
 							buttonLayout="horizontal"
 							step={1}
 							min={1}
-							decrementButtonClassName="p-button-danger"
-							incrementButtonClassName="p-button-success"
 							incrementButtonIcon="pi pi-plus"
 							decrementButtonIcon="pi pi-minus"
 							mode="decimal"
@@ -110,8 +108,6 @@ export const Filter = () => {
 							step={1}
 							min={1}
 							max={21}
-							decrementButtonClassName="p-button-danger"
-							incrementButtonClassName="p-button-success"
 							incrementButtonIcon="pi pi-plus"
 							decrementButtonIcon="pi pi-minus"
 							mode="decimal"

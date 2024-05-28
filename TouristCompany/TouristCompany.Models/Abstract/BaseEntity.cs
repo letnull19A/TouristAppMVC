@@ -15,11 +15,11 @@ public class BaseEntity
     [Column("name")]
     public string Name { get; set; } = string.Empty;
 
-    [MaxLength(200)]
+    [MaxLength(50000)]
     [Column("description")]
     public string? Description { get; set; } = string.Empty;
 
-    [MaxLength(200)]
+    [MaxLength(2000)]
     [Column("image_url")]
     public string ImageUrl { get; set; } = string.Empty;
 }

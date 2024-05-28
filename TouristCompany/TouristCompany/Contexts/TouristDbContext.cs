@@ -18,6 +18,7 @@ namespace TouristCompany.Contexts
         public DbSet<TourPrice>? Prices { get; set; }
         public DbSet<HotelTour>? HotelTour { get; set; }
         public DbSet<File>? Files { get; set; }
+        public DbSet<Favourite>? Favourites { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
