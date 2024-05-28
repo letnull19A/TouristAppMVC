@@ -22,7 +22,7 @@ export const HotelCard = (props: HotelCardProps) => {
 	const header = <img style={{ height: 170 }} alt="Card" src={`${import.meta.env.VITE_API_URI}/bucket/${imageUrl}`} />
 	const footer = (
 		<>
-			<Button onClick={() => navigate(`tour/${tourData.id}/view`)} label="Подробнее" style={{ width: '100%' }} />
+			<Button onClick={() => navigate(`/tour/${tourData.id}/view`)} label="Подробнее" style={{ width: '100%' }} />
 		</>
 	)
 
