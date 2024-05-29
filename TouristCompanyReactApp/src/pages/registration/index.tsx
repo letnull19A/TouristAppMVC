@@ -2,7 +2,9 @@ import { registrationApi } from '@api'
 import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { InputText } from 'primereact/inputtext'
+import { Toast } from 'primereact/toast'
 import { classNames } from 'primereact/utils'
+import { useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -27,11 +29,31 @@ export const Registration = () => {
 		rePassword: ''
 	}
 
+	const toast = useRef<Toast>(null)
+
 	const { control, handleSubmit, formState } = useForm({ defaultValues })
+
+	const showSuccess = () => {
+		toast.current?.show({
+			severity: 'success',
+			summary: 'Успешная регистрация!',
+			detail: 'Вы успешно зарегистрировались в системе',
+			life: 3000
+		})
+	}
+
+	const showError = () => {
+		toast.current?.show({
+			severity: 'error',
+			summary: 'Ошибка',
+			detail: 'Пароли не совпадают',
+			life: 3000
+		})
+	}
 
 	const onSubmit = (data: TForm) => {
 		if (data.password !== data.rePassword) {
-			alert('Пароли не совпадают!')
+			showError()
 			return
 		}
 
@@ -42,6 +64,10 @@ export const Registration = () => {
 			patronymic: data.fatherName,
 			password: data.password,
 			confirmPassword: data.rePassword
+		}).then((result) => {
+			if (result.ok) {
+				showSuccess()
+			}
 		})
 	}
 
@@ -49,6 +75,7 @@ export const Registration = () => {
 
 	return (
 		<div className="w-full h-screen flex align-items-center flex-column justify-content-center pt-5">
+			<Toast ref={toast} />
 			<img
 				onClick={() => navigate('/')}
 				className="m-0-auto mb-2 mt-5 w-7 sm:w-4 md:w-3 lg:w-2"

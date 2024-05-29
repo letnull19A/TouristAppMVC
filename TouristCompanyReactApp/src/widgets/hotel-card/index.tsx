@@ -5,6 +5,7 @@ import { Card } from 'primereact/card'
 import { Rating } from 'primereact/rating'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import './style.css'
 
 type HotelCardProps = {
 	tourData: TTour
@@ -19,10 +20,10 @@ export const HotelCard = (props: HotelCardProps) => {
 
 	const title = <div style={{ height: 70, width: '100%', textWrap: 'wrap', overflow: 'hidden' }}>{name}</div>
 
-	const header = <img style={{ height: 170 }} alt="Card" src={`${import.meta.env.VITE_API_URI}/bucket/${imageUrl}`} />
+	const header = <img style={{ height: '100%', width: 300 }} alt="Card" src={`${import.meta.env.VITE_API_URI}/bucket/${imageUrl}`} />
 	const footer = (
 		<>
-			<Button onClick={() => navigate(`/tour/${tourData.id}/view`)} label="Подробнее" style={{ width: '100%' }} />
+			<Button onClick={() => navigate(`/tour/${tourData.id}/view`)} label="Перейти к туру" style={{ width: '100%' }} />
 		</>
 	)
 
@@ -36,10 +37,10 @@ export const HotelCard = (props: HotelCardProps) => {
 	}, [tourData.id])
 
 	return (
-		<div className="xl:col-3 lg:col-4 md:col-4 sm:col-6">
-			<Card title={title} subTitle={`${country.name}, ${city.name}`} footer={footer} header={header}>
+		<div className='card-item' style={{ width: '100%', height: 314 }}>
+			<Card title={title} subTitle={`${country.name}, ${city.name}`} style={{ display: 'flex', flexDirection: 'row', overflow: 'hidden' }} footer={footer} header={header}>
 				<Rating value={stars} readOnly cancel={false} />
-				<p style={{ height: '40px' }} className="mt-2 mb-0">{description}</p>
+				<p style={{ height: '60px' }} className="mt-2 mb-0">{description}</p>
 			</Card>
 		</div>
 	)

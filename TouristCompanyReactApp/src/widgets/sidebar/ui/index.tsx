@@ -64,11 +64,11 @@ export function SideBar() {
 												navigatePath="/users/list"
 												label="Список"
 											/>
-											<SideBarItem
+											{/* <SideBarItem
 												iconClass="pi-user-plus"
 												navigatePath="/users/create"
 												label="Зарегистрировать"
-											/>
+											/> */}
 										</ul>
 									</li>
 									<li>

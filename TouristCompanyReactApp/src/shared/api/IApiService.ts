@@ -1,6 +1,6 @@
 interface IApiServiseBase<C, E> {
 	create: (data: C) => Promise<Response>
-	edit: (data: E) => Promise<void>
+	edit: (data: E) => Promise<Response>
 }
 
 export interface IApiService<T, C, E> extends IApiServiseBase<C, E> {

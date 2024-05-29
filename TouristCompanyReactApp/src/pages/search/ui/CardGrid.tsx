@@ -2,6 +2,7 @@ import { SearchContext } from '@contexts'
 import { TFavourite } from '@entities'
 import { HotelCard } from '@widgets'
 import { useContext } from 'react'
+import './style.css'
 
 type TFavPage = {
 	favorites?: Array<TFavourite>
@@ -32,7 +33,7 @@ export const CardGrid = (props: TFavPage) => {
 	)
 
 	return (
-		<div className="col-12 p-0 flex flex-wrap">
+		<div className="card-grid">
 			{context.data !== undefined && context.data.length > 0 ? (
 				cards
 			) : (

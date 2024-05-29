@@ -1,15 +1,18 @@
-import { favouritesApi, hotelApi, hotelTourApi, tourApi } from '@api'
+import { cityApi, countryApi, favouritesApi, hotelApi, hotelTourApi, tourApi } from '@api'
 import { AuthContext } from '@contexts'
-import { THotel, THotelTour, TTour } from '@entities'
+import { TCity, TCountry, THotel, THotelTour, TTour } from '@entities'
 import { TourInfo, TourPrices } from '@features'
 import { AdminPageTitle } from '@widgets'
-import { Accordion, AccordionTab } from 'primereact/accordion'
 import { Button } from 'primereact/button'
+import { TabPanel, TabView } from 'primereact/tabview'
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import './style.css'
 
 export const TourView = () => {
 	const [currentTour, setCurrentTour] = useState<TTour>()
+	const [currentCity, setCurrentCity] = useState<TCity>()
+	const [currentCountry, setCurrentCountry] = useState<TCountry>()
 	const [currentHotel, setCurrentHotel] = useState<THotel>()
 	const [, setCurrentHotelTour] = useState<THotelTour>()
 	const [isFavorite, setIsFavorite] = useState<boolean>(false)
@@ -28,6 +31,14 @@ export const TourView = () => {
 
 				hotelApi.getById(resq[0].hotelId).then(setCurrentHotel)
 			})
+
+			cityApi.getById(res.city.id).then((resq) => {
+                setCurrentCity(resq)
+            })
+
+			countryApi.getById(res.country.id).then((resq) => {
+                setCurrentCountry(resq)
+            })
 		})
 	}, [id])
 
@@ -59,7 +70,7 @@ export const TourView = () => {
 		if (context.data?.id === undefined || id === undefined) return
 
 		favouritesApi.delete(context.data?.id, id).then(() => {
-			setIsFavorite(false);
+			setIsFavorite(false)
 		})
 	}
 
@@ -85,7 +96,7 @@ export const TourView = () => {
 			<div className="grid mt-5 flex flex-column md:flex-row">
 				<div className="col-12 md:col-7">
 					<img
-						className="w-full"
+						className="w-full tour-view__image"
 						src={`${import.meta.env.VITE_API_URI}/bucket/${
 							currentTour?.imageUrl
 						}`}
@@ -95,25 +106,31 @@ export const TourView = () => {
 				<div className="col-12 md:col-5 flex flex-column gap-3">
 					{id && <TourInfo tourId={id} />}
 					{id && <TourPrices tourId={id} />}
-					<Button
-						onClick={() => handleMakeOrder()}
-						className="w-full"
-						label="Оставить заявку"
-					/>
-					{context.isAuth() && favouriteButton}
+					<div className="mt-3">
+						<Button
+							onClick={() => handleMakeOrder()}
+							className="w-full mb-3"
+							label="Оставить заявку"
+						/>
+						{context.isAuth() && favouriteButton}
+					</div>
 				</div>
 			</div>
-			<p className="text-2xl">Дополнительная информация</p>
-			<div className="grid">
-				<Accordion activeIndex={0} className="col-12">
-					<AccordionTab header="О туре">
-						<p className="m-0">{currentTour?.description}</p>
-					</AccordionTab>
-					<AccordionTab header="О гостинице">
-						<p className="m-0">{currentHotel?.description}</p>
-					</AccordionTab>
-				</Accordion>
-			</div>
+			<TabView>
+				<TabPanel header="О туре">
+					<p className="m-0">{currentTour?.description}</p>
+				</TabPanel>
+				<TabPanel header="О гостинице">
+					<p className="m-0">{currentHotel?.description}</p>
+				</TabPanel>
+				<TabPanel header="О городе">
+					<p className="m-0">{currentCity?.description}</p>
+				</TabPanel>
+				<TabPanel header="О стране">
+					<p className="m-0">{currentCountry?.description}</p>
+				</TabPanel>
+			</TabView>
+			<p className="text-2xl">Достопримечательности</p>
 			<p className="text-2xl">Смотрите ещё</p>
 		</>
 	)

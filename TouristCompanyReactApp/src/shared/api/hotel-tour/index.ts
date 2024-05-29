@@ -35,8 +35,8 @@ const create = async (data: TAddHotelTourForm): Promise<Response> => {
 	)
 }
 
-const edit = async (data: TEditHotelTourForm): Promise<void> => {
-	await fetch(
+const edit = async (data: TEditHotelTourForm): Promise<Response> => {
+	return await fetch(
 		`${import.meta.env.VITE_API_URI}/api/tour/${data.hotelId}/hotel/${
 			data.tourId
 		}`,
