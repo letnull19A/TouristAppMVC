@@ -26,8 +26,8 @@ const getById = async (id: string): Promise<TTour> => {
 	return data
 }
 
-const edit = async (data: TEditTourForm): Promise<void> => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/tour/${data.id}`, {
+const edit = async (data: TEditTourForm): Promise<Response> => {
+	return await fetch(`${import.meta.env.VITE_API_URI}/api/tour/${data.id}`, {
 		method: 'PUT',
 		body: JSON.stringify({ ...data }),
 		headers: { 'Content-Type': 'application/json' }

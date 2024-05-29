@@ -58,6 +58,8 @@ export const TourEditForm = () => {
 		setFileName(tourData?.imageUrl)
 	}, [tourData?.imageUrl])
 
+	const toast = useRef<Toast>(null)
+
 	useEffect(() => {
 		if (tourData !== undefined && tourData.id !== undefined) {
 			categoryApi
@@ -146,15 +148,25 @@ export const TourEditForm = () => {
 			})
 		}
 
-		tourApi.edit({
-			id: data.id,
-			name: data.name ?? '',
-			description: data.description ?? '',
-			countryId: data.countryId ?? '',
-			cityId: data.cityId ?? '',
-			categoryId: data.categoryId ?? '',
-			imageUrl: data.imageUrl ?? ''
-		})
+		tourApi
+			.edit({
+				id: data.id,
+				name: data.name ?? '',
+				description: data.description ?? '',
+				countryId: data.countryId ?? '',
+				cityId: data.cityId ?? '',
+				categoryId: data.categoryId ?? '',
+				imageUrl: fileName ?? ''
+			})
+			.then((result) => {
+				if (result.ok) {
+					toast.current?.show({
+						severity: 'success',
+						summary: 'Успех!',
+						detail: 'Тур успешно отредактирован'
+					})
+				}
+			})
 	}
 
 	const handleDeletePrice = (id: string) => {
@@ -189,17 +201,16 @@ export const TourEditForm = () => {
 		setAddedList(origin)
 	}
 
-	const toast = useRef<Toast>(null)
-
 	const onUpload = (event: FileUploadUploadEvent) => {
 		if (event.xhr.status === 200) {
 			const response = JSON.parse(event.xhr.responseText)
 
 			setFileName(response.files[0].fileName)
+
 			toast.current?.show({
-				severity: 'info',
-				summary: 'Success',
-				detail: 'File Uploaded'
+				severity: 'success',
+				summary: 'Успех!',
+				detail: 'Файл успешно загружен!'
 			})
 		}
 	}

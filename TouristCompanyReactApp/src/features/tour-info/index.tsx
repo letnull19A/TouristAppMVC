@@ -3,6 +3,7 @@ import { THotel, THotelTour, TTour } from '@entities'
 import { Card } from 'primereact/card'
 import { Rating } from 'primereact/rating'
 import { useEffect, useState } from 'react'
+import './style.css'
 
 type TTourInfoProps = {
 	tourId: string
@@ -27,7 +28,7 @@ export const TourInfo = (props: TTourInfoProps) => {
 	}, [currentHotelTour])
 
 	return (
-		<Card title={currentTour?.name}>
+		<Card title={currentTour?.name} className='tour-info'>
 			<p className="flex flex-row gap-2">
 				Оценка отеля:{' '}
 				<Rating cancel={false} readOnly value={currentHotel?.rating} />

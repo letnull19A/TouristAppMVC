@@ -25,8 +25,8 @@ const getById = async (id: string): Promise<TCity> => {
 	return data
 }
 
-const edit = async (data: TEditCity): Promise<void> => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/city/${data.id}`, {
+const edit = async (data: TEditCity): Promise<Response> => {
+	return await fetch(`${import.meta.env.VITE_API_URI}/api/city/${data.id}`, {
 		method: 'PUT',
 		body: JSON.stringify({ ...data }),
 		headers: { 'Content-Type': 'application/json' }

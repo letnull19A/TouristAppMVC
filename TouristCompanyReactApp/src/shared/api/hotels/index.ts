@@ -27,8 +27,8 @@ const getById = async (id: string): Promise<THotel> => {
 	return data
 }
 
-const edit = async (data: TEditHotelForm): Promise<void> => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/hotel/${data.id}`, {
+const edit = async (data: TEditHotelForm): Promise<Response> => {
+	return await fetch(`${import.meta.env.VITE_API_URI}/api/hotel/${data.id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: {

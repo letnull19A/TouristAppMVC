@@ -18,7 +18,7 @@ export const TourPrices = (props: TTourPricesProps) => {
 	}, [tourId])
 
 	return (
-		<Card title="Расценки на туры">
+		<Card title="Расценки на туры" className='tour-prices'>
 			<table>
 				<thead>
 					<tr>

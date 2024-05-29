@@ -27,8 +27,8 @@ const create = async (data: TAddUser): Promise<Response> => {
 	})
 }
 
-const edit = async (data: TEditUser): Promise<void> => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/user/${data.id}`, {
+const edit = async (data: TEditUser): Promise<Response> => {
+	return await fetch(`${import.meta.env.VITE_API_URI}/api/user/${data.id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: {

@@ -23,8 +23,8 @@ const create = async (data: TAddTourPriceForm): Promise<Response> => {
 	})
 }
 
-const edit = async (data: TEditTourPriceForm) => {
-	await fetch(`${import.meta.env.VITE_API_URI}/api/tour/${data.tourId}/price/${data.id}`, {
+const edit = async (data: TEditTourPriceForm): Promise<Response> => {
+	return await fetch(`${import.meta.env.VITE_API_URI}/api/tour/${data.tourId}/price/${data.id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: { 'Content-Type': 'application/json' }
