@@ -40,7 +40,7 @@ export const HotelCard = (props: HotelCardProps) => {
 		<div className='card-item' style={{ width: '100%', height: 314 }}>
 			<Card title={title} subTitle={`${country.name}, ${city.name}`} style={{ display: 'flex', flexDirection: 'row', overflow: 'hidden' }} footer={footer} header={header}>
 				<Rating value={stars} readOnly cancel={false} />
-				<p style={{ height: '60px' }} className="mt-2 mb-0">{description}</p>
+				<p style={{ height: '60px', overflow: 'hidden' }} className="mt-2 mb-0">{description}</p>
 			</Card>
 		</div>
 	)
