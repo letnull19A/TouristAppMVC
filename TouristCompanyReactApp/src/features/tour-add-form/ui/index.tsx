@@ -22,6 +22,7 @@ export const TourAddForm = () => {
 	const { create } = tourApi
 	const [imageUploaded, setImageUploaded] = useState<boolean>(false)
 	const [fileName, setFileName] = useState<string>()
+	const [selectedCountry, setSelectedCountry] = useState<TCountry>()
 
 	const defaultValues: TAddTourForm = {
 		name: '',
@@ -141,9 +142,10 @@ export const TourAddForm = () => {
 						<label htmlFor={field.name}></label>
 						<div className="mt-4">
 							<CountryDropdown
-								onChange={(e) =>
+								onChange={(e) => {
+									setSelectedCountry(e.target.value as TCountry)
 									field.onChange((e.target.value as TCountry).id)
-								}
+								}}
 							/>
 						</div>
 						{getFormErrorMessage(field.name)}
@@ -159,6 +161,7 @@ export const TourAddForm = () => {
 						<label htmlFor={field.name}></label>
 						<div className="mt-4">
 							<CityDropdown
+								country={selectedCountry}
 								onChange={(e) => field.onChange((e.target.value as TCity).id)}
 							/>
 						</div>

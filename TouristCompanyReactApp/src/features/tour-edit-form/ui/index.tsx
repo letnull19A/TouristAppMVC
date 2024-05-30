@@ -281,6 +281,7 @@ export const TourEditForm = () => {
 					render={({ field }) => (
 						<div className="mt-4">
 							<CityDropdown
+								country={country}
 								defaultValue={city}
 								onChange={(e) => field.onChange((e.target.value as TCity).id)}
 							/>
