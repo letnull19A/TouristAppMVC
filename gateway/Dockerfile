@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM huecker.io/library/nginx:alpine
 
 USER root
 
