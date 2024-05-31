@@ -1,4 +1,4 @@
-FROM huecker.io/library/node:21-alpine3.18
+FROM dockerhub1.beget.com/library/node:21-alpine3.18
 
 WORKDIR /app
 COPY . .

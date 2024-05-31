@@ -18,7 +18,7 @@ services:
         ipv4_address: 26.42.1.22
 
   postgres:
-    image: huecker.io/library/postgres:latest
+    image: dockerhub1.beget.com/library/postgres:latest
     ports:
       - '5432:5432'
     restart: unless-stopped
