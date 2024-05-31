@@ -74,6 +74,7 @@ export const CategoryList = () => {
 			<div className="card p-fluid">
 				<div className="mt-5">
 					<Button
+						outlined
 						style={{ width: '15%' }}
 						label={`Удалить (${selected.length})`}
 						severity="danger"

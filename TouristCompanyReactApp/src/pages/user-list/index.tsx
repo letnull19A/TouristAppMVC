@@ -34,6 +34,7 @@ export const UserList = () => {
 			<div className="card p-fluid">
 				<div className="mt-5">
 					<Button
+						outlined
 						label={`Удалить (${selected.length})`}
 						severity="danger"
 						style={{ width: '15%' }}

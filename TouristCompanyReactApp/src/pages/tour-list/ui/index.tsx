@@ -48,6 +48,7 @@ export const TourList = () => {
 			<div className="card p-fluid mt-5">
 				<div className="mt-5">
 					<Button
+						outlined
 						style={{ width: '15%' }}
 						label={`Удалить (${selected.length})`}
 						severity="danger"
