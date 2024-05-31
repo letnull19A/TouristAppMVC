@@ -4,12 +4,15 @@ import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
 import { Column } from 'primereact/column'
 import { DataTable } from 'primereact/datatable'
-import { useEffect, useState } from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { Toast } from 'primereact/toast'
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const Orders = () => {
-	// const navigate = useNavigate()
+	const navigate = useNavigate()
 	const [orders, setOrders] = useState<Array<TOrder>>()
+
+	const toast = useRef<Toast>(null)
 
 	const renderStatus = (status: string) => {
 		switch (status) {
@@ -70,8 +73,18 @@ export const Orders = () => {
 		})
 	}
 
+	const showInfo = () => {
+		toast.current?.show({
+			severity: 'info',
+			summary: 'Инфо',
+			detail: 'Изменён статус заявки',
+			life: 3000
+		})
+	}
+
 	return (
 		<>
+			<Toast ref={toast} />
 			<AdminPageTitle title="Список туров" />
 			<DataTable
 				paginator
@@ -87,27 +100,59 @@ export const Orders = () => {
 				<Column field="order.date" header="Дата" style={{ width: '10%' }} />
 				<Column field="country.name" header="Страна" style={{ width: '10%' }} />
 				<Column field="city.name" header="Город" style={{ width: '15%' }} />
-				<Column field="user.label" header="Город" style={{ width: '30%' }} />
+				<Column
+					field="user.label"
+					header="Пользователь"
+					style={{ width: '30%' }}
+				/>
+				<Column
+					header="Тур"
+					align={'center'}
+					body={(data) => {
+						return (
+							<div className="flex flex-column gap-2">
+								<Button
+									outlined
+									icon={'pi pi-eye'}
+									label="Посмотреть"
+									onClick={() => {
+										navigate(`/tour/${data.tour.id}/view`)
+									}}
+								/>
+							</div>
+						)
+					}}
+				/>
 				<Column field="order.status" header="Статус" style={{ width: '30%' }} />
 				<Column
 					header="Действия"
 					align={'center'}
 					body={(data) => (
 						<div className="flex flex-column gap-2">
-							{data.order.status !== 'ACCEPT' ? <Button
-								outlined
-								severity="success"
-								icon={'pi pi-check'}
-								label="Принять"
-								onClick={() => handleAccept(data.order.id)}
-							/> : null}
-							{data.order.status !== 'CANCEL' ? <Button
-								outlined
-								severity="danger"
-								icon={'pi pi-times'}
-								label="Отклонить"
-								onClick={() => handleCancel(data.order.id)}
-							/> : null}
+							{data.order.status !== 'ACCEPT' ? (
+								<Button
+									outlined
+									severity="success"
+									icon={'pi pi-check'}
+									label="Принять"
+									onClick={() => {
+										handleAccept(data.order.id)
+										showInfo()
+									}}
+								/>
+							) : null}
+							{data.order.status !== 'CANCEL' ? (
+								<Button
+									outlined
+									severity="danger"
+									icon={'pi pi-times'}
+									label="Отклонить"
+									onClick={() => {
+										handleCancel(data.order.id)
+										showInfo()
+									}}
+								/>
+							) : null}
 						</div>
 					)}
 					headerStyle={{ width: '10%', minWidth: '8rem' }}
