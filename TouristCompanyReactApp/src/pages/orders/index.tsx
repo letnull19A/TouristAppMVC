@@ -5,10 +5,10 @@ import { Button } from 'primereact/button'
 import { Column } from 'primereact/column'
 import { DataTable } from 'primereact/datatable'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 export const Orders = () => {
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 	const [orders, setOrders] = useState<Array<TOrder>>()
 
 	useEffect(() => {
