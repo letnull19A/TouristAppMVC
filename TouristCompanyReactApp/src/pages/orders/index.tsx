@@ -37,7 +37,7 @@ export const Orders = () => {
 				<Column field="status" header="Статус" style={{ width: '30%' }} />
 				<Column
 					header="Действия"
-					body={(data) => (
+					body={() => (
 						<>
 							<Button label="Принять" link />
 							<Button label="Отклонить" link />
