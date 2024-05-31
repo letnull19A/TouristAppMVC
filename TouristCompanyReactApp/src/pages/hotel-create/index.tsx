@@ -11,7 +11,7 @@ import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 export const HotelCreate = () => {
-	const toast = useRef(null)
+	const toast = useRef<Toast>(null)
 	const [rating, setRating] = useState<number>(0)
 	const [country, setCountry] = useState<TCountry>()
 
@@ -25,14 +25,21 @@ export const HotelCreate = () => {
 
 	const { control, handleSubmit, reset } = useForm({ defaultValues })
 
+	const showSuccess = () => {
+        toast.current?.show({severity:'success', summary: 'Успех!', detail:'Отель успешно добавлен!', life: 3000});
+    }
+
 	const onSubmit = async (data: TAddHotelForm) => {
-		hotelApi.create({ ...data, rating })
+		hotelApi.create({ ...data, rating }).then(() => {
+			showSuccess()
+		})
 
 		reset()
 	}
 
 	return (
 		<div className="px-4">
+			<Toast ref={toast} />
 			<AdminPageTitle title="Добавить новый отель" />
 			<div className="card flex mt-4 col-5">
 				<Toast ref={toast} />

@@ -7,6 +7,8 @@ import { AdminPageTitle } from '../../../widgets'
 import { CityDropdown, CountryDropdown } from '@ui'
 import { TAddAttractionForm, TCity, TCountry } from '@entities'
 import { attractionApi } from '@api'
+import { Toast } from 'primereact/toast'
+import { useRef } from 'react'
 
 export const AttractionCreate = () => {
 	const defaultValues: TAddAttractionForm & { countryId: string } = {
@@ -18,14 +20,28 @@ export const AttractionCreate = () => {
 
 	const { control, handleSubmit, reset } = useForm({ defaultValues })
 
+	const toast = useRef<Toast>(null)
+
+	const showSuccess = () => {
+		toast.current?.show({
+			severity: 'success',
+			summary: 'Успех!',
+			detail: 'Отель успешно добавлен!',
+			life: 3000
+		})
+	}
+
 	const onSubmit = (data: TAddAttractionForm) => {
-		attractionApi.create({ ...data })
+		attractionApi.create({ ...data }).then(() => {
+			showSuccess()
+		})
 
 		reset()
 	}
 
 	return (
 		<div className="px-4">
+			<Toast ref={toast} />
 			<AdminPageTitle title={'Добавить достопримечательность'} />
 			<div className="card flex mt-4 col-5">
 				<form
