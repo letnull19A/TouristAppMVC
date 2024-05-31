@@ -20,13 +20,18 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 				<div className="col-12 xl:col-9 flex flex-row align-items-center justify-content-end">
 					<div>
 						{context.isAuth() ? (
-							<div className="flex flex-row gap-3" style={{ cursor: 'pointer' }} onClick={() => navigate('/profile')}>
-								<Avatar label={context.data?.firstName[0]} size="large" />
-								<div className="flex flex-column">
-									<span>
-										{context.data?.firstName} {context.data?.lastName}
-									</span>
-									<span>{context.data?.role}</span>
+							<div
+								className="flex flex-row gap-3"
+								style={{ cursor: 'pointer' }}
+							>
+								<div onClick={() => navigate('/profile')}>
+									<Avatar label={context.data?.firstName[0]} size="large" />
+									<div className="flex flex-column">
+										<span>
+											{context.data?.firstName} {context.data?.lastName}
+										</span>
+										<span>{context.data?.role}</span>
+									</div>
 								</div>
 								{context.data?.role === 'Администратор' ? (
 									<Button
