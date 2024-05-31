@@ -32,7 +32,7 @@ export const AttractionDataTable = (props: TAttractionDataTableProps) => {
             rowsPerPageOptions={[5, 10, 25, 50]}
             value={attractions}
             editMode="row"
-            rows={5}
+            rows={10}
             dataKey="id"
             className="pt-4"
             selectionMode='checkbox'

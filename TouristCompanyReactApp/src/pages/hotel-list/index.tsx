@@ -52,7 +52,7 @@ export const HotelList = () => {
 			<div className="card p-fluid">
 				<div className="mt-5">
 					<Button
-						className='w-10rem'
+						style={{ width: '15%' }}
 						label={`Удалить (${selected.length})`}
 						severity="danger"
 						disabled={selected.length === 0}
@@ -64,7 +64,7 @@ export const HotelList = () => {
 					rowsPerPageOptions={[5, 10, 25, 50]}
 					value={categories}
 					editMode="row"
-					rows={5}
+					rows={10}
 					dataKey="id"
 					className="pt-4"
 					selectionMode="checkbox"

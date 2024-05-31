@@ -26,7 +26,7 @@ export const AttractionCreate = () => {
 		toast.current?.show({
 			severity: 'success',
 			summary: 'Успех!',
-			detail: 'Отель успешно добавлен!',
+			detail: 'Достопримечательность успешно добавлен!',
 			life: 3000
 		})
 	}

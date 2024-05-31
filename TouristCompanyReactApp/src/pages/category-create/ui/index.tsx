@@ -15,7 +15,7 @@ type TForm = {
 }
 
 export const CategoryCreate = () => {
-	const toast = useRef(null)
+	const toast = useRef<Toast>(null)
 	const { create } = categoryApi
 
 	const defaultValues: TForm = {
@@ -24,20 +24,28 @@ export const CategoryCreate = () => {
 		description: ''
 	}
 
-	const {
-		control,
-		handleSubmit,
-		reset
-	} = useForm({ defaultValues })
+	const { control, handleSubmit, reset } = useForm({ defaultValues })
+
+	const showSuccess = () => {
+		toast.current?.show({
+			severity: 'success',
+			summary: 'Успех!',
+			detail: 'Достопримечательность успешно добавлен!',
+			life: 3000
+		})
+	}
 
 	const onSubmit = async (data: TForm) => {
-		await create(data)
+		await create(data).then(() => {
+			showSuccess()
+		})
 
 		reset()
 	}
 
 	return (
 		<div className="px-4">
+			<Toast ref={toast} />
 			<AdminPageTitle title={'Добавить категорию'} />
 			<div className="card flex mt-4 col-5">
 				<Toast ref={toast} />
@@ -83,7 +91,12 @@ export const CategoryCreate = () => {
 							</span>
 						)}
 					/>
-					<Button className='mt-5' label="Подтвердить" type="submit" icon="pi pi-check" />
+					<Button
+						className="mt-5"
+						label="Подтвердить"
+						type="submit"
+						icon="pi pi-check"
+					/>
 				</form>
 			</div>
 		</div>

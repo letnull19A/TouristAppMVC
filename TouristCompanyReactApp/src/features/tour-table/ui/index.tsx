@@ -21,7 +21,7 @@ export const TourDataTable = (props: TTourDataTableProps) => {
 			rowsPerPageOptions={[5, 10, 25, 50]}
 			value={data}
 			editMode="row"
-			rows={5}
+			rows={10}
 			dataKey="id"
 			className="pt-4"
 			selectionMode="checkbox"

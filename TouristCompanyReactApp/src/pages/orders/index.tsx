@@ -91,7 +91,7 @@ export const Orders = () => {
 				rowsPerPageOptions={[5, 10, 25, 50]}
 				value={orders}
 				editMode="row"
-				rows={5}
+				rows={10}
 				dataKey="id"
 				className="pt-4"
 				tableStyle={{ minWidth: '50rem' }}

@@ -72,12 +72,21 @@ export const CategoryList = () => {
 			<ConfirmDialog />
 			<AdminPageTitle title="Список категорий" />
 			<div className="card p-fluid">
+				<div className="mt-5">
+					<Button
+						style={{ width: '15%' }}
+						label={`Удалить (${selected.length})`}
+						severity="danger"
+						disabled={selected.length === 0}
+						onClick={() => confirm2()}
+					/>
+				</div>
 				<DataTable
 					paginator
 					rowsPerPageOptions={[5, 10, 25, 50]}
 					value={categories}
 					editMode="row"
-					rows={5}
+					rows={10}
 					dataKey="id"
 					className="pt-4"
 					onRowEditComplete={onRowEditComplete}
@@ -106,14 +115,6 @@ export const CategoryList = () => {
 						bodyStyle={{ textAlign: 'center' }}
 					></Column>
 				</DataTable>
-				<div className="col-2">
-					<Button
-						label={`Удалить (${selected.length})`}
-						severity="danger"
-						disabled={selected.length === 0}
-						onClick={() => confirm2()}
-					/>
-				</div>
 			</div>
 		</div>
 	)

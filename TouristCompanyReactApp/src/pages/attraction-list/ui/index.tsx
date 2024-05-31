@@ -30,18 +30,19 @@ export const AttractionList = () => {
 			<ConfirmDialog />
 			<AdminPageTitle title="Список достопримечательностей" />
 			<div className="card p-fluid">
-				<AttractionDataTable
-					selected={selected}
-					setSelected={setSelectedProducts}
-				/>
-				<div className="col-2">
+				<div className="mt-5">
 					<Button
+						style={{ width: '15%' }}
 						label={`Удалить (${selected.length})`}
 						severity="danger"
 						disabled={selected.length === 0}
 						onClick={() => confirm2()}
 					/>
 				</div>
+				<AttractionDataTable
+					selected={selected}
+					setSelected={setSelectedProducts}
+				/>
 			</div>
 		</div>
 	)
