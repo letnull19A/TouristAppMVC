@@ -1,6 +1,7 @@
 import { TOrder } from '@entities'
 import { OrderCard } from '@widgets'
 import './style.css'
+import { v4 } from 'uuid'
 
 type TFavPage = {
 	orders?: Array<TOrder>
@@ -11,7 +12,7 @@ export const CardOrderGrid = (props: TFavPage) => {
 
 	const cards =
 		orders !== undefined &&
-		orders.map((order) => <OrderCard key={order.id} orderData={order} />)
+		orders.map((order) => <OrderCard key={v4()} orderData={order} />)
 
 	return (
 		<div className="card-grid">

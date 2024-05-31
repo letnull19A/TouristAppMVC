@@ -83,7 +83,8 @@ public class OrderController(
             {
                 Id = d.Tour.Id,
                 Name = d.Tour.Name,
-                Description = d.Tour.Description
+                Description = d.Tour.Description,
+                ImageUrl = d.Tour.ImageUrl
             },
             User = d.User,
             Order = d.Order,
@@ -109,52 +110,81 @@ public class OrderController(
     [HttpGet("user/{id:guid}")]
     public IActionResult GetOrderUser(Guid id)
     {
-        var tours = tourRepository.GetAll();
-        var countries = countryRepository.GetAll();
-        var cities = cityRepository.GetAll();
-        var categories = categoryRepository.GetAll();
         var orders = orderRepository.GetAll();
-        var readyOrders = orders.Where(y => y.UserId == id).ToList();
+        var tours = tourRepository.GetAll();
+        var users = userRepository.GetAll();
+        var toursAndPrices = tourPriceRepository.GetAll();
+        var cities = cityRepository.GetAll();
+        var countries = countryRepository.GetAll();
 
-        var result = tours.Join(countries, u => u.CountryId, v => v.Id, (u, v) => new
+        var result = orders.Join(tours, o => o.TourId, k => k.Id, (o, k) => new
         {
-            Id = u.Id,
-            Name = u.Name,
-            Description = u.Description,
-            CategoryId = u.CategoryId,
-            CityId = u.CityId,
-            ImageUrl = u.ImageUrl,
-            Country = v.Adapt<CountryLiteDto>()
-        }).Join(cities, t => t.CityId, p => p.Id, (t, p) => new
+            Tour = tourRepository.GetById(o.TourId),
+            OrderDate = o.Date,
+            OrderId = o.Id,
+            OrderStatus = o.Status,
+            o.UserId,
+            o.TourPriceId,
+        }).Join(users, m => m.UserId, n => n.Id, (m, n) => new
         {
-            Id = t.Id,
-            Name = t.Name,
-            Description = t.Description,
-            Country = t.Country,
-            ImageUrl = t.ImageUrl,
-            CategoryId = t.CategoryId,
-            City = p.Adapt<CityLiteDto>()
-        }).Join(categories, w => w.CategoryId, q => q.Id, (w, q) => new
+            Tour = m.Tour,
+            User = n,
+            Order = new
+            {
+                Date = m.OrderDate,
+                Status = m.OrderStatus,
+                Id = m.OrderId,
+                m.TourPriceId
+            }
+        }).Join(toursAndPrices, h => h.Order.TourPriceId, v => v.Id, (h, v) => new
         {
-            w.Id,
-            w.Description,
-            w.Name,
-            w.Country,
-            w.City,
-            w.ImageUrl,
-            Category = categoryRepository.GetById(w.CategoryId).Adapt<CategoryLiteDto>()
-        }).Join(readyOrders, o => o.Id, u => u.TourId, (o, u) => new
+            Tour = h.Tour,
+            User = h.User,
+            Order = new
+            {
+                Id = h.Order.Id,
+                Status = h.Order.Status,
+                Date = h.Order.Date,
+            },
+            TourPrice = new
+            {
+                v.Id,
+                v.Days,
+                v.Price
+            }
+        }).Join(cities, e => e.Tour.CityId, n => n.Id, (e, n) => new
         {
-            o.Id,
-            o.City,
-            o.Country,
-            o.Description,
-            o.ImageUrl,
-            o.Category,
-            o.Name,
-            u.Date,
-            u.Status
-        });
+            Tour = e.Tour,
+            User = e.User,
+            Order = e.Order,
+            TourPrice = e.TourPrice,
+            City = new
+            {
+                n.Id,
+                n.Name,
+                n.Description,
+                n.CountryId
+            }
+        }).Join(countries, d => d.City.CountryId, c => c.Id, (d, c) => new
+        {
+            Tour = new
+            {
+                Id = d.Tour.Id,
+                Name = d.Tour.Name,
+                Description = d.Tour.Description,
+                ImageUrl = d.Tour.ImageUrl
+            },
+            User = d.User,
+            Order = d.Order,
+            TourPrice = d.TourPrice,
+            City = d.City,
+            Country = new
+            {
+                c.Id,
+                c.Name,
+                c.Description
+            }
+        }).Where(o => o.User.Id == id).ToList();
 
         return Ok(result);
     }

@@ -11,9 +11,44 @@ export const Orders = () => {
 	// const navigate = useNavigate()
 	const [orders, setOrders] = useState<Array<TOrder>>()
 
+	const renderStatus = (status: string) => {
+		switch (status) {
+			case 'AWAIT':
+				return 'На рассмотрении'
+			case 'ACCEPT':
+				return 'Принята'
+			case 'REJECT':
+				return 'Отклонена'
+			case 'CANCEL':
+				return 'Отменена'
+			default:
+				return 'Неизвестно'
+		}
+	}
+
 	useEffect(() => {
 		orderApi.getAll().then((res) => {
-			setOrders(res)
+			setOrders(
+				res.map((item) => {
+					return {
+						...item,
+						order: {
+							...item.order,
+							status: renderStatus(item.order.status),
+							date: new Date(item.order.date).toLocaleDateString()
+						},
+						user: {
+							...item.user,
+							label:
+								item.user.firstName +
+								' ' +
+								item.user.lastName +
+								' ' +
+								item.user.patronymic
+						}
+					}
+				})
+			)
 		})
 	}, [])
 
@@ -30,18 +65,31 @@ export const Orders = () => {
 				className="pt-4"
 				tableStyle={{ minWidth: '50rem' }}
 			>
-				<Column field="name" header="Название" style={{ width: '20%' }} />
-				<Column field="date" header="Дата" style={{ width: '30%' }} />
-				<Column field="country.name" header="Страна" style={{ width: '20%' }} />
-				<Column field="city.name" header="Город" style={{ width: '30%' }} />
-				<Column field="status" header="Статус" style={{ width: '30%' }} />
+				<Column field="tour.name" header="Название" style={{ width: '20%' }} />
+				<Column field="order.date" header="Дата" style={{ width: '10%' }} />
+				<Column field="country.name" header="Страна" style={{ width: '10%' }} />
+				<Column field="city.name" header="Город" style={{ width: '15%' }} />
+				<Column field="user.label" header="Город" style={{ width: '30%' }} />
+				<Column field="order.status" header="Статус" style={{ width: '30%' }} />
 				<Column
 					header="Действия"
-					body={() => (
-						<>
-							<Button label="Принять" link />
-							<Button label="Отклонить" link />
-						</>
+					align={'center'}
+					body={({ data }) => (
+						<div className="flex flex-column gap-2">
+							{JSON.stringify(data)}
+							<Button
+								outlined
+								severity="success"
+								icon={'pi pi-check'}
+								label="Принять"
+							/>
+							<Button
+								outlined
+								severity="danger"
+								icon={'pi pi-times'}
+								label="Отклонить"
+							/>
+						</div>
 					)}
 					headerStyle={{ width: '10%', minWidth: '8rem' }}
 					bodyStyle={{ textAlign: 'center' }}
