@@ -1,5 +1,5 @@
 import { hotelApi } from '@api'
-import { TAddHotelForm, TCity } from '@entities'
+import { TAddHotelForm, TCity, TCountry } from '@entities'
 import { CityDropdown, CountryDropdown } from '@ui'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
@@ -13,13 +13,14 @@ import { Controller, useForm } from 'react-hook-form'
 export const HotelCreate = () => {
 	const toast = useRef(null)
 	const [rating, setRating] = useState<number>(0)
+	const [country, setCountry] = useState<TCountry>()
 
 	const defaultValues: TAddHotelForm & { countryId: string } = {
-    countryId: '',
+		countryId: '',
 		cityId: '',
 		name: '',
 		description: '',
-		rating: 0,
+		rating: 0
 	}
 
 	const { control, handleSubmit, reset } = useForm({ defaultValues })
@@ -62,7 +63,10 @@ export const HotelCreate = () => {
 					<Controller
 						name="countryId"
 						control={control}
-						render={() => <CountryDropdown className='mt-4' />}
+						render={({ field }) => <CountryDropdown onChange={(e) => {
+							setCountry(e.target.value as TCountry)
+							field.onChange((e.target.value as TCountry).id)
+						}} className="mt-4" />}
 					/>
 					<Controller
 						name="cityId"
@@ -70,6 +74,7 @@ export const HotelCreate = () => {
 						render={({ field }) => (
 							<div className="mt-4">
 								<CityDropdown
+									country={country}
 									onChange={(e) => field.onChange((e.target.value as TCity).id)}
 								/>
 							</div>

@@ -134,6 +134,7 @@ export const HotelEdit = () => {
 									<InputTextarea
 										id={field.name}
 										{...field}
+										defaultValue={field.value}
 										rows={4}
 										cols={30}
 										className={classNames({ 'p-invalid': fieldState.error })}
