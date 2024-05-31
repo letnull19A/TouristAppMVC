@@ -1,17 +1,17 @@
-import { favouritesApi, tourApi } from '@api'
+import { getUserOrders, tourApi } from '@api'
 import { AuthContext, SearchContext } from '@contexts'
-import { TAirport, TCountry, TFavourite, TTour } from '@entities'
+import { TAirport, TCountry, TOrder, TTour } from '@entities'
 import { ProfileSidebar } from '@widgets'
 import { useContext, useEffect, useState } from 'react'
-import { CardGrid } from '../search/ui/CardGrid'
+import { CardOrderGrid } from './CardGrid'
 
-export const Profile = () => {
+export const OrderList = () => {
 	const context = useContext(AuthContext)
 
 	const [tours, setTours] = useState<Array<TTour>>([])
 	const [airportId, setAirportId] = useState<TAirport>()
 	const [country, setCountry] = useState<TCountry>()
-	const [favs, setFavs] = useState<Array<TFavourite>>([])
+	const [favs, setFavs] = useState<Array<TOrder>>([])
 
 	useEffect(() => {
 		tourApi.getAll().then((res) => {
@@ -20,7 +20,12 @@ export const Profile = () => {
 
 		if (context.data === undefined) return
 
-		favouritesApi.getAll(context.data?.id).then(setFavs)
+		console.log(context.data?.id);
+
+		getUserOrders(context.data?.id).then((res) => {
+			console.log(res)
+			setFavs(res)
+		})
 	}, [])
 
 	return (
@@ -37,8 +42,8 @@ export const Profile = () => {
 						setCountry: setCountry
 					}}
 				>
-					<h1 className="p-0 m-0">Избранное</h1>
-					<CardGrid favorites={favs} />
+					<h1 className="p-0 m-0">Заявки</h1>
+					<CardOrderGrid orders={favs} />
 				</SearchContext.Provider>
 			</div>
 		</div>

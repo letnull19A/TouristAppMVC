@@ -1,6 +1,6 @@
-﻿namespace TouristCompany.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using TouristCompany.Models.Entities;
 
-public class OrderRepository
-{
-    
-}
+namespace TouristCompany.Repositories;
+
+public class OrderRepository(DbContext context, DbSet<Order> dbSet) : BaseRepository<Order>(context, dbSet);

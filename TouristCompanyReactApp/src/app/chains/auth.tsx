@@ -1,25 +1,27 @@
-import { RouteObject } from 'react-router-dom'
-import {
-	Favourite,
-	Profile
-} from '@pages'
+import { OrderList, Profile } from '@pages'
 import { AuthLayout } from '@ui'
+import { RouteObject } from 'react-router-dom'
 
 export const authRouter: RouteObject[] = [
 	{
 		path: '/profile',
-		element: (
-            <AuthLayout>
-                <Profile />
-            </AuthLayout>
-        )
-	},
-	{
-		path: '/favourite',
-		element: (
-			<AuthLayout>
-				<Favourite />
-			</AuthLayout>
-		)		
+		children: [
+			{
+				path: '',
+				element: (
+					<AuthLayout>
+						<Profile />
+					</AuthLayout>
+				)
+			},
+			{
+				path: 'orders',
+				element: (
+					<AuthLayout>
+						<OrderList />
+					</AuthLayout>
+				)
+			}
+		]
 	}
 ]

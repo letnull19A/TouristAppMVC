@@ -19,6 +19,7 @@ namespace TouristCompany.Contexts
         public DbSet<HotelTour>? HotelTour { get; set; }
         public DbSet<File>? Files { get; set; }
         public DbSet<Favourite>? Favourites { get; set; }
+        public DbSet<Order>? Orders { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
