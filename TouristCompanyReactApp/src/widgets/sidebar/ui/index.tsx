@@ -258,14 +258,14 @@ export function SideBar() {
 												navigatePath="/order/list"
 												label="Все заявки"
 											/>
-											<SideBarItem
+											{/* <SideBarItem
 												iconClass=""
 												navigatePath="/hotels/create"
 												label="Заявки на рассмотрение"
 												badge
 												badgeValue='9'
 												severity={'danger'}
-											/>
+											/> */}
 										</ul>
 									</li>
 								</ul>

@@ -26,7 +26,7 @@ export const Orders = () => {
 		}
 	}
 
-	useEffect(() => {
+	const loadData = () => {
 		orderApi.getAll().then((res) => {
 			setOrders(
 				res.map((item) => {
@@ -50,7 +50,25 @@ export const Orders = () => {
 				})
 			)
 		})
+	}
+
+	useEffect(() => {
+		loadData()
 	}, [])
+
+	const handleAccept = (id: string) => {
+		orderApi.accept(id).then((res) => {
+			console.log(res)
+			loadData()
+		})
+	}
+
+	const handleCancel = (id: string) => {
+		orderApi.cancel(id).then((res) => {
+			console.log(res)
+			loadData()
+		})
+	}
 
 	return (
 		<>
@@ -74,21 +92,22 @@ export const Orders = () => {
 				<Column
 					header="Действия"
 					align={'center'}
-					body={({ data }) => (
+					body={(data) => (
 						<div className="flex flex-column gap-2">
-							{JSON.stringify(data)}
-							<Button
+							{data.order.status !== 'ACCEPT' ? <Button
 								outlined
 								severity="success"
 								icon={'pi pi-check'}
 								label="Принять"
-							/>
-							<Button
+								onClick={() => handleAccept(data.order.id)}
+							/> : null}
+							{data.order.status !== 'CANCEL' ? <Button
 								outlined
 								severity="danger"
 								icon={'pi pi-times'}
 								label="Отклонить"
-							/>
+								onClick={() => handleCancel(data.order.id)}
+							/> : null}
 						</div>
 					)}
 					headerStyle={{ width: '10%', minWidth: '8rem' }}

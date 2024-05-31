@@ -26,12 +26,26 @@ const getAll = async (): Promise<Array<TOrder>> => {
 	return (await fetch(`${import.meta.env.VITE_API_URI}/api/orders`)).json()
 }
 
-const cancel = async (): Promise<Response> => {
-	return (await fetch(`${import.meta.env.VITE_API_URI}/api/orders`)).json()
+const cancel = async (id: string): Promise<Response> => {
+	return (
+		await fetch(`${import.meta.env.VITE_API_URI}/api/orders/${id}/status/CANCEL`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+	).json()
 }
 
-const accept = async (): Promise<Response> => {
-	return (await fetch(`${import.meta.env.VITE_API_URI}/api/orders`)).json()
+const accept = async (id: string): Promise<Response> => {
+	return (
+		await fetch(`${import.meta.env.VITE_API_URI}/api/orders/${id}/status/ACCEPT`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+	).json()
 }
 
 export const orderApi = { accept, cancel, getUserOrders, makeOrder, getAll }
