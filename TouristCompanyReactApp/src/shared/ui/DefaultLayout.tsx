@@ -24,9 +24,9 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 								className="flex flex-row gap-3"
 								style={{ cursor: 'pointer' }}
 							>
-								<div onClick={() => navigate('/profile')}>
+								<div className='flex flex-row' onClick={() => navigate('/profile')}>
 									<Avatar label={context.data?.firstName[0]} size="large" />
-									<div className="flex flex-column">
+									<div className="flex flex-column ml-3">
 										<span>
 											{context.data?.firstName} {context.data?.lastName}
 										</span>

@@ -1,4 +1,4 @@
-import { hotelApi, hotelTourApi, makeOrder, tourApi, tourPriceApi } from '@api'
+import { hotelApi, hotelTourApi, orderApi, tourApi, tourPriceApi } from '@api'
 import { AuthContext } from '@contexts'
 import { THotel, THotelTour, TTour, TTourPrice } from '@entities'
 import { AdminPageTitle } from '@widgets'
@@ -53,24 +53,26 @@ export const OrderPage = () => {
 	const { control, handleSubmit } = useForm({ defaultValues })
 
 	const onSubmit = (data: Partial<TOrder>) => {
-
 		if (context.data?.id === undefined || data.options?.id === undefined) {
-			return;
+			return
 		}
 
-		makeOrder({
-			userId: context.data?.id ?? '',
-			date: new Date().toISOString(),
-			tourPriceId: data.options?.id ?? ''
-		}).then(res => {
-			console.log(res);
-
-			toast.current?.show({
-				severity: 'success',
-				summary: 'Успех!',
-				detail: 'Заявка успешно оформлена, перейдите в заявки чтобы увидеть её статус'
+		orderApi
+			.makeOrder({
+				userId: context.data?.id ?? '',
+				date: new Date().toISOString(),
+				tourPriceId: data.options?.id ?? ''
 			})
-		})
+			.then((res) => {
+				console.log(res)
+
+				toast.current?.show({
+					severity: 'success',
+					summary: 'Успех!',
+					detail:
+						'Заявка успешно оформлена, перейдите в заявки чтобы увидеть её статус'
+				})
+			})
 	}
 
 	return (
@@ -128,10 +130,7 @@ export const OrderPage = () => {
 								</div>
 							)}
 						/>
-						<Button
-							className="mt-4"
-							label={`Оформить заявку`}
-						/>
+						<Button className="mt-4" label={`Оформить заявку`} />
 					</form>
 				</div>
 			</div>

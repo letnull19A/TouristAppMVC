@@ -10,6 +10,7 @@ export function SideBar() {
 	const btnRef7 = useRef(null)
 	const btnRef8 = useRef(null)
 	const btnRef9 = useRef(null)
+	const btnRef10 = useRef(null)
 
 	const navigate = useNavigate()
 
@@ -60,15 +61,10 @@ export function SideBar() {
 										</StyleClass>
 										<ul className="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
 											<SideBarItem
-												iconClass="pi-list"
+												iconClass=""
 												navigatePath="/users/list"
 												label="Список"
 											/>
-											{/* <SideBarItem
-												iconClass="pi-user-plus"
-												navigatePath="/users/create"
-												label="Зарегистрировать"
-											/> */}
 										</ul>
 									</li>
 									<li>
@@ -91,12 +87,12 @@ export function SideBar() {
 										</StyleClass>
 										<ul className="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
 											<SideBarItem
-												iconClass="pi-list"
+												iconClass=""
 												navigatePath="/categories/list"
 												label="Список"
 											/>
 											<SideBarItem
-												iconClass="pi-user-plus"
+												iconClass=""
 												navigatePath="/categories/create"
 												label="Добавить"
 											/>
@@ -122,12 +118,12 @@ export function SideBar() {
 										</StyleClass>
 										<ul className="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
 											<SideBarItem
-												iconClass="pi-list"
+												iconClass=""
 												navigatePath="/tour/list"
 												label="Список туров"
 											/>
 											<SideBarItem
-												iconClass="pi-plus"
+												iconClass=""
 												navigatePath="/tour/create"
 												label="Создать новый тур"
 											/>
@@ -153,22 +149,22 @@ export function SideBar() {
 										</StyleClass>
 										<ul className="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
 											<SideBarItem
-												iconClass="pi-list"
+												iconClass=""
 												navigatePath="/country/list"
 												label="Список стран"
 											/>
 											<SideBarItem
-												iconClass="pi-plus"
+												iconClass=""
 												navigatePath="/country/create"
 												label="Добавить страну"
 											/>
 											<SideBarItem
-												iconClass="pi-list"
+												iconClass=""
 												navigatePath="/city/list"
 												label="Список городов"
 											/>
 											<SideBarItem
-												iconClass="pi-plus"
+												iconClass=""
 												navigatePath="/city/create"
 												label="Добавить город"
 											/>
@@ -196,12 +192,12 @@ export function SideBar() {
 										</StyleClass>
 										<ul className="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
 											<SideBarItem
-												iconClass="pi-list"
+												iconClass=""
 												navigatePath="/attraction/list"
 												label="Список"
 											/>
 											<SideBarItem
-												iconClass="pi-plus"
+												iconClass=""
 												navigatePath="/attraction/create"
 												label="Добавить"
 											/>
@@ -227,14 +223,48 @@ export function SideBar() {
 										</StyleClass>
 										<ul className="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
 											<SideBarItem
-												iconClass="pi-list"
+												iconClass=""
 												navigatePath="/hotels/list"
 												label="Список отелей"
 											/>
 											<SideBarItem
-												iconClass="pi-plus"
+												iconClass=""
 												navigatePath="/hotels/create"
 												label="Добавить отель"
+											/>
+										</ul>
+									</li>
+									<li>
+										<StyleClass
+											nodeRef={btnRef10}
+											selector="@next"
+											enterClassName="hidden"
+											enterActiveClassName="slidedown"
+											leaveToClassName="hidden"
+											leaveActiveClassName="slideup"
+										>
+											<a
+												ref={btnRef10}
+												className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+											>
+												<i className="pi pi-book mr-2"></i>
+												<span className="font-medium">Заявки</span>
+												<i className="pi pi-chevron-down ml-auto mr-1"></i>
+											</a>
+										</StyleClass>
+										<ul className="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+											<SideBarItem
+												iconClass=""
+												navigatePath="/order/list"
+												label="Все заявки"
+											/>
+											<SideBarItem
+												iconClass=""
+												navigatePath="/hotels/create"
+												label="Заявки на рассмотрение"
+												badge
+												badgeValue='9'
+												severity={'danger'}
 											/>
 										</ul>
 									</li>

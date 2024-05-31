@@ -12,6 +12,7 @@ import {
 	HotelCreate,
 	HotelEdit,
 	HotelList,
+	Orders,
 	TourCreate,
 	TourEdit,
 	TourList,
@@ -46,6 +47,19 @@ export const adminRouter: RouteObject[] = [
 				element: (
 					<AdminLayout>
 						<AttractionEdit />
+					</AdminLayout>
+				)
+			}
+		]
+	},
+	{
+		path: '/order',
+		children: [
+			{
+				path: 'list',
+				element: (
+					<AdminLayout>
+						<Orders />
 					</AdminLayout>
 				)
 			}

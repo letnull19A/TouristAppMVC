@@ -22,12 +22,16 @@ const getUserOrders = async (userId: string): Promise<Array<TOrder>> => {
 	).json()
 }
 
-const cancelOrder = async (): Promise<Response> => {
+const getAll = async (): Promise<Array<TOrder>> => {
 	return (await fetch(`${import.meta.env.VITE_API_URI}/api/orders`)).json()
 }
 
-const acceptOrder = async (): Promise<Response> => {
+const cancel = async (): Promise<Response> => {
 	return (await fetch(`${import.meta.env.VITE_API_URI}/api/orders`)).json()
 }
 
-export { acceptOrder, cancelOrder, getUserOrders, makeOrder }
+const accept = async (): Promise<Response> => {
+	return (await fetch(`${import.meta.env.VITE_API_URI}/api/orders`)).json()
+}
+
+export const orderApi = { accept, cancel, getUserOrders, makeOrder, getAll }

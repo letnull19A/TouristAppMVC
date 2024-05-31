@@ -15,13 +15,89 @@ public class OrderController(
     IRepository<Tour> tourRepository,
     IRepository<Country> countryRepository,
     IRepository<Category> categoryRepository,
+    IRepository<User> userRepository,
     IRepository<City> cityRepository)
     : ControllerBase
 {
     [HttpGet]
     public IActionResult GetAll()
     {
-        return Ok(orderRepository.GetAll());
+        var orders = orderRepository.GetAll();
+        var tours = tourRepository.GetAll();
+        var users = userRepository.GetAll();
+        var toursAndPrices = tourPriceRepository.GetAll();
+        var cities = cityRepository.GetAll();
+        var countries = countryRepository.GetAll();
+
+        var result = orders.Join(tours, o => o.TourId, k => k.Id, (o, k) => new
+        {
+            Tour = tourRepository.GetById(o.TourId),
+            OrderDate = o.Date,
+            OrderId = o.Id,
+            OrderStatus = o.Status,
+            o.UserId,
+            o.TourPriceId,
+        }).Join(users, m => m.UserId, n => n.Id, (m, n) => new
+        {
+            Tour = m.Tour,
+            User = n,
+            Order = new
+            {
+                Date = m.OrderDate,
+                Status = m.OrderStatus,
+                Id = m.OrderId,
+                m.TourPriceId
+            }
+        }).Join(toursAndPrices, h => h.Order.TourPriceId, v => v.Id, (h, v) => new
+        {
+            Tour = h.Tour,
+            User = h.User,
+            Order = new
+            {
+                Id = h.Order.Id,
+                Status = h.Order.Status,
+                Date = h.Order.Date,
+            },
+            TourPrice = new
+            {
+                v.Id,
+                v.Days,
+                v.Price
+            }
+        }).Join(cities, e => e.Tour.CityId, n => n.Id, (e, n) => new
+        {
+            Tour = e.Tour,
+            User = e.User,
+            Order = e.Order,
+            TourPrice = e.TourPrice,
+            City = new
+            {
+                n.Id,
+                n.Name,
+                n.Description,
+                n.CountryId
+            }
+        }).Join(countries, d => d.City.CountryId, c => c.Id, (d, c) => new
+        {
+            Tour = new
+            {
+                Id = d.Tour.Id,
+                Name = d.Tour.Name,
+                Description = d.Tour.Description
+            },
+            User = d.User,
+            Order = d.Order,
+            TourPrice = d.TourPrice,
+            City = d.City,
+            Country = new
+            {
+                c.Id,
+                c.Name,
+                c.Description
+            }
+        });
+
+        return Ok(result);
     }
 
     [HttpGet("{id:guid}")]
@@ -69,10 +145,10 @@ public class OrderController(
             Category = categoryRepository.GetById(w.CategoryId).Adapt<CategoryLiteDto>()
         }).Join(readyOrders, o => o.Id, u => u.TourId, (o, u) => new
         {
-            o.Id, 
+            o.Id,
             o.City,
             o.Country,
-            o.Description, 
+            o.Description,
             o.ImageUrl,
             o.Category,
             o.Name,

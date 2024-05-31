@@ -1,4 +1,4 @@
-import { getUserOrders, tourApi } from '@api'
+import { orderApi, tourApi } from '@api'
 import { AuthContext, SearchContext } from '@contexts'
 import { TAirport, TCountry, TOrder, TTour } from '@entities'
 import { ProfileSidebar } from '@widgets'
@@ -22,7 +22,7 @@ export const OrderList = () => {
 
 		console.log(context.data?.id);
 
-		getUserOrders(context.data?.id).then((res) => {
+		orderApi.getUserOrders(context.data?.id).then((res) => {
 			console.log(res)
 			setFavs(res)
 		})
