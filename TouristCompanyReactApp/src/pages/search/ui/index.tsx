@@ -19,22 +19,26 @@ export const SearchPage = () => {
 
 	return (
 		<SearchContext.Provider
-				value={{
-					data: tours,
-					setData: setTours,
-					airport: airportId,
-					setAirportId: setAirportId,
-					country: country,
-					setCountry: setCountry
-				}}
-			>
+			value={{
+				data: tours,
+				setData: setTours,
+				airport: airportId,
+				setAirportId: setAirportId,
+				country: country,
+				setCountry: setCountry
+			}}
+		>
 			<div className="flex flex-row">
-				<Filter />
-				<div className="flex flex-column col-10">
+				<div className="md:col-4 lg:col-2 hidden md:block">
+					<div className="filter__card px-3 pt-1 pb-3">
+						<Filter />
+					</div>
+				</div>
+				<div className="flex flex-column col-12 md:col-8 lg:col-10 adaptive-layout">
 					<Search />
 					<CardGrid />
 				</div>
 			</div>
-			</SearchContext.Provider>
+		</SearchContext.Provider>
 	)
 }

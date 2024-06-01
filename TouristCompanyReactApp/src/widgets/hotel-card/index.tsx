@@ -20,7 +20,7 @@ export const HotelCard = (props: HotelCardProps) => {
 
 	const title = <div style={{ height: 70, width: '100%', textWrap: 'wrap', overflow: 'hidden' }}>{name}</div>
 
-	const header = <img style={{ height: '100%', width: 300 }} alt="Card" src={imageUrl !== '' ? `${import.meta.env.VITE_API_URI}/bucket/${imageUrl}` : '/no_image.jpg'} />
+	const header = <img className='card-image' alt="Card" src={imageUrl !== '' ? `${import.meta.env.VITE_API_URI}/bucket/${imageUrl}` : '/no_image.jpg'} />
 	const footer = (
 		<>
 			<Button onClick={() => navigate(`/tour/${tourData.id}/view`)} label="Перейти к туру" style={{ width: '100%' }} />

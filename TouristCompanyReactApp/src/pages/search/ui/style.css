@@ -3,3 +3,39 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
+
+.filter__card {
+    height: auto;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.search-button {
+    width: 200px;
+}
+
+.search-button button {
+    height: 54px;
+}
+
+.search-button .search-button__mobile {
+    display: none;
+}
+
+@media screen and (max-width: 1440px) {
+
+}
+
+@media screen and (max-width: 560px) {
+	.search-button {
+        width: 70px;
+    }
+
+    .search-button .search-button__desktop {
+        display: none;
+    }
+
+    .search-button .search-button__mobile {
+        display: block;
+    }
+}

@@ -10,6 +10,7 @@ import {
 } from 'primereact/inputnumber'
 import { Nullable } from 'primereact/ts-helpers'
 import { useContext, useEffect, useState } from 'react'
+import './style.css'
 
 type TAirportsDropdownProps = {
 	defaultValue?: TAirport
@@ -49,8 +50,8 @@ export const Filter = () => {
 	const context = useContext(SearchContext)
 
 	return (
-		<div className='flex flex-column col-2'>
-			<h2>Опции</h2>
+		<>
+			<h2 className='mt-2'>Опции</h2>
 			<div className="flex flex-column gap-5 mt-3">
 				<div className="flex flex-column gap-2 p-0">
 					<label>Город вылета</label>
@@ -78,42 +79,42 @@ export const Filter = () => {
 						hideOnRangeSelection
 					/>
 				</div>
-					<div className="flex flex-column gap-2 p-0">
-						<label>Кол-во человек</label>
-						<InputNumber
-							value={humans}
-							inputStyle={{ width: '100%' }}
-							onValueChange={(e: InputNumberValueChangeEvent) =>
-								setHumans(e.target.value ?? 0)
-							}
-							showButtons
-							buttonLayout="horizontal"
-							step={1}
-							min={1}
-							incrementButtonIcon="pi pi-plus"
-							decrementButtonIcon="pi pi-minus"
-							mode="decimal"
-						/>
-					</div>
-					<div className="flex flex-column gap-2 p-0">
-						<label>Кол-во дней</label>
-						<InputNumber
-							value={days}
-							inputStyle={{ width: '100%' }}
-							onValueChange={(e: InputNumberValueChangeEvent) =>
-								setDays(e.target.value ?? 0)
-							}
-							showButtons
-							buttonLayout="horizontal"
-							step={1}
-							min={1}
-							max={21}
-							incrementButtonIcon="pi pi-plus"
-							decrementButtonIcon="pi pi-minus"
-							mode="decimal"
-						/>
+				<div className="flex flex-column gap-2 p-0">
+					<label>Кол-во человек</label>
+					<InputNumber
+						value={humans}
+						inputStyle={{ width: '100%' }}
+						onValueChange={(e: InputNumberValueChangeEvent) =>
+							setHumans(e.target.value ?? 0)
+						}
+						showButtons
+						buttonLayout="horizontal"
+						step={1}
+						min={1}
+						incrementButtonIcon="pi pi-plus"
+						decrementButtonIcon="pi pi-minus"
+						mode="decimal"
+					/>
+				</div>
+				<div className="flex flex-column gap-2 p-0">
+					<label>Кол-во дней</label>
+					<InputNumber
+						value={days}
+						inputStyle={{ width: '100%' }}
+						onValueChange={(e: InputNumberValueChangeEvent) =>
+							setDays(e.target.value ?? 0)
+						}
+						showButtons
+						buttonLayout="horizontal"
+						step={1}
+						min={1}
+						max={21}
+						incrementButtonIcon="pi pi-plus"
+						decrementButtonIcon="pi pi-minus"
+						mode="decimal"
+					/>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
