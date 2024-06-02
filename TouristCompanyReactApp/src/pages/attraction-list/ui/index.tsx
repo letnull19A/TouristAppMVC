@@ -1,5 +1,5 @@
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from 'primereact/button'
 import { TAttraction } from '@entities'
 import { AttractionDataTable } from '@features'
@@ -8,6 +8,11 @@ import { AdminPageTitle } from '@widgets'
 
 export const AttractionList = () => {
 	const [selected, setSelectedProducts] = useState<Array<TAttraction>>([])
+	const [attractions, setAttractions] = useState<Array<TAttraction>>([])
+
+	useEffect(() => {
+		attractionApi.getAll().then(setAttractions)
+	}, [])
 
 	const confirm2 = () => {
 		confirmDialog({
@@ -18,11 +23,20 @@ export const AttractionList = () => {
 			acceptClassName: 'p-button-danger',
 			rejectLabel: 'Нет',
 			acceptLabel: 'Да',
-			accept: () =>
-				selected.forEach(async (attraction) => {
-					attractionApi.delete(attraction.id)
-				})
+			accept: handleDelete
 		})
+	}
+
+	const handleDelete = () => {
+		selected.map((attraction) => {
+			attractionApi.delete(attraction.id)
+		})
+
+		setSelectedProducts([])
+
+		setTimeout(() => {
+			attractionApi.getAll().then(setAttractions)
+		}, 1000)
 	}
 
 	return (
@@ -41,6 +55,7 @@ export const AttractionList = () => {
 					/>
 				</div>
 				<AttractionDataTable
+					data={attractions}
 					selected={selected}
 					setSelected={setSelectedProducts}
 				/>
