@@ -68,7 +68,7 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 											style={{ textAlign: 'left' }}
 											icon="pi pi-eye"
 											label="Заявки"
-											onClick={() => navigate('/orders')}
+											onClick={() => navigate('/profile/orders')}
 										/>
 										{context.data?.role === 'Администратор' ? (
 											<Button

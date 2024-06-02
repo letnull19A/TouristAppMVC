@@ -23,8 +23,17 @@ export const UserList = () => {
 			defaultFocus: 'reject',
 			acceptClassName: 'p-button-danger',
 			rejectLabel: 'Нет',
-			acceptLabel: 'Да'
+			acceptLabel: 'Да',
+			accept: handleDelete
 		})
+	}
+
+	const handleDelete = () => {
+		selected.map((user) => {
+			userApi.delete(user.id).then()
+		})
+
+		userApi.getAll().then(setUsers)
 	}
 
 	return (
