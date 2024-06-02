@@ -8,9 +8,11 @@ import { CityDropdown, CountryDropdown } from '@ui'
 import { TAddAttractionForm, TCity, TCountry } from '@entities'
 import { attractionApi } from '@api'
 import { Toast } from 'primereact/toast'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 export const AttractionCreate = () => {
+	const [country, setCountry] = useState<TCountry>()
+
 	const defaultValues: TAddAttractionForm & { countryId: string } = {
 		cityId: '',
 		countryId: '',
@@ -75,9 +77,10 @@ export const AttractionCreate = () => {
 						render={({ field }) => (
 							<div className="mt-2">
 								<CountryDropdown
-									onChange={(e) =>
+									onChange={(e) => {
+										setCountry(e.target.value as TCountry)
 										field.onChange((e.target.value as TCountry).id)
-									}
+									}}
 									className="mt-4"
 								/>
 							</div>
@@ -90,6 +93,7 @@ export const AttractionCreate = () => {
 						render={({ field }) => (
 							<div className="mt-5">
 								<CityDropdown
+									country={country}
 									onChange={(e) => field.onChange((e.target.value as TCity).id)}
 								/>
 							</div>
