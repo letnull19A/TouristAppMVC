@@ -36,7 +36,7 @@ export const ProfileSidebar = () => {
 					label="Заявки"
 				/>
 				<Button
-					onClick={() => navigate('/docs')}
+					onClick={() => window.open('/spravka.pdf', '_blank')}
 					link
 					className="pl-0 border-noround text-left"
 					label="Справка"
