@@ -6,6 +6,7 @@ import { Sidebar } from 'primereact/sidebar'
 import { ReactNode, useContext, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Filter } from './../../pages/search/ui/Filter'
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 
 export const DefaultLayout = (props: { children: ReactNode }) => {
 	const { children } = props
@@ -18,8 +19,22 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 
 	const op = useRef<OverlayPanel>(null)
 
+	const confirm2 = () => {
+		confirmDialog({
+			message: `Вы действительно хотите завершить сессию?`,
+			header: 'Подтверждение действий',
+			icon: 'pi pi-info-circle',
+			defaultFocus: 'reject',
+			acceptClassName: 'p-button-danger',
+			rejectLabel: 'Нет',
+			acceptLabel: 'Да',
+			accept: () => context.logout()
+		})
+	}
+
 	return (
 		<>
+			<ConfirmDialog />
 			<div
 				className="flex justify-content-center col-10"
 				style={{ width: '100%', height: '64px' }}
@@ -84,7 +99,7 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 											style={{ textAlign: 'left' }}
 											link
 											label="Выйти"
-											onClick={() => context.logout()}
+											onClick={() => confirm2()}
 										/>
 									</div>
 								</OverlayPanel>

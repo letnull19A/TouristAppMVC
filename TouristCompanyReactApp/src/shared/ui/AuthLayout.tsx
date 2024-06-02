@@ -32,7 +32,7 @@ export const AuthLayout = (props: { children: ReactNode }) => {
 				className="flex justify-content-center mt-4"
 				style={{ width: '100%' }}
 			>
-				<div className="col-12 xl:col-9">{children}</div>
+				<div className="col-12 lg:col-12 xl:col-11">{children}</div>
 			</div>
 		</>
 	)

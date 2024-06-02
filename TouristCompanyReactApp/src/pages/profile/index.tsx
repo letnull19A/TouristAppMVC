@@ -26,7 +26,7 @@ export const Profile = () => {
 	return (
 		<div className="flex flex-row">
 			<ProfileSidebar />
-			<div className="ml-5" style={{ width: '100%' }}>
+			<div className="ml-0 md:ml-5" style={{ width: '100%' }}>
 				<SearchContext.Provider
 					value={{
 						data: tours,

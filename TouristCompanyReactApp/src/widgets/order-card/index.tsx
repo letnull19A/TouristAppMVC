@@ -43,7 +43,7 @@ export const OrderCard = (props: HotelCardProps) => {
 
 	const header = (
 		<img
-			style={{ height: '100%', width: 300 }}
+			className="card-image"
 			alt="Card"
 			src={
 				orderData.tour.imageUrl !== ''
@@ -60,7 +60,7 @@ export const OrderCard = (props: HotelCardProps) => {
 
 	useEffect(() => {
 		const hotelTour = hotelTourApi.getAll(orderData.tour.id)
-		
+
 		hotelTour.then((res) => {
 			hotelApi.getById(res[0].hotelId).then((res1) => {
 				setStars(res1.rating)
