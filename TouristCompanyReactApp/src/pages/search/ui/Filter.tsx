@@ -11,6 +11,7 @@ import {
 import { Nullable } from 'primereact/ts-helpers'
 import { useContext, useEffect, useState } from 'react'
 import './style.css'
+import { Button } from 'primereact/button'
 
 type TAirportsDropdownProps = {
 	defaultValue?: TAirport
@@ -114,6 +115,7 @@ export const Filter = () => {
 						mode="decimal"
 					/>
 				</div>
+				<Button label='Фильтровать' icon='pi pi-filter'/>
 			</div>
 		</>
 	)

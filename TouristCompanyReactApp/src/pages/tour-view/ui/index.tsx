@@ -1,5 +1,5 @@
 import { cityApi, countryApi, favouritesApi, hotelApi, hotelTourApi, tourApi } from '@api'
-import { AuthContext } from '@contexts'
+import { AuthContext, SearchContext } from '@contexts'
 import { TCity, TCountry, THotel, THotelTour, TTour } from '@entities'
 import { TourInfo, TourPrices } from '@features'
 import { AdminPageTitle } from '@widgets'
@@ -7,7 +7,20 @@ import { Button } from 'primereact/button'
 import { TabPanel, TabView } from 'primereact/tabview'
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { CardGrid } from './../../search/ui/CardGrid'
 import './style.css'
+
+const getRandom = async (): Promise<Array<TTour>> => {
+	const response = await fetch(
+		`${import.meta.env.VITE_API_URI}/api/tour/random/4`,
+		{
+			method: 'GET'
+		}
+	)
+
+	const data = await response.json()
+	return data
+}
 
 export const TourView = () => {
 	const [currentTour, setCurrentTour] = useState<TTour>()
@@ -16,7 +29,7 @@ export const TourView = () => {
 	const [currentHotel, setCurrentHotel] = useState<THotel>()
 	const [, setCurrentHotelTour] = useState<THotelTour>()
 	const [isFavorite, setIsFavorite] = useState<boolean>(false)
-
+	const [tours, setTours] = useState<Array<TTour>>()
 	const { id } = useParams()
 	const context = useContext(AuthContext)
 
@@ -40,6 +53,8 @@ export const TourView = () => {
                 setCurrentCountry(resq)
             })
 		})
+
+		getRandom().then(setTours)
 	}, [id])
 
 	useEffect(() => {
@@ -132,6 +147,11 @@ export const TourView = () => {
 			</TabView>
 			<p className="text-2xl">Достопримечательности</p>
 			<p className="text-2xl">Смотрите ещё</p>
+			{tours !== undefined && (
+				<SearchContext.Provider value={{ data: tours, setData: setTours }}>
+					<CardGrid />
+				</SearchContext.Provider>
+			)}
 		</>
 	)
 }

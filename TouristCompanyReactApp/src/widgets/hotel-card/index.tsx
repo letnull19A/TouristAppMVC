@@ -18,12 +18,37 @@ export const HotelCard = (props: HotelCardProps) => {
 
 	const navigate = useNavigate()
 
-	const title = <div style={{ height: 70, width: '100%', textWrap: 'wrap', overflow: 'hidden' }}>{name}</div>
+	const title = (
+		<div
+			style={{
+				height: 70,
+				width: '100%',
+				textWrap: 'wrap',
+				overflow: 'hidden'
+			}}
+		>
+			{name}
+		</div>
+	)
 
-	const header = <img className='card-image' alt="Card" src={imageUrl !== '' ? `${import.meta.env.VITE_API_URI}/bucket/${imageUrl}` : '/no_image.jpg'} />
+	const header = (
+		<img
+			className="card-image"
+			alt="Card"
+			src={
+				imageUrl !== ''
+					? `${import.meta.env.VITE_API_URI}/bucket/${imageUrl}`
+					: '/no_image.jpg'
+			}
+		/>
+	)
 	const footer = (
 		<>
-			<Button onClick={() => navigate(`/tour/${tourData.id}/view`)} label="Перейти к туру" style={{ width: '100%' }} />
+			<Button
+				onClick={() => navigate(`/tour/${tourData.id}/view`)}
+				label="Перейти к туру"
+				style={{ width: '100%' }}
+			/>
 		</>
 	)
 
@@ -37,10 +62,18 @@ export const HotelCard = (props: HotelCardProps) => {
 	}, [tourData.id])
 
 	return (
-		<div className='card-item' style={{ width: '100%', height: 314 }}>
-			<Card title={title} subTitle={`${country.name}, ${city.name}`} style={{ display: 'flex', flexDirection: 'row', overflow: 'hidden' }} footer={footer} header={header}>
+		<div className="card-item" style={{ width: '100%', height: 314 }}>
+			<Card
+				title={title}
+				subTitle={`${country.name}, ${city.name}`}
+				style={{ display: 'flex', flexDirection: 'row', overflow: 'hidden' }}
+				footer={footer}
+				header={header}
+			>
 				<Rating value={stars} readOnly cancel={false} />
-				<p style={{ height: '60px', overflow: 'hidden' }} className="mt-2 mb-0">{description}</p>
+				<p style={{ height: '60px', overflow: 'hidden' }} className="mt-2 mb-0">
+					{description}
+				</p>
 			</Card>
 		</div>
 	)
