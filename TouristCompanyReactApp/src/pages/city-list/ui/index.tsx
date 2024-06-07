@@ -2,23 +2,27 @@ import { Column, ColumnEditorOptions } from 'primereact/column'
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 import { DataTable, DataTableRowEditCompleteEvent } from 'primereact/datatable'
 import { InputText } from 'primereact/inputtext'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { TCity, TCountry, TEditCity } from '@entities'
 import { cityApi } from '@api'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
 import { CountryDropdown } from '@ui'
+import { InputTextarea } from 'primereact/inputtextarea'
+import { Toast } from 'primereact/toast'
 
 export const CityList = () => {
-	const [categories, setCategories] = useState<Array<TCity>>([])
+	const [cities, setCities] = useState<Array<TCity>>([])
 	const [selected, setSelectedProducts] = useState<Array<TCity>>([])
 	const [country, setCountry] = useState<TCountry | null>(null)
 
 	const { getAll } = cityApi
 
+	const toast = useRef<Toast>(null)
+
 	useEffect(() => {
 		getAll().then((res) => {
-			setCategories(res)
+			setCities(res)
 		})
 	}, [getAll])
 
@@ -34,7 +38,29 @@ export const CityList = () => {
 			countryId: country.id
 		}
 
-		await cityApi.edit(adaptedData)
+		const response = await cityApi.edit(adaptedData)
+
+		if (response.status === 204) {
+			toast.current?.show({
+				severity: 'success',
+				summary: 'Успех',
+				detail: 'Изменения сохранены'
+			})
+
+			setTimeout(() => {
+				getAll().then((res) => {
+					setCities(res)
+				})
+			}, 1000)
+		}
+
+		if (response.status === 400) {
+			toast.current?.show({
+				severity: 'error',
+				summary: 'Ошибка',
+				detail: response.statusText
+			})
+		}
 	}
 
 	const textEditor = (options: ColumnEditorOptions) => {
@@ -49,12 +75,25 @@ export const CityList = () => {
 		)
 	}
 
+	const textAreaEditor = (options: ColumnEditorOptions) => {
+		return (
+			<InputTextarea
+				value={options.value}
+				rows={8}
+				style={{ resize: 'vertical' }}
+				onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+					options.editorCallback!(e.target.value)
+				}
+			/>
+		)
+	}
+
 	const countryDropdown = (options: ColumnEditorOptions) => {
 		return (
 			<CountryDropdown
-				defaultValue={options.rowData.country as TCountry}
+				defaultValue={options.rowData.country}
 				onChange={(e) => {
-					setCountry(e.target.value as TCountry)
+					setCountry(e.target.value)
 				}}
 			/>
 		)
@@ -68,7 +107,7 @@ export const CityList = () => {
 		setSelectedProducts([])
 
 		setTimeout(() => {
-			getAll().then(setCategories)
+			getAll().then(setCities)
 		}, 1000)
 	}
 
@@ -103,7 +142,7 @@ export const CityList = () => {
 				<DataTable
 					paginator
 					rowsPerPageOptions={[5, 10, 25, 50]}
-					value={categories}
+					value={cities}
 					editMode="row"
 					rows={10}
 					dataKey="id"
@@ -130,7 +169,7 @@ export const CityList = () => {
 					<Column
 						field="description"
 						header="Описание"
-						editor={(options) => textEditor(options)}
+						editor={(options) => textAreaEditor(options)}
 						style={{ width: '30%' }}
 					/>
 					<Column

@@ -27,7 +27,8 @@ namespace TouristCompany.Controllers
                     Country = new
                     {
                         Id = countries.Id,
-                        Name = countries.Name
+                        Name = countries.Name,
+                        Description = countries.Description
                     } 
                 }).ToList();
 
@@ -49,7 +50,8 @@ namespace TouristCompany.Controllers
                 Country = new
                 {
                     Id = country.Id,
-                    Name = country.Name
+                    Name = country.Name,
+                    Description = country.Description
                 }
             });
         }

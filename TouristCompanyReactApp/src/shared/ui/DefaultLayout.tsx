@@ -63,14 +63,14 @@ export const DefaultLayout = (props: { children: ReactNode }) => {
 								>
 									<Avatar label={context.data?.firstName[0]} size="large" />
 									<div className="hidden md:flex flex-column ml-3">
-										<span>
+										<span className='text-lg font-medium line-height-2 text-primary'>
 											{context.data?.firstName} {context.data?.lastName}
 										</span>
-										<span>{context.data?.role}</span>
+										<span className='text-black-alpha-60'>{context.data?.role}</span>
 									</div>
 								</div>
 								<OverlayPanel ref={op}>
-									<div className="flex flex-column justify-content-start">
+									<div className="flex flex-column justify-content-start w-full">
 										<Button
 											link
 											style={{ textAlign: 'left' }}
