@@ -1,15 +1,15 @@
+import { cityApi } from '@api'
+import { TCity, TCountry, TEditCity } from '@entities'
+import { CountryDropdown } from '@ui'
+import { AdminPageTitle } from '@widgets'
+import { Button } from 'primereact/button'
 import { Column, ColumnEditorOptions } from 'primereact/column'
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 import { DataTable, DataTableRowEditCompleteEvent } from 'primereact/datatable'
 import { InputText } from 'primereact/inputtext'
-import { useState, useEffect, useRef } from 'react'
-import { TCity, TCountry, TEditCity } from '@entities'
-import { cityApi } from '@api'
-import { AdminPageTitle } from '@widgets'
-import { Button } from 'primereact/button'
-import { CountryDropdown } from '@ui'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { Toast } from 'primereact/toast'
+import { useEffect, useRef, useState } from 'react'
 
 export const CityList = () => {
 	const [cities, setCities] = useState<Array<TCity>>([])
@@ -91,9 +91,10 @@ export const CityList = () => {
 	const countryDropdown = (options: ColumnEditorOptions) => {
 		return (
 			<CountryDropdown
-				defaultValue={options.rowData.country}
+				defaultValue={options.rowData.country as TCountry}
 				onChange={(e) => {
-					setCountry(e.target.value)
+					// options.editorCallback!(e.target.value as TCountry)
+					setCountry(e.target.value as TCountry)
 				}}
 			/>
 		)

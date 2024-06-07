@@ -56,7 +56,7 @@ namespace TouristCompany.Controllers
             return Ok(result);
         }
 
-                [HttpGet("random/{count:int}")]
+        [HttpGet("random/{count:int}")]
         public IActionResult GetRandom(int count)
         {
             var tours = tourRepository.GetAll();

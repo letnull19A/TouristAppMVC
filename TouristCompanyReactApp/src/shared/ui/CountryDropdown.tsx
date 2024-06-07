@@ -17,6 +17,7 @@ export const CountryDropdown = (props: TCountryDropdownProps) => {
 
 	useEffect(() => {
 		countryApi.getAll().then(setCountries)
+		console.log(defaultValue)
 		setSelectedCountry(defaultValue ?? null)
 	}, [defaultValue])
 

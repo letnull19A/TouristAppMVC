@@ -51,7 +51,8 @@ namespace TouristCompany.Controllers
                 {
                     Id = country.Id,
                     Name = country.Name,
-                    Description = country.Description
+                    Description = country.Description,
+                    ImageUrl = country.ImageUrl
                 }
             });
         }
