@@ -28,7 +28,7 @@ namespace TouristCompany.Controllers
                     {
                         Id = countries.Id,
                         Name = countries.Name,
-                        Description = countries.Description
+                        Description = countries.Description,
                         ImageUrl = countries.ImageUrl
                     } 
                 }).ToList();
