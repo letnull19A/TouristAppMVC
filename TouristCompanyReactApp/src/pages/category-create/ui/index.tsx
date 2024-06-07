@@ -46,7 +46,7 @@ export const CategoryCreate = () => {
 	return (
 		<div className="px-4">
 			<Toast ref={toast} />
-			<AdminPageTitle title={'Добавить категорию'} />
+			<AdminPageTitle title='Добавить категорию' displayExitButton />
 			<div className="card flex mt-4 col-5">
 				<Toast ref={toast} />
 				<form

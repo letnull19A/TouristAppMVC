@@ -44,7 +44,7 @@ export const AttractionCreate = () => {
 	return (
 		<div className="px-4">
 			<Toast ref={toast} />
-			<AdminPageTitle title={'Добавить достопримечательность'} />
+			<AdminPageTitle title='Добавить достопримечательность' displayExitButton />
 			<div className="card flex mt-4 col-5">
 				<form
 					onSubmit={handleSubmit(onSubmit)}

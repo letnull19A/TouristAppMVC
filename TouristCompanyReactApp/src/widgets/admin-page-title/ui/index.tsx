@@ -8,10 +8,11 @@ type TAdminPAgeTitleProps = {
 	title: string
 	toMain?: boolean
 	displayUser?: boolean
+	displayExitButton?: boolean
 }
 
 export const AdminPageTitle = (props: TAdminPAgeTitleProps) => {
-	const { title, toMain } = props
+	const { title, toMain, displayExitButton } = props
 
 	const navigate = useNavigate()
 
@@ -44,7 +45,7 @@ export const AdminPageTitle = (props: TAdminPAgeTitleProps) => {
 					)}
 					<span className="font-semibold text-2xl text-primary">{title}</span>
 				</span>
-				<Button onClick={() => confirm2()}>Выйти</Button>
+				{displayExitButton && <Button onClick={() => confirm2()}>Выйти</Button>}
 			</div>
 		</div>
 	)

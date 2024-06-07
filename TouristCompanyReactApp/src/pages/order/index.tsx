@@ -77,7 +77,7 @@ export const OrderPage = () => {
 
 	return (
 		<>
-			<AdminPageTitle title="Оформление заявки" toMain />
+			<AdminPageTitle title="Оформление заявки" toMain displayExitButton />
 			<Toast ref={toast}></Toast>
 			<div className="flex justify-content-center">
 				<div className="col-12 sm:col-8 md:col-6 lg:col-5 lg:max-w-28rem mt-5">

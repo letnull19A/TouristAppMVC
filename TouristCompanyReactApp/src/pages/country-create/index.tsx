@@ -24,7 +24,7 @@ export const CountryCreate = () => {
 
 	return (
 		<div className="px-4">
-			<AdminPageTitle title={'Добавить новую страну'} />
+			<AdminPageTitle title='Добавить новую страну' displayExitButton />
 			<div className="card flex mt-4 col-5">
 				<form
 					onSubmit={handleSubmit(onSubmit)}

@@ -33,7 +33,7 @@ export const CityCreate = () => {
 
 	return (
 		<div className="px-4">
-			<AdminPageTitle title="Добавить новый город" />
+			<AdminPageTitle title="Добавить новый город" displayExitButton />
 			<div className="card flex mt-4 col-5">
 				<form
 					onSubmit={handleSubmit(onSubmit)}

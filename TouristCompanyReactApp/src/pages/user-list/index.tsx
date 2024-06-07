@@ -39,7 +39,7 @@ export const UserList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title="Список пользователей" />
+			<AdminPageTitle title="Список пользователей" displayExitButton />
 			<div className="card p-fluid">
 				<div className="mt-5">
 					<Button

@@ -88,7 +88,7 @@ export const CityList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title="Список Городов" />
+			<AdminPageTitle title="Список Городов" displayExitButton />
 			<div className="card p-fluid">
 				<div className="mt-5">
 					<Button

@@ -56,7 +56,7 @@ export const HotelEdit = () => {
 	return (
 		hotelData !== undefined && (
 			<div className="px-4">
-				<AdminPageTitle title="Редактировать отель" />
+				<AdminPageTitle title="Редактировать отель" displayExitButton />
 				<div className="card flex mt-4 col-5">
 					<form
 						onSubmit={handleSubmit(onSubmit)}

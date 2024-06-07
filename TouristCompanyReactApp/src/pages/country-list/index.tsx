@@ -73,7 +73,7 @@ export const CountryList = () => {
 		countries && (
 			<div className="px-4">
 				<ConfirmDialog />
-				<AdminPageTitle title="Список стран" />
+				<AdminPageTitle title="Список стран" displayExitButton />
 				<div className="card p-fluid">
 					<div className="mt-5">
 						<Button

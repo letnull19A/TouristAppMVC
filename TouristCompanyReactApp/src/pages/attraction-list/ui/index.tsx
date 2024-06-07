@@ -42,7 +42,7 @@ export const AttractionList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title="Список достопримечательностей" />
+			<AdminPageTitle title="Список достопримечательностей" displayExitButton />
 			<div className="card p-fluid">
 				<div className="mt-5">
 					<Button

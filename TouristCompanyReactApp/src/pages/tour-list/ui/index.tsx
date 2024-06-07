@@ -44,7 +44,7 @@ export const TourList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title="Список туров" />
+			<AdminPageTitle title="Список туров" displayExitButton />
 			<div className="card p-fluid mt-5">
 				<div className="mt-5">
 					<Button

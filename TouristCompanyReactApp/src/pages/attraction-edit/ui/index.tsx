@@ -52,7 +52,7 @@ export const AttractionEdit = () => {
 	return (
 		attractionData !== undefined && (
 			<div className="px-4">
-				<AdminPageTitle title="Редактировать достопримечательность" />
+				<AdminPageTitle title="Редактировать достопримечательность" displayExitButton />
 				<div className="card flex mt-4 col-5">
 					<form
 						onSubmit={handleSubmit(onSubmit)}

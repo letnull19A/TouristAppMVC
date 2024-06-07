@@ -40,7 +40,7 @@ export const HotelCreate = () => {
 	return (
 		<div className="px-4">
 			<Toast ref={toast} />
-			<AdminPageTitle title="Добавить новый отель" />
+			<AdminPageTitle title="Добавить новый отель" displayExitButton />
 			<div className="card flex mt-4 col-5">
 				<Toast ref={toast} />
 				<form

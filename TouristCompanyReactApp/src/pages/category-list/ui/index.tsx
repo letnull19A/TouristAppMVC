@@ -70,7 +70,7 @@ export const CategoryList = () => {
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
-			<AdminPageTitle title="Список категорий" />
+			<AdminPageTitle title="Список категорий" displayExitButton />
 			<div className="card p-fluid">
 				<div className="mt-5">
 					<Button
