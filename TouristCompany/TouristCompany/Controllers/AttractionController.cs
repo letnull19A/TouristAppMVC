@@ -70,7 +70,7 @@ namespace TouristCompany.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public IActionResult UpdateAttraction(Guid id, [FromBody] AttractionUpdateDto attraction)
+        public IActionResult UpdateAttraction([FromQuery] Guid id, [FromBody] AttractionUpdateDto attraction)
         {
             var attractionCommit = new Attraction()
             {
