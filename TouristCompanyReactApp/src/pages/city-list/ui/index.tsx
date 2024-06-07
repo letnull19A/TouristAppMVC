@@ -14,7 +14,6 @@ import { useEffect, useRef, useState } from 'react'
 export const CityList = () => {
 	const [cities, setCities] = useState<Array<TCity>>([])
 	const [selected, setSelectedProducts] = useState<Array<TCity>>([])
-	const [country, setCountry] = useState<TCountry | null>(null)
 
 	const { getAll } = cityApi
 
@@ -29,32 +28,30 @@ export const CityList = () => {
 	const onRowEditComplete = async (e: DataTableRowEditCompleteEvent) => {
 		const { newData } = e
 
-		if (country?.id === undefined) return
+		if (newData.country?.id === undefined) return
 
 		const adaptedData: TEditCity = {
 			id: newData.id,
 			name: newData.name,
 			description: newData.description,
-			countryId: country.id
+			countryId: newData.country.id
 		}
 
 		const response = await cityApi.edit(adaptedData)
 
-		if (response.status === 204) {
+		if (response.ok) {
 			toast.current?.show({
 				severity: 'success',
 				summary: 'Успех',
 				detail: 'Изменения сохранены'
 			})
 
-			setTimeout(() => {
-				getAll().then((res) => {
-					setCities(res)
-				})
-			}, 1000)
+			getAll().then((res) => {
+				setCities(res)
+			})
 		}
 
-		if (response.status === 400) {
+		if (!response.ok) {
 			toast.current?.show({
 				severity: 'error',
 				summary: 'Ошибка',
@@ -93,8 +90,7 @@ export const CityList = () => {
 			<CountryDropdown
 				defaultValue={options.rowData.country as TCountry}
 				onChange={(e) => {
-					// options.editorCallback!(e.target.value as TCountry)
-					setCountry(e.target.value as TCountry)
+					options.editorCallback!(e.target.value as TCountry)
 				}}
 			/>
 		)
