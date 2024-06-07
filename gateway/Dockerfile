@@ -1,4 +1,4 @@
-FROM dockerhub1.beget.com/library/nginx:alpine
+FROM nginx:alpine
 
 USER root
 

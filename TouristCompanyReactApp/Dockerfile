@@ -1,4 +1,4 @@
-FROM dockerhub1.beget.com/library/node:21-alpine3.18 as vite-app
+FROM node:21-alpine3.18 as vite-app
 
 WORKDIR /app
 COPY . .
@@ -6,7 +6,7 @@ COPY . .
 RUN ["npm", "i"]
 RUN ["npm", "run", "build"]
 
-FROM dockerhub1.beget.com/library/nginx:alpine
+FROM nginx:alpine
 
 WORKDIR /usr/share/nginx/
 
