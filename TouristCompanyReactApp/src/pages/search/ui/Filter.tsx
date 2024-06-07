@@ -58,7 +58,7 @@ export const Filter = () => {
 					<label>Город вылета</label>
 					<AirportsDropdown
 						onChange={(e) => {
-							context.setAirportId(e.target.value)
+							context.setAirportId?.(e.target.value)
 						}}
 					/>
 				</div>
@@ -66,7 +66,7 @@ export const Filter = () => {
 					<label>Страна назначения</label>
 					<CountryDropdown
 						onChange={(e) => {
-							context.setCountry(e.target.value)
+							context.setCountry?.(e.target.value)
 						}}
 					/>
 				</div>
