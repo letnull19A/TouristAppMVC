@@ -19,7 +19,7 @@ export const TourPrices = (props: TTourPricesProps) => {
 
 	return (
 		<Card title="Расценки на туры" className='tour-prices'>
-			<table cellSpacing={10}>
+			<table className='tour-prices-table' cellSpacing={10}>
 				<thead>
 					<tr>
 						<th>Дней</th>

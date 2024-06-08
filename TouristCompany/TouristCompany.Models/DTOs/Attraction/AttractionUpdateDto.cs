@@ -3,4 +3,6 @@
 public class AttractionUpdateDto : BaseDto
 {
     public Guid CityId { get; set; }
+    public Guid CityId { get; set; }
+    public string ImageUrl { get; set; }
 }

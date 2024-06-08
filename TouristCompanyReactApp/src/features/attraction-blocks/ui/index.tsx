@@ -13,7 +13,7 @@ export const AttractionBlocks = (props: TAttractionBlocksProps) => {
 	const [attractions, setAttractions] = useState<Array<TAttraction>>([])
 
 	useEffect(() => {
-		fetch(`${import.meta.env.VITE_API_URI}/city/${cityId}`, {
+		fetch(`${import.meta.env.VITE_API_URI}/api/attraction/city/${cityId}`, {
 			method: 'GET'
 		})
 			.then((response) => response.json())

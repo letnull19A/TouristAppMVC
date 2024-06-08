@@ -3,10 +3,12 @@ import { TCity, TCountry, TAttraction, TEditAttractionForm } from '@entities'
 import { CountryDropdown, CityDropdown } from '@ui'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
+import { FileUpload, FileUploadUploadEvent } from 'primereact/fileupload'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
+import { Toast } from 'primereact/toast'
 import { classNames } from 'primereact/utils'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
@@ -15,7 +17,10 @@ export const AttractionEdit = () => {
 	const [attractionData, setHotelData] = useState<TAttraction>()
 	const [country, setCountry] = useState<TCountry>()
 	const [city, setCity] = useState<TCity>()
+	const [fileName, setFileName] = useState<string>()
 	const { id } = useParams()
+
+	const toast = useRef<Toast>(null)
 
 	useEffect(() => {
 		if (id !== undefined)
@@ -29,11 +34,14 @@ export const AttractionEdit = () => {
 				.then((res: TCountry) => setCountry(res))
 			cityApi.getById(attractionData.city.id).then((res: TCity) => setCity(res))
 		}
+
+		setFileName(attractionData?.imageUrl)
 	}, [attractionData])
 
-	const defaultValues: Partial<TEditAttractionForm & { countryId: string }> = {
+	const defaultValues: Partial<TEditAttractionForm> = {
 		id,
 		cityId: attractionData?.city.id,
+		countryId: attractionData?.country.id,
 		name: attractionData?.name,
 		description: attractionData?.description
 	}
@@ -43,16 +51,36 @@ export const AttractionEdit = () => {
 	const onSubmit = (data: Partial<TEditAttractionForm>) => {
 		edit({
 			id: data.id ?? '',
-            name: data.name ?? '',
-            description: data.description ?? '',
-            cityId: data.cityId ?? '',
+			name: data.name ?? '',
+			description: data.description ?? '',
+			countryId: data.countryId ?? '',
+			cityId: data.cityId ?? '',
+			imageUrl: fileName ?? ''
 		})
+	}
+
+	const onUpload = (event: FileUploadUploadEvent) => {
+		if (event.xhr.status === 200) {
+			const response = JSON.parse(event.xhr.responseText)
+
+			setFileName(response.files[0].fileName)
+
+			toast.current?.show({
+				severity: 'success',
+				summary: 'Успех!',
+				detail: 'Файл успешно загружен!'
+			})
+		}
 	}
 
 	return (
 		attractionData !== undefined && (
 			<div className="px-4">
-				<AdminPageTitle title="Редактировать достопримечательность" displayExitButton />
+				<Toast ref={toast}></Toast>
+				<AdminPageTitle
+					title="Редактировать достопримечательность"
+					displayExitButton
+				/>
 				<div className="card flex mt-4 col-5">
 					<form
 						onSubmit={handleSubmit(onSubmit)}
@@ -84,14 +112,21 @@ export const AttractionEdit = () => {
 						<Controller
 							name="countryId"
 							control={control}
-							render={() => (
-								<CountryDropdown defaultValue={country} className="mt-4" />
+							defaultValue={attractionData.country.id}
+							render={({ field }) => (
+								<CountryDropdown
+									defaultValue={country}
+									onChange={(e) =>
+										field.onChange((e.target.value as TCountry).id)
+									}
+									className="mt-4"
+								/>
 							)}
 						/>
 						<Controller
 							name="cityId"
 							control={control}
-							defaultValue={attractionData.city.name}
+							defaultValue={attractionData.city.id}
 							render={({ field }) => (
 								<div className="mt-4">
 									<CityDropdown
@@ -122,7 +157,25 @@ export const AttractionEdit = () => {
 								</span>
 							)}
 						/>
-						<Button label="Подтвердить" type="submit" icon="pi pi-check" />
+						<img
+							src={`${import.meta.env.VITE_API_URI}/bucket/${fileName}`}
+							className="mb-3"
+						/>
+						<FileUpload
+							mode="basic"
+							name="files"
+							url={`${import.meta.env.VITE_API_URI}/api/files/upload`}
+							accept="image/*"
+							chooseLabel="Выберите файл для обложки (png, jpg, jpeg)"
+							maxFileSize={1000000}
+							onUpload={onUpload}
+						/>
+						<Button
+							className="mt-5"
+							label="Подтвердить"
+							type="submit"
+							icon="pi pi-check"
+						/>
 					</form>
 				</div>
 			</div>
