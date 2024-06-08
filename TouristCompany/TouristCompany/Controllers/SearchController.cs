@@ -29,6 +29,22 @@ public class Airport
     public string Name { get; set; } = string.Empty;
 }
 
+public class FilterDto
+{
+    public string? Search { get; set; }
+    public int Days { get; set; }
+    public string CountryName { get; set; }
+    public DateTime Date { get; set; }
+
+    public void Deconstruct(out string? search, out int days, out string countryName, out DateTime date)
+    {
+        search = Search;
+        days = Days;
+        countryName = CountryName;
+        date = Date;
+    }
+}
+
 [ApiController]
 [Route("/api/search")]
 public class SearchController(
