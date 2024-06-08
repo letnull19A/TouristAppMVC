@@ -28,6 +28,7 @@ namespace TouristCompany.Controllers
                     attraction.Id,
                     attraction.Name,
                     attraction.Description,
+                    attraction.ImageUrl,
                     City = city
                 }).Join(countries, r => r.City.CountryId, u => u.Id, (r, u) => new
             {
@@ -38,6 +39,34 @@ namespace TouristCompany.Controllers
                 City = r.City.Adapt<CityLiteDto>(),
                 Country = u.Adapt<CountryLiteDto>()
             }).ToList();
+
+            return Ok(result);
+        }
+
+        [HttpGet("/city/{cityId:guid}")]
+        public IActionResult GetAttractionsFromCity(Guid cityId)
+        {
+            var attractions = attractionRepository.GetAll();
+            var cities = cityRepository.GetAll();
+            var countries = countryRepository.GetAll();
+
+            var result = cities.Join(attractions, city => city.Id, attraction => attraction.CityId,
+                (city, attraction) => new
+                {
+                    attraction.Id,
+                    attraction.Name,
+                    attraction.Description,
+                    attraction.ImageUrl,
+                    City = city
+                }).Join(countries, r => r.City.CountryId, u => u.Id, (r, u) => new
+            {
+                r.Id,
+                r.Name,
+                r.Description,
+                r.ImageUrl,
+                City = r.City.Adapt<CityLiteDto>(),
+                Country = u.Adapt<CountryLiteDto>()
+            }).Where(t => t.City.Id == cityId).ToList();
 
             return Ok(result);
         }
