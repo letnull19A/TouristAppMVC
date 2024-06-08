@@ -106,6 +106,10 @@ namespace TouristCompany.Controllers
 
             var currentAttraction = attractionRepository.GetById(id);
 
+            if (currentAttraction == null) {
+                return NotFound();
+            }
+
             currentAttraction.Name = attraction.Name;
             currentAttraction.Description = attraction.Description;
             currentAttraction.CityId = attraction.CityId;
