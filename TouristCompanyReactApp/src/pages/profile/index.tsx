@@ -37,7 +37,7 @@ export const Profile = () => {
 						setCountry: setCountry
 					}}
 				>
-					<h1 className="p-0 m-0">Избранное</h1>
+					<h1 className="p-0 m-0 mb-5">Избранное</h1>
 					<CardGrid favorites={favs} />
 				</SearchContext.Provider>
 			</div>

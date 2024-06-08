@@ -42,7 +42,7 @@ export const OrderList = () => {
 						setCountry: setCountry
 					}}
 				>
-					<h1 className="p-0 m-0">Заявки</h1>
+					<h1 className="p-0 m-0 mb-5">Заявки</h1>
 					<CardOrderGrid orders={favs} />
 				</SearchContext.Provider>
 			</div>
