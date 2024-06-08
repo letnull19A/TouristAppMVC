@@ -16,10 +16,11 @@ import { Button } from 'primereact/button'
 type TAirportsDropdownProps = {
 	defaultValue?: TAirport
 	onChange?: (e: DropdownChangeEvent) => void
+	className?: string
 }
 
 const AirportsDropdown = (props: TAirportsDropdownProps) => {
-	const { onChange, defaultValue } = props
+	const { onChange, defaultValue, className } = props
 
 	const [airports, setAirports] = useState<Array<TAirport>>([])
 	const [selected, setSelected] = useState<TAirport | null>(null)
@@ -31,6 +32,7 @@ const AirportsDropdown = (props: TAirportsDropdownProps) => {
 
 	return (
 		<Dropdown
+			className={className}
 			value={selected}
 			onChange={(e) => {
 				setSelected(e.target.value)
@@ -52,11 +54,12 @@ export const Filter = () => {
 
 	return (
 		<>
-			<h2 className='mt-2'>Опции</h2>
+			<h2 className="mt-2">Опции</h2>
 			<div className="flex flex-column gap-5 mt-3">
 				<div className="flex flex-column gap-2 p-0">
 					<label>Город вылета</label>
 					<AirportsDropdown
+						className="input-override select-override"
 						onChange={(e) => {
 							context.setAirportId?.(e.target.value)
 						}}
@@ -65,6 +68,7 @@ export const Filter = () => {
 				<div className="flex flex-column gap-2">
 					<label>Страна назначения</label>
 					<CountryDropdown
+						className="input-override select-override"
 						onChange={(e) => {
 							context.setCountry?.(e.target.value)
 						}}
@@ -76,6 +80,7 @@ export const Filter = () => {
 						value={dates}
 						onChange={(e) => setDates(e.value)}
 						selectionMode="single"
+						className="calendar input-override"
 						readOnlyInput
 						hideOnRangeSelection
 					/>
@@ -84,7 +89,7 @@ export const Filter = () => {
 					<label>Кол-во человек</label>
 					<InputNumber
 						value={humans}
-						inputStyle={{ width: '100%' }}
+						className="number-input"
 						onValueChange={(e: InputNumberValueChangeEvent) =>
 							setHumans(e.target.value ?? 0)
 						}
@@ -101,7 +106,7 @@ export const Filter = () => {
 					<label>Кол-во дней</label>
 					<InputNumber
 						value={days}
-						inputStyle={{ width: '100%' }}
+						className="number-input"
 						onValueChange={(e: InputNumberValueChangeEvent) =>
 							setDays(e.target.value ?? 0)
 						}
@@ -115,7 +120,12 @@ export const Filter = () => {
 						mode="decimal"
 					/>
 				</div>
-				<Button label='Фильтровать' icon='pi pi-filter'/>
+				<Button
+					className="button-override"
+					style={{ height: '45px' }}
+					label="Фильтровать"
+					icon="pi pi-filter"
+				/>
 			</div>
 		</>
 	)
