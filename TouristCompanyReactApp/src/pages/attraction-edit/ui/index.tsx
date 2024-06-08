@@ -38,7 +38,7 @@ export const AttractionEdit = () => {
 		setFileName(attractionData?.imageUrl)
 	}, [attractionData])
 
-	const defaultValues: Partial<TEditAttractionForm> = {
+	const defaultValues: Partial<TEditAttractionForm & { countryId: string }> = {
 		id,
 		cityId: attractionData?.city.id,
 		name: attractionData?.name,
