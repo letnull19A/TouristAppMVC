@@ -101,7 +101,7 @@ namespace TouristCompany.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public IActionResult UpdateAttraction([FromQuery] Guid id, [FromBody] AttractionUpdateDto attraction)
+        public IActionResult UpdateAttraction(Guid id, [FromBody] AttractionUpdateDto attraction)
         {
 
             var currentAttraction = attractionRepository.GetById(id);
