@@ -108,7 +108,9 @@ namespace TouristCompany.Controllers
                 Id = id,
                 Name = attraction.Name,
                 Description = attraction.Description,
-                CityId = attraction.CityId
+                CityId = attraction.CityId,
+                CountryId = attraction.CountryId,
+                ImageUrl = attraction.ImageUrl
             };
 
             attractionRepository.Update(attractionCommit);
