@@ -5,6 +5,24 @@
 	gap: 20px;
 }
 
+@media screen and (max-width: 1300px) {
+	.attraction-view {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media screen and (max-width: 850px) {
+	.attraction-view {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.attraction-view {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
 .attraction-card {
 	width: 100%;
 	height: 100%;
@@ -22,6 +40,7 @@
 }
 
 .attraction-card:hover .attraction-card__title,
+.attraction-card:hover .attraction-card__description,
 .attraction-card:hover .attraction-card__read-more {
 	left: 30px;
 	opacity: 1;
@@ -35,7 +54,12 @@
 	position: relative;
 }
 
+.attraction-card__description {
+	bottom: 100px;
+}
+
 .attraction-card__title,
+.attraction-card__description,
 .attraction-card__read-more {
 	position: absolute;
 	left: -100%;
@@ -46,8 +70,13 @@
 .attraction-card__title {
 	transition: 0.2s;
 }
+
+.attraction-card__description {
+	transition: 0.4s;
+}
+
 .attraction-card__read-more {
-	transition: 0.5s;
+	transition: 0.6s;
 }
 
 .attraction-card__read-more {
@@ -55,8 +84,23 @@
 	font-size: 20px;
 }
 
+.attraction-card__read-more {
+	text-decoration: underline;
+	text-decoration-thickness: 3px;
+}
+
 .attraction-card__title {
 	top: 0;
 	font-size: 30px;
 	max-width: 70%;
+	line-height: 30px;
+	max-height: 60px;
+	overflow: hidden;
+}
+
+.attraction-card__description {
+	top: 140px;
+	max-width: 70%;
+	font-size: 20px;
+	line-height: 30px;
 }

@@ -62,11 +62,10 @@ export const HotelCard = (props: HotelCardProps) => {
 	}, [tourData.id])
 
 	return (
-		<div className="card-item" style={{ width: '100%', height: 314 }}>
+		<div className="card-item">
 			<Card
 				title={title}
 				subTitle={`${country.name}, ${city.name}`}
-				style={{ display: 'flex', flexDirection: 'row', overflow: 'hidden' }}
 				footer={footer}
 				header={header}
 			>
