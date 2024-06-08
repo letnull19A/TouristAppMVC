@@ -17,6 +17,7 @@ export type TAddTourForm = Omit<
 	countryId: string
 	cityId: string
 	categoryId: string,
+	hotelId?: string
 }
 
 export type TEditTourForm = Omit<TTour, 'country' | 'city' | 'category'> & {

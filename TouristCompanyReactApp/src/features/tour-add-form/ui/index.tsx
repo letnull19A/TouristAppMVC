@@ -1,14 +1,20 @@
-import { tourApi, tourPriceApi } from '@api'
+import { hotelTourApi, tourApi, tourPriceApi } from '@api'
 import { AddPriceTourContext } from '@contexts'
 import {
 	TAddPriceTour,
 	TAddTourForm,
 	TCategory,
 	TCity,
-	TCountry
+	TCountry,
+	THotel
 } from '@entities'
 import { TourAddPricesForm } from '@features'
-import { CategoryDropdown, CityDropdown, CountryDropdown } from '@ui'
+import {
+	CategoryDropdown,
+	CityDropdown,
+	CountryDropdown,
+	HotelDropdown
+} from '@ui'
 import { Button } from 'primereact/button'
 import { FileUpload, FileUploadUploadEvent } from 'primereact/fileupload'
 import { InputText } from 'primereact/inputtext'
@@ -23,6 +29,7 @@ export const TourAddForm = () => {
 	const [imageUploaded, setImageUploaded] = useState<boolean>(false)
 	const [fileName, setFileName] = useState<string>()
 	const [selectedCountry, setSelectedCountry] = useState<TCountry>()
+	const [hotel, setHotel] = useState<THotel>()
 
 	const defaultValues: TAddTourForm = {
 		name: '',
@@ -30,7 +37,8 @@ export const TourAddForm = () => {
 		countryId: '',
 		cityId: '',
 		categoryId: '',
-		imageUrl: ''
+		imageUrl: '',
+		hotelId: ''
 	}
 
 	const {
@@ -63,6 +71,20 @@ export const TourAddForm = () => {
 							days: field.days
 						})
 					})
+
+				if (data.hotelId === undefined) {
+					toast.current?.show({
+						severity:'error',
+                        summary: 'Ошибка!',
+                        detail: 'Не удалось назначить отель'
+					})
+					return
+				}
+
+				hotelTourApi.create({
+					tourId: response.id,
+					hotelId: data.hotelId
+				})
 			})
 	}
 
@@ -186,6 +208,21 @@ export const TourAddForm = () => {
 						<label htmlFor={field.name}>Описание</label>
 						{getFormErrorMessage(field.name)}
 					</span>
+				)}
+			/>
+			<Controller
+				name="hotelId"
+				control={control}
+				render={({ field }) => (
+					<div className="mb-4">
+						<HotelDropdown
+							defaultValue={hotel}
+							onChange={(e) => {
+								field.onChange((e.target.value as THotel).id)
+								setHotel(e.target.value as THotel)
+							}}
+						/>
+					</div>
 				)}
 			/>
 			{!imageUploaded && <p>Обязательно загрузите фото обложки</p>}
