@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { CardGrid } from './CardGrid'
 import { Filter } from './Filter'
 import { Search } from './Search'
+import './style.css'
 
 export const SearchPage = () => {
 	const [tours, setTours] = useState<Array<TTour>>([])
@@ -29,10 +30,10 @@ export const SearchPage = () => {
 			}}
 		>
 			<div className="flex flex-row">
-				<div className="hidden md:block" style={{ width: 331 }}>
+				<div className="hidden md:block filter__conteiner">
 					<Filter />
 				</div>
-				<div className="flex flex-column adaptive-layout pl-4">
+				<div className="flex flex-column adaptive-layout md:pl-4">
 					<Search />
 					<CardGrid />
 				</div>

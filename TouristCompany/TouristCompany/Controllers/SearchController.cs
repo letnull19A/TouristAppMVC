@@ -95,7 +95,7 @@ public class SearchController(
     }
 
     [HttpPost("filter")]
-    public IActionResult Filter(string? search, int days, string countryName, DateTime date)
+    public IActionResult Filter([FromBody] FilterDto filter)
     {
         var tours = tourRepository.GetAll();
         var countries = countryRepository.GetAll();
@@ -103,6 +103,8 @@ public class SearchController(
         var categories = categoryRepository.GetAll();
         var tourPrice = tourPriceRepository.GetAll();
 
+        var (search, days, countryName, date) = filter;
+        
         var result = tours.Join(countries, u => u.CountryId, v => v.Id, (u, v) => new
         {
             Id = u.Id,
@@ -175,7 +177,7 @@ public class SearchController(
 
         var result3 = result2
             .Select(t =>
-                t.Where(o => o.Date == date).Any())
+                t.Where(o => o.Date == date || o.Date < date.AddDays(3)).Any())
             .Any(u => u);
 
         if (!result3) return NotFound("Туров на подходящие параметры не найдены");

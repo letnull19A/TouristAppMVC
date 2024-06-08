@@ -5,16 +5,68 @@
 }
 
 .filter__card {
+	position: relative;
 	height: auto;
 	background-color: #fff;
 	border-radius: 15px;
 	box-shadow: 0px 4px 15px 0px #52627c40;
-	width: 331px;
+	width: 100%;
+}
+
+.filter__conteiner {
 	position: relative;
+	width: 331px;
+}
+
+.card-item .p-card-subtitle {
+	word-wrap: normal;
+	overflow: hidden;
+	position: relative;
+	line-height: 20px;
+	height: 20px;
+}
+
+.card-item .p-card-subtitle::after {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	right: 0;
+	background-color: red;
+}
+
+@media screen and (max-width: 1600px) {
+	.filter__conteiner,
+	.filter__card,
+	.filter__card_fixed {
+		display: block;
+		width: 260px !important;
+	}
+}
+
+@media screen and (max-width: 1100px) {
+	.filter__conteiner,
+	.filter__card_fixed,
+	.filter__card {
+		display: block;
+		width: 260px;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.filter__card {
+		width: 100%;
+		box-shadow: none;
+		top: 0;
+		margin: 0;
+		padding: 0;
+	}
 }
 
 .filter__card_fixed {
 	top: 30px;
+	width: 331px;
 }
 
 .search-button {
@@ -72,8 +124,8 @@
 
 .search {
 	border: 1px solid #8f8f8f59;
-    font-size: 20px;
-    padding-inline: 20px;
+	font-size: 20px;
+	padding-inline: 20px;
 }
 .search::placeholder {
 	color: #aaaaaa;
@@ -88,7 +140,10 @@
 	width: 80%;
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 766px) {
+	.adaptive-layout {
+		width: 100%;
+	}
 }
 
 @media screen and (max-width: 560px) {
