@@ -2,6 +2,7 @@ import { ticketApi } from '@api'
 import { SearchContext } from '@contexts'
 import { TAirport } from '@entities'
 import { CountryDropdown } from '@ui'
+import { Button } from 'primereact/button'
 import { Calendar } from 'primereact/calendar'
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown'
 import {
@@ -9,9 +10,9 @@ import {
 	InputNumberValueChangeEvent
 } from 'primereact/inputnumber'
 import { Nullable } from 'primereact/ts-helpers'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import './style.css'
-import { Button } from 'primereact/button'
+import { classNames } from 'primereact/utils'
 
 type TAirportsDropdownProps = {
 	defaultValue?: TAirport
@@ -52,8 +53,25 @@ export const Filter = () => {
 
 	const context = useContext(SearchContext)
 
+	const [isFixed, setIsFixed] = useState<boolean>(false)
+
+	useEffect(() => {
+		window.addEventListener('scroll', () => {
+			setIsFixed(window.scrollY > 50)
+		})
+	}, [])
+
+	useLayoutEffect(() => {
+		setIsFixed(window.scrollY > 50)
+	}, [])
+
 	return (
-		<>
+		<div
+			className={
+				'filter__card px-3 pt-1 pb-3 ' +
+				classNames({ fixed: isFixed, filter__card_fixed: isFixed })
+			}
+		>
 			<h2 className="mt-2">Опции</h2>
 			<div className="flex flex-column gap-5 mt-3">
 				<div className="flex flex-column gap-2 p-0">
@@ -127,6 +145,6 @@ export const Filter = () => {
 					icon="pi pi-filter"
 				/>
 			</div>
-		</>
+		</div>
 	)
 }

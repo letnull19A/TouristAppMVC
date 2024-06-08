@@ -47,7 +47,7 @@ export const HotelCard = (props: HotelCardProps) => {
 			<Button
 				onClick={() => navigate(`/tour/${tourData.id}/view`)}
 				label="Перейти к туру"
-				style={{ width: '100%' }}
+				style={{ width: '100%', borderRadius: '15px', height: 45 }}
 			/>
 		</>
 	)

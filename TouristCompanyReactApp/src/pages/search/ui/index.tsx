@@ -29,12 +29,10 @@ export const SearchPage = () => {
 			}}
 		>
 			<div className="flex flex-row">
-				<div className="md:col-4 lg:col-2 hidden md:block">
-					<div className="filter__card px-3 pt-1 pb-3">
-						<Filter />
-					</div>
+				<div className="hidden md:block" style={{ width: 331 }}>
+					<Filter />
 				</div>
-				<div className="flex flex-column col-12 md:col-8 lg:col-10 adaptive-layout">
+				<div className="flex flex-column adaptive-layout pl-4">
 					<Search />
 					<CardGrid />
 				</div>
