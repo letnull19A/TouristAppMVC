@@ -1,3 +1,8 @@
 .tour-view__image {
     border-radius: 10px;
 }
+
+.custom-button {
+    border-radius: 15px;
+    height: 45px;
+}

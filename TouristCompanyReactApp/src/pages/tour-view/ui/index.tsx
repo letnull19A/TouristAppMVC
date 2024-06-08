@@ -93,21 +93,21 @@ export const TourView = () => {
 		<Button
 			onClick={() => toFavourite()}
 			outlined
-			className="w-full"
+			className="w-full custom-button"
 			label="Добавить в избранное"
 		/>
 	) : (
 		<Button
 			onClick={() => deleteFromFavourite()}
 			outlined
-			className="w-full"
+			className="w-full custom-button"
 			label="Уже находится в избранном"
 		/>
 	)
 
 	return (
 		<>
-			<AdminPageTitle title="Обозреватель тура" toMain />
+			<AdminPageTitle title="" toMain />
 			<div className="grid mt-5 flex flex-column md:flex-row">
 				<div className="col-12 md:col-7">
 					<img
@@ -121,17 +121,17 @@ export const TourView = () => {
 				<div className="col-12 md:col-5 flex flex-column gap-3">
 					{id && <TourInfo tourId={id} />}
 					{id && <TourPrices tourId={id} />}
-					<div className="mt-3">
+					<div className="mt-0 flex flex-row gap-2">
 						<Button
 							onClick={() => handleMakeOrder()}
-							className="w-full mb-3"
-							label="Оставить заявку"
+							className="w-full custom-button"
+							label="Оставить заявку на тур"
 						/>
 						{context.isAuth() && favouriteButton}
 					</div>
 				</div>
 			</div>
-			<TabView>
+			<TabView className='mt-4'>
 				<TabPanel header="О туре">
 					<p className="m-0">{currentTour?.description}</p>
 				</TabPanel>

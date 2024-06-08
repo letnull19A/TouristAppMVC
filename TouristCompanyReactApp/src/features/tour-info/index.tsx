@@ -33,7 +33,7 @@ export const TourInfo = (props: TTourInfoProps) => {
 				Оценка отеля:{' '}
 				<Rating cancel={false} readOnly value={currentHotel?.rating} />
 			</p>
-			<p>Категория: {currentTour?.category.name}</p>
+			<p>Категория: <span className='custom-tag'>{currentTour?.category.name}</span></p>
 			<p>Страна: {currentTour?.country.name}</p>
 			<p>Город: {currentTour?.city.name}</p>
 		</Card>
