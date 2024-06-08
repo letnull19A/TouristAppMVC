@@ -109,7 +109,6 @@ namespace TouristCompany.Controllers
                 Name = attraction.Name,
                 Description = attraction.Description,
                 CityId = attraction.CityId,
-                CountryId = attraction.CountryId,
                 ImageUrl = attraction.ImageUrl
             };
 
