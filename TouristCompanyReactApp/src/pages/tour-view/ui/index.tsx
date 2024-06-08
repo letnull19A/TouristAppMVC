@@ -153,7 +153,9 @@ export const TourView = () => {
 				</TabPanel>
 			</TabView>
 			<p className="text-2xl">Достопримечательности</p>
-			<AttractionBlocks />
+			{currentTour?.city.id && (
+				<AttractionBlocks cityId={currentTour.city.id} />
+			)}
 			<p className="text-2xl">Смотрите ещё</p>
 			{tours !== undefined && (
 				<SearchContext.Provider value={{ data: tours, setData: setTours }}>

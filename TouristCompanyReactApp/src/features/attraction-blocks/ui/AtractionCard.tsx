@@ -11,7 +11,7 @@ export const AttractionCard = (props: TAttractionCardProps) => {
 	return (
 		<div className="attraction-card">
 			<img
-				src={`h${import.meta.env.VITE_API_URI}/bucket/${attraction?.imageUrl}`}
+				src={`${import.meta.env.VITE_API_URI}/bucket/${attraction?.imageUrl}`}
 				className="attraction-card__cover"
 			/>
 			<h4 className="attraction-card__title">{attraction?.name}</h4>

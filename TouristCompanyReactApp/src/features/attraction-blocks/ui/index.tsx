@@ -2,21 +2,23 @@ import { TAttraction } from '@entities'
 import { useEffect, useState } from 'react'
 import { AttractionCard } from './AtractionCard'
 import './style.css'
-import { attractionApi } from '@api'
 
-// type TAttractionBlocksProps = {
-// 	cityId?: string
-// }
+type TAttractionBlocksProps = {
+	cityId?: string
+}
 
-// export const AttractionBlocks = (props: TAttractionBlocksProps) => {
-export const AttractionBlocks = () => {
-	// const { cityId } = props
+export const AttractionBlocks = (props: TAttractionBlocksProps) => {
+	const { cityId } = props
 
 	const [attractions, setAttractions] = useState<Array<TAttraction>>([])
 
 	useEffect(() => {
-		attractionApi.getAll().then(setAttractions)
-	}, [])
+		fetch(`${import.meta.env.VITE_API_URI}/city/${cityId}`, {
+			method: 'GET'
+		})
+			.then((response) => response.json())
+			.then(setAttractions)
+	}, [cityId])
 
 	return (
 		<div className="attraction-view">

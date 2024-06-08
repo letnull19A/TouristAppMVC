@@ -43,7 +43,7 @@ namespace TouristCompany.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/city/{cityId:guid}")]
+        [HttpGet("city/{cityId:guid}")]
         public IActionResult GetAttractionsFromCity(Guid cityId)
         {
             var attractions = attractionRepository.GetAll();
