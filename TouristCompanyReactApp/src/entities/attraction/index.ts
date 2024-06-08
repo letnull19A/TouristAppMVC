@@ -13,6 +13,7 @@ export type TAddAttractionForm = {
 	cityId: string
 	name: string
 	description: string
+	imageUrl: string
 }
 
 export type TEditAttractionForm = Omit<TAddAttractionForm, 'cityId'> &

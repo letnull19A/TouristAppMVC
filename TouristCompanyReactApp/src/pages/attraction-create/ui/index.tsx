@@ -9,15 +9,19 @@ import { TAddAttractionForm, TCity, TCountry } from '@entities'
 import { attractionApi } from '@api'
 import { Toast } from 'primereact/toast'
 import { useRef, useState } from 'react'
+import { FileUpload, FileUploadUploadEvent } from 'primereact/fileupload'
 
 export const AttractionCreate = () => {
 	const [country, setCountry] = useState<TCountry>()
+	const [fileName, setFileName] = useState<string>()
+	const [imageUploaded, setImageUploaded] = useState<boolean>(false)
 
 	const defaultValues: TAddAttractionForm & { countryId: string } = {
 		cityId: '',
 		countryId: '',
 		name: '',
-		description: ''
+		description: '',
+		imageUrl: '',
 	}
 
 	const { control, handleSubmit, reset } = useForm({ defaultValues })
@@ -34,17 +38,36 @@ export const AttractionCreate = () => {
 	}
 
 	const onSubmit = (data: TAddAttractionForm) => {
-		attractionApi.create({ ...data }).then(() => {
+		attractionApi.create({ ...data, imageUrl: fileName ?? '' }).then(() => {
 			showSuccess()
 		})
 
 		reset()
 	}
 
+	const onUpload = (event: FileUploadUploadEvent) => {
+		if (event.xhr.status === 200) {
+			setImageUploaded(true)
+
+			const response = JSON.parse(event.xhr.responseText)
+
+			setFileName(response.files[0].fileName)
+
+			toast.current?.show({
+				severity: 'success',
+				summary: 'Фото успешно загружено',
+				detail: 'Продолжайте добавлять информацию'
+			})
+		}
+	}
+
 	return (
 		<div className="px-4">
 			<Toast ref={toast} />
-			<AdminPageTitle title='Добавить достопримечательность' displayExitButton />
+			<AdminPageTitle
+				title="Добавить достопримечательность"
+				displayExitButton
+			/>
 			<div className="card flex mt-4 col-5">
 				<form
 					onSubmit={handleSubmit(onSubmit)}
@@ -118,11 +141,26 @@ export const AttractionCreate = () => {
 							</span>
 						)}
 					/>
+					{!imageUploaded && <p>Обязательно загрузите фото обложки</p>}
+					<img
+						src={`${import.meta.env.VITE_API_URI}/bucket/${fileName}`}
+						className="mb-3"
+					/>
+					<FileUpload
+						mode="basic"
+						name="files"
+						url={`${import.meta.env.VITE_API_URI}/api/files/upload`}
+						accept="image/*"
+						chooseLabel="Выберите файл для обложки (png, jpg, jpeg)"
+						maxFileSize={1000000}
+						onUpload={onUpload}
+					/>
 					<Button
 						className="mt-4"
 						label="Подтвердить"
 						type="submit"
 						icon="pi pi-check"
+						disabled={!imageUploaded}
 					/>
 				</form>
 			</div>
