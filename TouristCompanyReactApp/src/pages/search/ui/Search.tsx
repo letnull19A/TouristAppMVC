@@ -40,7 +40,7 @@ export const Search = () => {
 					ref={inputRef}
 					style={{ height: 54 }}
 					placeholder="Введите Ваш запрос"
-					className="w-full"
+					className="w-full input-override search"
 				/>
 			</div>
 			<div className="col-fixed search-button">

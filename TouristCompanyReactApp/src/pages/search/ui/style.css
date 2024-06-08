@@ -1,82 +1,95 @@
 .card-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 20px;
 }
 
 .filter__card {
-    height: auto;
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0px 4px 15px 0px #52627C40;
+	height: auto;
+	background-color: #fff;
+	border-radius: 15px;
+	box-shadow: 0px 4px 15px 0px #52627c40;
 }
 
 .search-button {
-    width: 200px;
+	width: 200px;
 }
 
 .search-button button {
-    height: 54px;
+	height: 54px;
 }
 
 .search-button .search-button__mobile {
-    display: none;
+	display: none;
 }
 
 .button-override {
-    border-radius: 15px;
+	border-radius: 15px;
 }
 
 .select-override {
-    line-height: 24px;
+	line-height: 24px;
 }
 
-.input-override input, 
+.input-override input,
 .input-override {
-    border-radius: 15px;
-    height: 45px;
+	border-radius: 15px;
+	height: 45px;
 }
 
 .calendar input {
-    text-align: center;
+	text-align: center;
 }
 
 .number-input {
-    gap: 5px;
+	gap: 5px;
 }
 
 .number-input button,
 .number-input input {
-    border-radius: 15px;
-    color: #000;
-    height: 45px;
+	border-radius: 15px;
+	color: #000;
+	height: 45px;
 }
 
 .number-input button {
-    background-color: #fff;
-    border-color: #ced4da;
-    width: 45px;
+	background-color: #fff;
+	border-color: #ced4da;
+	width: 45px;
 }
 
 .number-input input {
-    width: 90%;
-    text-align: center;
+	width: 90%;
+	text-align: center;
+}
+
+.search {
+	border: 1px solid #8f8f8f59;
+    font-size: 20px;
+    padding-inline: 20px;
+}
+.search::placeholder {
+	color: #aaaaaa;
+}
+
+.search-button .search-button__desktop,
+.search-button .search-button__mobile {
+	border-radius: 15px;
 }
 
 @media screen and (max-width: 1440px) {
-
 }
 
 @media screen and (max-width: 560px) {
 	.search-button {
-        width: 70px;
-    }
+		width: 70px;
+	}
 
-    .search-button .search-button__desktop {
-        display: none;
-    }
+	.search-button .search-button__desktop {
+		display: none;
+	}
 
-    .search-button .search-button__mobile {
-        display: block;
-    }
+	.search-button .search-button__mobile {
+		display: block;
+	}
 }
