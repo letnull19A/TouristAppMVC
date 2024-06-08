@@ -48,14 +48,30 @@ export const AttractionEdit = () => {
 
 	const { control, handleSubmit } = useForm({ defaultValues })
 
-	const onSubmit = (data: Partial<TEditAttractionForm>) => {
-		edit({
+	const onSubmit = async (data: Partial<TEditAttractionForm>) => {
+		const response = await edit({
 			id: data.id ?? '',
 			name: data.name ?? '',
 			description: data.description ?? '',
 			cityId: data.cityId ?? '',
 			imageUrl: fileName ?? ''
 		})
+
+		if (response.ok) {
+			toast.current?.show({
+				severity: 'success',
+				summary: 'Успех',
+				detail: 'Изменения сохранены'
+			})
+		}
+
+		if (!response.ok) {
+			toast.current?.show({
+				severity: 'error',
+				summary: 'Ошибка',
+				detail: response.statusText
+			})
+		}
 	}
 
 	const onUpload = (event: FileUploadUploadEvent) => {
@@ -75,7 +91,7 @@ export const AttractionEdit = () => {
 	return (
 		attractionData !== undefined && (
 			<div className="px-4">
-				<Toast ref={toast}></Toast>
+				<Toast ref={toast} />
 				<AdminPageTitle
 					title="Редактировать достопримечательность"
 					displayExitButton
@@ -112,10 +128,7 @@ export const AttractionEdit = () => {
 							name="countryId"
 							control={control}
 							render={() => (
-								<CountryDropdown
-									defaultValue={country}
-									className="mt-4"
-								/>
+								<CountryDropdown defaultValue={country} className="mt-4" />
 							)}
 						/>
 						<Controller
@@ -143,7 +156,7 @@ export const AttractionEdit = () => {
 									<InputTextarea
 										id={field.name}
 										{...field}
-										rows={4}
+										rows={10}
 										cols={30}
 										className={classNames({ 'p-invalid': fieldState.error })}
 										style={{ width: '100%' }}

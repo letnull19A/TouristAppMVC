@@ -6,8 +6,9 @@ import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { Rating } from 'primereact/rating'
+import { Toast } from 'primereact/toast'
 import { classNames } from 'primereact/utils'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
@@ -17,6 +18,7 @@ export const HotelEdit = () => {
 	const [country, setCountry] = useState<TCountry>()
 	const [city, setCity] = useState<TCity>()
 	const { id } = useParams()
+	const toast = useRef<Toast>(null)
 
 	useEffect(() => {
 		if (id !== undefined) getById(id).then((res: THotel) => setHotelData(res))
@@ -42,8 +44,10 @@ export const HotelEdit = () => {
 
 	const { control, handleSubmit } = useForm({ defaultValues })
 
-	const onSubmit = (data: Partial<TEditHotelForm>) => {
-		edit({
+	const onSubmit = async (data: Partial<TEditHotelForm>) => {
+		console.log(data)
+
+		const response = await edit({
 			id: data.id ?? '',
 			cityId: data.cityId ?? '',
 			countryId: data.countryId ?? '',
@@ -51,11 +55,28 @@ export const HotelEdit = () => {
 			description: data.description ?? '',
 			rating: data.rating ?? 0
 		})
+
+		if (response.ok) {
+			toast.current?.show({
+				severity: 'success',
+				summary: 'Успех',
+				detail: 'Изменения сохранены'
+			})
+		}
+
+		if (!response.ok) {
+			toast.current?.show({
+				severity: 'error',
+				summary: 'Ошибка',
+				detail: response.statusText
+			})
+		}
 	}
 
 	return (
 		hotelData !== undefined && (
 			<div className="px-4">
+				<Toast ref={toast} />
 				<AdminPageTitle title="Редактировать отель" displayExitButton />
 				<div className="card flex mt-4 col-5">
 					<form
@@ -88,8 +109,15 @@ export const HotelEdit = () => {
 						<Controller
 							name="countryId"
 							control={control}
-							render={() => (
-								<CountryDropdown defaultValue={country} className="mt-4" />
+							defaultValue={hotelData.country.id}
+							render={({ field }) => (
+								<CountryDropdown
+									defaultValue={country}
+									onChange={(e) =>
+										field.onChange((e.target.value as TCountry).id)
+									}
+									className="mt-4"
+								/>
 							)}
 						/>
 						<Controller
