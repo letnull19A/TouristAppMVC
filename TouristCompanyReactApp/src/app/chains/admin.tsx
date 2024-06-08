@@ -5,7 +5,6 @@ import {
 	CategoryCreate,
 	CategoryList,
 	CityCreate,
-	CityEdit,
 	CityList,
 	CountryCreate,
 	CountryList,
@@ -102,14 +101,6 @@ export const adminRouter: RouteObject[] = [
 				element: (
 					<AdminLayout>
 						<CityList />
-					</AdminLayout>
-				)
-			},
-			{
-				path: ':id/edit',
-				element: (
-					<AdminLayout>
-						<CityEdit />
 					</AdminLayout>
 				)
 			}

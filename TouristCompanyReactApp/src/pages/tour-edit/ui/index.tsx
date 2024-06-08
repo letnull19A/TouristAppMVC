@@ -1,7 +1,11 @@
 import { TourEditForm } from "@features"
+import { useTitle } from "@hooks"
 import { AdminPageTitle } from "@widgets"
 
 export const TourEdit = () => {
+
+    useTitle('Редактирование теров')
+    
     return (
         <div className="mt-2">
             <AdminPageTitle title="Редактировать тур" displayExitButton />

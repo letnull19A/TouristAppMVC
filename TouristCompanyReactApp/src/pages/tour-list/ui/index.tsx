@@ -5,10 +5,13 @@ import { TourDataTable } from '@features'
 import { TTour } from '@entities'
 import { tourApi } from '@api'
 import { AdminPageTitle } from '@widgets'
+import { useTitle } from '@hooks'
 
 export const TourList = () => {
 	const [selected, setSelected] = useState<Array<TTour>>([])
 	const [tours, setTours] = useState<Array<TTour>>([])
+
+	useTitle('Список туров')
 
 	useEffect(() => {
 		tourApi.getAll().then((res) => {

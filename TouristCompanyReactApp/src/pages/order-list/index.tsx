@@ -4,6 +4,7 @@ import { TAirport, TCountry, TOrder, TTour } from '@entities'
 import { ProfileSidebar } from '@widgets'
 import { useContext, useEffect, useState } from 'react'
 import { CardOrderGrid } from './CardGrid'
+import { useTitle } from '@hooks'
 
 export const OrderList = () => {
 	const context = useContext(AuthContext)
@@ -12,6 +13,8 @@ export const OrderList = () => {
 	const [airportId, setAirportId] = useState<TAirport>()
 	const [country, setCountry] = useState<TCountry>()
 	const [favs, setFavs] = useState<Array<TOrder>>([])
+
+	useTitle('Заявки пользователя')
 
 	useEffect(() => {
 		tourApi.getAll().then((res) => {

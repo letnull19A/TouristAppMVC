@@ -7,6 +7,7 @@ import { TCountry } from '@entities'
 import { AdminPageTitle } from '@widgets'
 import { CountryDropdown } from '@ui'
 import { cityApi } from '@api'
+import { useTitle } from '@hooks'
 
 type TForm = {
 	name: string
@@ -17,6 +18,8 @@ type TForm = {
 export const CityCreate = () => {
 	const { create } = cityApi
 
+	useTitle('Добавить город')
+	
 	const defaultValues: TForm = {
 		name: '',
 		description: '',

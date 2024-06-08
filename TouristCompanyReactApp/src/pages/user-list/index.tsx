@@ -6,10 +6,13 @@ import { Button } from 'primereact/button'
 import { TUser } from '@entities'
 import { userApi } from '@api'
 import { AdminPageTitle } from '@widgets'
+import { useTitle } from '@hooks'
 
 export const UserList = () => {
 	const [users, setUsers] = useState<Array<TUser>>([])
 	const [selected, setSelectedProducts] = useState<Array<TUser>>([])
+
+	useTitle('Список пользователей')
 
 	useEffect(() => {
 		userApi.getAll().then(setUsers)

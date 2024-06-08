@@ -28,6 +28,7 @@
       "@features": ["src/features"],
       "@ui": ["src/shared/ui"],
       "@contexts": ["src/app/contexts"],
+      "@hooks": ["src/shared/hooks"],
       "@api": ["src/shared/api"]
     }
   },

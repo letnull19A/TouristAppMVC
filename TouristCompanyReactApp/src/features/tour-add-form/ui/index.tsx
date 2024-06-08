@@ -9,6 +9,7 @@ import {
 	THotel
 } from '@entities'
 import { TourAddPricesForm } from '@features'
+import { useTitle } from '@hooks'
 import {
 	CategoryDropdown,
 	CityDropdown,
@@ -30,6 +31,8 @@ export const TourAddForm = () => {
 	const [fileName, setFileName] = useState<string>()
 	const [selectedCountry, setSelectedCountry] = useState<TCountry>()
 	const [hotel, setHotel] = useState<THotel>()
+
+	useTitle('Добавить новый тур')
 
 	const defaultValues: TAddTourForm = {
 		name: '',

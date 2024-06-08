@@ -10,11 +10,14 @@ import { attractionApi } from '@api'
 import { Toast } from 'primereact/toast'
 import { useRef, useState } from 'react'
 import { FileUpload, FileUploadUploadEvent } from 'primereact/fileupload'
+import { useTitle } from '@hooks'
 
 export const AttractionCreate = () => {
 	const [country, setCountry] = useState<TCountry>()
 	const [fileName, setFileName] = useState<string>()
 	const [imageUploaded, setImageUploaded] = useState<boolean>(false)
+
+	useTitle('Добавить достопримечательность')
 
 	const defaultValues: TAddAttractionForm & { countryId: string } = {
 		cityId: '',

@@ -7,6 +7,7 @@ import { InputTextarea } from 'primereact/inputtextarea'
 import { Button } from 'primereact/button'
 import { AdminPageTitle } from '../../../widgets'
 import { categoryApi } from '@api'
+import { useTitle } from '@hooks'
 
 type TForm = {
 	id: string
@@ -16,6 +17,9 @@ type TForm = {
 
 export const CategoryCreate = () => {
 	const toast = useRef<Toast>(null)
+
+	useTitle('Создание категории')
+	
 	const { create } = categoryApi
 
 	const defaultValues: TForm = {

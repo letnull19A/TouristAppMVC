@@ -16,6 +16,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { CardGrid } from './../../search/ui/CardGrid'
 import './style.css'
+import { useTitle } from '@hooks'
 
 const getRandom = async (): Promise<Array<TTour>> => {
 	const response = await fetch(
@@ -39,6 +40,8 @@ export const TourView = () => {
 	const [tours, setTours] = useState<Array<TTour>>()
 	const { id } = useParams()
 	const context = useContext(AuthContext)
+
+	useTitle('Обозреватель туров')
 
 	useEffect(() => {
 		if (id === undefined) return

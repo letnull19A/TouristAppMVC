@@ -1,5 +1,6 @@
 import { hotelApi } from '@api'
 import { TAddHotelForm, TCity, TCountry } from '@entities'
+import { useTitle } from '@hooks'
 import { CityDropdown, CountryDropdown } from '@ui'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
@@ -14,6 +15,8 @@ export const HotelCreate = () => {
 	const toast = useRef<Toast>(null)
 	const [rating, setRating] = useState<number>(0)
 	const [country, setCountry] = useState<TCountry>()
+
+	useTitle('Добавить отель')
 
 	const defaultValues: TAddHotelForm & { countryId: string } = {
 		countryId: '',

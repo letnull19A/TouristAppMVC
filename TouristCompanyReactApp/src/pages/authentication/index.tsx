@@ -1,5 +1,6 @@
 import { authApi } from '@api'
 import { AuthContext } from '@contexts'
+import { useTitle } from '@hooks'
 import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { InputText } from 'primereact/inputtext'
@@ -15,6 +16,9 @@ type TForm = {
 }
 
 export const Authentication = () => {
+
+	useTitle('Аутентификация')
+	
 	const defaultValues: TForm = {
 		login: '',
 		password: ''

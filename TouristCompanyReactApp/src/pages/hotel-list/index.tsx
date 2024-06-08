@@ -1,5 +1,6 @@
 import { hotelApi } from '@api'
 import { THotel } from '@entities'
+import { useTitle } from '@hooks'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
 import { Column } from 'primereact/column'
@@ -11,6 +12,8 @@ import { useNavigate } from 'react-router-dom'
 export const HotelList = () => {
 	const [categories, setCategories] = useState<Array<THotel>>([])
 	const [selected, setSelectedProducts] = useState<Array<THotel>>([])
+
+	useTitle('Список отелей')
 
 	const navigate = useNavigate()
 

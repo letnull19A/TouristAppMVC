@@ -5,10 +5,13 @@ import { TAttraction } from '@entities'
 import { AttractionDataTable } from '@features'
 import { attractionApi } from '@api'
 import { AdminPageTitle } from '@widgets'
+import { useTitle } from '@hooks'
 
 export const AttractionList = () => {
 	const [selected, setSelectedProducts] = useState<Array<TAttraction>>([])
 	const [attractions, setAttractions] = useState<Array<TAttraction>>([])
+
+	useTitle('Список достопримечательностей')
 
 	useEffect(() => {
 		attractionApi.getAll().then(setAttractions)

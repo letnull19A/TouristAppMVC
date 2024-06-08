@@ -1,5 +1,6 @@
 import { attractionApi, cityApi, countryApi } from '@api'
 import { TCity, TCountry, TAttraction, TEditAttractionForm } from '@entities'
+import { useTitle } from '@hooks'
 import { CountryDropdown, CityDropdown } from '@ui'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
@@ -19,6 +20,8 @@ export const AttractionEdit = () => {
 	const [city, setCity] = useState<TCity>()
 	const [fileName, setFileName] = useState<string>()
 	const { id } = useParams()
+
+	useTitle('Редактировать достопримечательность')
 
 	const toast = useRef<Toast>(null)
 

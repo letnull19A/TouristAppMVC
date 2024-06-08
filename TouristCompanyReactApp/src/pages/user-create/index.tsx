@@ -2,6 +2,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { Button } from 'primereact/button'
 import { classNames } from 'primereact/utils'
 import { InputText } from 'primereact/inputtext'
+import { useTitle } from '@hooks'
 
 type TForm = {
 	name: string
@@ -19,6 +20,8 @@ export const UserCreate = () => {
         patronName: '',
         email: ''
     }
+
+	useTitle('Регистрация')
 
 	const {
 		control,

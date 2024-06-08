@@ -7,10 +7,13 @@ import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 import { Button } from 'primereact/button'
 import { TCountry } from '../../entities/country'
 import { AdminPageTitle } from '@widgets'
+import { useTitle } from '@hooks'
 
 export const CountryList = () => {
 	const [countries, setCountries] = useState<Array<TCountry>>([])
 	const [selected, setSelected] = useState<Array<TCountry>>([])
+
+	useTitle('Список стран')
 
 	const { getAll } = countryApi
 

@@ -1,6 +1,7 @@
 import { hotelApi, hotelTourApi, orderApi, tourApi, tourPriceApi } from '@api'
 import { AuthContext } from '@contexts'
 import { THotel, THotelTour, TTour, TTourPrice } from '@entities'
+import { useTitle } from '@hooks'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
 import { Calendar } from 'primereact/calendar'
@@ -24,6 +25,8 @@ export const OrderPage = () => {
 	const [prices, setPrices] = useState<Array<TTourPrice>>([])
 	const [date, setDate] = useState<Nullable<Date>>(null)
 	const [days, setDays] = useState<number>(1)
+
+	useTitle('Оформление заявки')
 
 	const { id } = useParams()
 

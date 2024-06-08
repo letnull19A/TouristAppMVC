@@ -1,4 +1,5 @@
 import { registrationApi } from '@api'
+import { useTitle } from '@hooks'
 import { Button } from 'primereact/button'
 import { Card } from 'primereact/card'
 import { InputText } from 'primereact/inputtext'
@@ -28,6 +29,8 @@ export const Registration = () => {
 		email: '',
 		rePassword: ''
 	}
+
+	useTitle('Регистрация')
 
 	const toast = useRef<Toast>(null)
 

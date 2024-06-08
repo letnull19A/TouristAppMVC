@@ -7,10 +7,13 @@ import { InputText } from 'primereact/inputtext'
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog'
 import { Button } from 'primereact/button'
 import { AdminPageTitle } from '@widgets'
+import { useTitle } from '@hooks'
 
 export const CategoryList = () => {
 	const [categories, setCategories] = useState<Array<TCategory>>([])
 	const [selected, setSelected] = useState<Array<TCategory>>([])
+
+	useTitle('Список категорий')
 
 	const { getAll, edit, delete: deleteCategory } = categoryApi
 

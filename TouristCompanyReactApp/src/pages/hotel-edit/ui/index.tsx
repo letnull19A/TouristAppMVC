@@ -1,5 +1,6 @@
 import { cityApi, countryApi, hotelApi } from '@api'
 import { TCity, TCountry, TEditHotelForm, THotel } from '@entities'
+import { useTitle } from '@hooks'
 import { CountryDropdown, CityDropdown } from '@ui'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
@@ -19,6 +20,8 @@ export const HotelEdit = () => {
 	const [city, setCity] = useState<TCity>()
 	const { id } = useParams()
 	const toast = useRef<Toast>(null)
+
+	useTitle('Редактирование отелей')
 
 	useEffect(() => {
 		if (id !== undefined) getById(id).then((res: THotel) => setHotelData(res))

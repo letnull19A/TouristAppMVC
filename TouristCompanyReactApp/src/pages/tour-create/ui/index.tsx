@@ -1,7 +1,11 @@
 import { TourAddForm } from "@features"
+import { useTitle } from "@hooks"
 import { AdminPageTitle } from "@widgets"
 
 export const TourCreate = () => {
+
+	useTitle('Создание теров')
+	
 	return (
 		<div className="px-4">
 			<AdminPageTitle title="Добавить новый тур" displayExitButton />

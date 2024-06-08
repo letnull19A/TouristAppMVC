@@ -1,5 +1,6 @@
 import { orderApi } from '@api'
 import { TOrder } from '@entities'
+import { useTitle } from '@hooks'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
 import { Column } from 'primereact/column'
@@ -13,6 +14,8 @@ export const Orders = () => {
 	const [orders, setOrders] = useState<Array<TOrder>>()
 
 	const toast = useRef<Toast>(null)
+
+	useTitle('Заявки')
 
 	const renderStatus = (status: string) => {
 		switch (status) {

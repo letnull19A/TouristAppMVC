@@ -1,5 +1,6 @@
 import { cityApi } from '@api'
 import { TCity, TCountry, TEditCity } from '@entities'
+import { useTitle } from '@hooks'
 import { CountryDropdown } from '@ui'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
@@ -14,6 +15,8 @@ import { useEffect, useRef, useState } from 'react'
 export const CityList = () => {
 	const [cities, setCities] = useState<Array<TCity>>([])
 	const [selected, setSelectedProducts] = useState<Array<TCity>>([])
+
+	useTitle('Список городов')
 
 	const { getAll } = cityApi
 

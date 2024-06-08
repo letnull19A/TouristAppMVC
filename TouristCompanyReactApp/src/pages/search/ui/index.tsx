@@ -6,12 +6,15 @@ import { CardGrid } from './CardGrid'
 import { Filter } from './Filter'
 import { Search } from './Search'
 import './style.css'
+import { useTitle } from '@hooks'
 
 export const SearchPage = () => {
 	const [tours, setTours] = useState<Array<TTour>>([])
 	const [airportId, setAirportId] = useState<TAirport>()
 	const [country, setCountry] = useState<TCountry>()
 
+	useTitle('Главная')
+	
 	useEffect(() => {
 		tourApi.getAll().then((res) => {
 			setTours(res)
