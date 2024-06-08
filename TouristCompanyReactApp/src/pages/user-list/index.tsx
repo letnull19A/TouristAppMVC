@@ -36,19 +36,32 @@ export const UserList = () => {
 		userApi.getAll().then(setUsers)
 	}
 
+	const handleRefresh = () => {
+		userApi.getAll().then(setUsers)
+	}
+
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
 			<AdminPageTitle title="Список пользователей" displayExitButton />
 			<div className="card p-fluid">
-				<div className="mt-5">
+				<div className="mt-5 flex gap-3">
 					<Button
 						outlined
 						label={`Удалить (${selected.length})`}
 						severity="danger"
 						style={{ width: '15%' }}
+						icon={'pi pi-trash'}
 						disabled={selected.length === 0}
 						onClick={() => confirm2()}
+					/>
+					<Button
+						outlined
+						style={{ width: '15%' }}
+						label={`Обновить`}
+						severity="success"
+						icon={'pi pi-refresh'}
+						onClick={() => handleRefresh()}
 					/>
 				</div>
 				<DataTable

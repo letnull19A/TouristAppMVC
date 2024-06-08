@@ -12,9 +12,25 @@ export const TourList = () => {
 
 	useEffect(() => {
 		tourApi.getAll().then((res) => {
-			setTours(res)
+			setTours(
+				res.map((item) => ({
+					...item,
+					description: item.description.substring(0, 75) + '...'
+				}))
+			)
 		})
 	}, [])
+
+	const handleRefresh = () => {
+		tourApi.getAll().then((res) => {
+			setTours(
+				res.map((item) => ({
+					...item,
+					description: item.description.substring(0, 75) + '...'
+				}))
+			)
+		})
+	}
 
 	const handleDelete = () => {
 		selected.forEach((selected) => {
@@ -24,7 +40,7 @@ export const TourList = () => {
 		setSelected([])
 
 		setTimeout(() => {
-			tourApi.getAll().then(setTours)
+			handleRefresh()
 		}, 1000)
 	}
 
@@ -46,14 +62,23 @@ export const TourList = () => {
 			<ConfirmDialog />
 			<AdminPageTitle title="Список туров" displayExitButton />
 			<div className="card p-fluid mt-5">
-				<div className="mt-5">
+				<div className="mt-5 flex gap-3">
 					<Button
 						outlined
 						style={{ width: '15%' }}
 						label={`Удалить (${selected.length})`}
 						severity="danger"
+						icon={'pi pi-trash'}
 						disabled={selected.length === 0}
 						onClick={() => confirm2()}
+					/>
+					<Button
+						outlined
+						style={{ width: '15%' }}
+						label={`Обновить`}
+						severity="success"
+						icon={'pi pi-refresh'}
+						onClick={() => handleRefresh()}
 					/>
 				</div>
 				<TourDataTable

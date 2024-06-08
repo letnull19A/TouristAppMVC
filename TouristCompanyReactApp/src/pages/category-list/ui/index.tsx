@@ -67,19 +67,32 @@ export const CategoryList = () => {
 		})
 	}
 
+	const handleRefresh = () => {
+		getAll().then(setCategories)
+	}
+
 	return (
 		<div className="px-4">
 			<ConfirmDialog />
 			<AdminPageTitle title="Список категорий" displayExitButton />
 			<div className="card p-fluid">
-				<div className="mt-5">
+				<div className="mt-5 flex gap-3">
 					<Button
 						outlined
 						style={{ width: '15%' }}
 						label={`Удалить (${selected.length})`}
 						severity="danger"
+						icon={'pi pi-trash'}
 						disabled={selected.length === 0}
 						onClick={() => confirm2()}
+					/>
+					<Button
+						outlined
+						style={{ width: '15%' }}
+						label={`Обновить`}
+						severity="success"
+						icon={'pi pi-refresh'}
+						onClick={() => handleRefresh()}
 					/>
 				</div>
 				<DataTable

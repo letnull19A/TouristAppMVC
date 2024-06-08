@@ -82,10 +82,22 @@ export const Orders = () => {
 		})
 	}
 
+	const handleRefresh = loadData
+
 	return (
 		<>
 			<Toast ref={toast} />
 			<AdminPageTitle title="Список туров" />
+			<div className="mt-5 flex gap-3">
+				<Button
+					outlined
+					style={{ width: '15%' }}
+					label={`Обновить`}
+					severity="success"
+					icon={'pi pi-refresh'}
+					onClick={() => handleRefresh()}
+				/>
+			</div>
 			<DataTable
 				paginator
 				rowsPerPageOptions={[5, 10, 25, 50]}
