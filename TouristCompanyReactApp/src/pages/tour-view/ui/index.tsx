@@ -1,7 +1,14 @@
-import { cityApi, countryApi, favouritesApi, hotelApi, hotelTourApi, tourApi } from '@api'
+import {
+	cityApi,
+	countryApi,
+	favouritesApi,
+	hotelApi,
+	hotelTourApi,
+	tourApi
+} from '@api'
 import { AuthContext, SearchContext } from '@contexts'
 import { TCity, TCountry, THotel, THotelTour, TTour } from '@entities'
-import { TourInfo, TourPrices } from '@features'
+import { AttractionBlocks, TourInfo, TourPrices } from '@features'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
 import { TabPanel, TabView } from 'primereact/tabview'
@@ -46,12 +53,12 @@ export const TourView = () => {
 			})
 
 			cityApi.getById(res.city.id).then((resq) => {
-                setCurrentCity(resq)
-            })
+				setCurrentCity(resq)
+			})
 
 			countryApi.getById(res.country.id).then((resq) => {
-                setCurrentCountry(resq)
-            })
+				setCurrentCountry(resq)
+			})
 		})
 
 		getRandom().then(setTours)
@@ -131,7 +138,7 @@ export const TourView = () => {
 					</div>
 				</div>
 			</div>
-			<TabView className='mt-4'>
+			<TabView className="mt-4">
 				<TabPanel header="О туре">
 					<p className="m-0">{currentTour?.description}</p>
 				</TabPanel>
@@ -146,6 +153,7 @@ export const TourView = () => {
 				</TabPanel>
 			</TabView>
 			<p className="text-2xl">Достопримечательности</p>
+			<AttractionBlocks />
 			<p className="text-2xl">Смотрите ещё</p>
 			{tours !== undefined && (
 				<SearchContext.Provider value={{ data: tours, setData: setTours }}>

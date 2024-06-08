@@ -34,6 +34,7 @@ namespace TouristCompany.Controllers
                 r.Id,
                 r.Name,
                 r.Description,
+                r.ImageUrl,
                 City = r.City.Adapt<CityLiteDto>(),
                 Country = u.Adapt<CountryLiteDto>()
             }).ToList();
@@ -53,6 +54,7 @@ namespace TouristCompany.Controllers
                 Id = attraction.Id,
                 Name = attraction.Name,
                 Description = attraction.Description,
+                ImageUrl = attraction.ImageUrl,
                 City = city.Adapt<CityLiteDto>(),
                 Country = country.Adapt<CountryLiteDto>()
             };

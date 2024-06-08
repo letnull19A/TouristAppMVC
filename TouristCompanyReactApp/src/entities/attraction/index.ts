@@ -6,6 +6,7 @@ export type TAttraction = {
 	city: { id: string; name: string }
 	country: { id: string; name: string }
 	description: string
+	imageUrl: string
 }
 
 export type TAddAttractionForm = {
