@@ -103,16 +103,15 @@ namespace TouristCompany.Controllers
         [HttpPut("{id:guid}")]
         public IActionResult UpdateAttraction([FromQuery] Guid id, [FromBody] AttractionUpdateDto attraction)
         {
-            var attractionCommit = new Attraction()
-            {
-                Id = id,
-                Name = attraction.Name,
-                Description = attraction.Description,
-                CityId = attraction.CityId,
-                ImageUrl = attraction.ImageUrl
-            };
 
-            attractionRepository.Update(attractionCommit);
+            var currentAttraction = attractionRepository.GetById(id);
+
+            currentAttraction.Name = attraction.Name;
+            currentAttraction.Description = attraction.Description;
+            currentAttraction.CityId = attraction.CityId;
+            currentAttraction.ImageUrl = attraction.ImageUrl;
+
+            attractionRepository.Update(currentAttraction);
             return NoContent();
         }
 

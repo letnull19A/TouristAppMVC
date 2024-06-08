@@ -41,9 +41,9 @@ export const AttractionEdit = () => {
 	const defaultValues: Partial<TEditAttractionForm> = {
 		id,
 		cityId: attractionData?.city.id,
-		countryId: attractionData?.country.id,
 		name: attractionData?.name,
-		description: attractionData?.description
+		description: attractionData?.description,
+		imageUrl: attractionData?.imageUrl
 	}
 
 	const { control, handleSubmit } = useForm({ defaultValues })
@@ -53,7 +53,6 @@ export const AttractionEdit = () => {
 			id: data.id ?? '',
 			name: data.name ?? '',
 			description: data.description ?? '',
-			countryId: data.countryId ?? '',
 			cityId: data.cityId ?? '',
 			imageUrl: fileName ?? ''
 		})
@@ -112,13 +111,9 @@ export const AttractionEdit = () => {
 						<Controller
 							name="countryId"
 							control={control}
-							defaultValue={attractionData.country.id}
-							render={({ field }) => (
+							render={() => (
 								<CountryDropdown
 									defaultValue={country}
-									onChange={(e) =>
-										field.onChange((e.target.value as TCountry).id)
-									}
 									className="mt-4"
 								/>
 							)}
