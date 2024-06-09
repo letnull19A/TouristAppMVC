@@ -5,6 +5,7 @@ import { CityDropdown, CountryDropdown } from '@ui'
 import { AdminPageTitle } from '@widgets'
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
+import { InputTextarea } from 'primereact/inputtextarea'
 import { Rating } from 'primereact/rating'
 import { Toast } from 'primereact/toast'
 import { classNames } from 'primereact/utils'
@@ -29,8 +30,13 @@ export const HotelCreate = () => {
 	const { control, handleSubmit, reset } = useForm({ defaultValues })
 
 	const showSuccess = () => {
-        toast.current?.show({severity:'success', summary: 'Успех!', detail:'Отель успешно добавлен!', life: 3000});
-    }
+		toast.current?.show({
+			severity: 'success',
+			summary: 'Успех!',
+			detail: 'Отель успешно добавлен!',
+			life: 3000
+		})
+	}
 
 	const onSubmit = async (data: TAddHotelForm) => {
 		hotelApi.create({ ...data, rating }).then(() => {
@@ -73,10 +79,15 @@ export const HotelCreate = () => {
 					<Controller
 						name="countryId"
 						control={control}
-						render={({ field }) => <CountryDropdown onChange={(e) => {
-							setCountry(e.target.value as TCountry)
-							field.onChange((e.target.value as TCountry).id)
-						}} className="mt-4" />}
+						render={({ field }) => (
+							<CountryDropdown
+								onChange={(e) => {
+									setCountry(e.target.value as TCountry)
+									field.onChange((e.target.value as TCountry).id)
+								}}
+								className="mt-4"
+							/>
+						)}
 					/>
 					<Controller
 						name="cityId"
@@ -101,6 +112,25 @@ export const HotelCreate = () => {
 									cancel={false}
 								/>
 							</div>
+						)}
+					/>
+					<Controller
+						name="description"
+						control={control}
+						rules={{ required: 'Описнаие не введено' }}
+						render={({ field, fieldState }) => (
+							<span className="p-float-label my-4">
+								<InputTextarea
+									id={field.name}
+									{...field}
+									defaultValue={field.value}
+									rows={4}
+									cols={30}
+									className={classNames({ 'p-invalid': fieldState.error })}
+									style={{ width: '100%' }}
+								/>
+								<label htmlFor={field.name}>Описание</label>
+							</span>
 						)}
 					/>
 					<Button label="Подтвердить" type="submit" icon="pi pi-check" />

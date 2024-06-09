@@ -66,6 +66,7 @@ export const Registration = () => {
 			lastName: data.surname,
 			patronymic: data.fatherName,
 			password: data.password,
+			login: data.login,
 			confirmPassword: data.rePassword
 		}).then((result) => {
 			if (result.ok) {

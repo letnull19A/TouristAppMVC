@@ -7,6 +7,7 @@ export type TUser = {
 }
 
 export type TAddUser = Omit<TUser, 'id'> & {
+	login: string
 	password: string
 	confirmPassword: string
 }

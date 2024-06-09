@@ -8,6 +8,8 @@ import { AdminPageTitle } from '@widgets'
 import { CountryDropdown } from '@ui'
 import { cityApi } from '@api'
 import { useTitle } from '@hooks'
+import { Toast } from 'primereact/toast'
+import { useRef } from 'react'
 
 type TForm = {
 	name: string
@@ -17,6 +19,8 @@ type TForm = {
 
 export const CityCreate = () => {
 	const { create } = cityApi
+
+	const toast = useRef<Toast>(null)
 
 	useTitle('Добавить город')
 	
@@ -29,13 +33,20 @@ export const CityCreate = () => {
 	const { control, handleSubmit, reset } = useForm({ defaultValues })
 
 	const onSubmit = (data: TForm) => {
-		create({ ...data })
+		create({ ...data }).then(() => {
+			toast.current?.show({
+				severity: 'success',
+				summary: 'Успех!',
+				detail: 'ПГород успешно добавлен!'
+			})
+		})
 
 		reset()
 	}
 
 	return (
 		<div className="px-4">
+			<Toast ref={toast}></Toast>
 			<AdminPageTitle title="Добавить новый город" displayExitButton />
 			<div className="card flex mt-4 col-5">
 				<form

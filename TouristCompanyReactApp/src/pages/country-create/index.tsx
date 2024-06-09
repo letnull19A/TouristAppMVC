@@ -6,6 +6,8 @@ import { Button } from 'primereact/button'
 import { countryApi } from '@api'
 import { TAddCountryForm } from '@entities'
 import { AdminPageTitle } from '@widgets'
+import { Toast } from 'primereact/toast'
+import { useRef } from 'react'
 
 export const CountryCreate = () => {
 	const defaultValues: TAddCountryForm = {
@@ -14,17 +16,27 @@ export const CountryCreate = () => {
 		description: ''
 	}
 
+	const toast = useRef<Toast>(null)
+
 	const { control, handleSubmit, reset } = useForm({ defaultValues })
 
 	const onSubmit = (data: TAddCountryForm) => {
-		countryApi.create({ ...data })
+		countryApi.create({ ...data }).then(() => {
+			toast.current?.show({
+				severity: 'success',
+				summary: 'Успех!',
+				detail: 'Страна успешно добавлена!',
+				life: 3000
+			})
+		})
 
 		reset()
 	}
 
 	return (
 		<div className="px-4">
-			<AdminPageTitle title='Добавить новую страну' displayExitButton />
+			<Toast ref={toast}></Toast>
+			<AdminPageTitle title="Добавить новую страну" displayExitButton />
 			<div className="card flex mt-4 col-5">
 				<form
 					onSubmit={handleSubmit(onSubmit)}

@@ -51,6 +51,7 @@ export const TourAddForm = () => {
 	} = useForm({ defaultValues })
 
 	const [fields, setFields] = useState<Array<TAddPriceTour>>()
+	const toast = useRef<Toast>(null)
 
 	const onSubmit = (data: TAddTourForm) => {
 		create({
@@ -77,17 +78,25 @@ export const TourAddForm = () => {
 
 				if (data.hotelId === undefined) {
 					toast.current?.show({
-						severity:'error',
-                        summary: 'Ошибка!',
-                        detail: 'Не удалось назначить отель'
+						severity: 'error',
+						summary: 'Ошибка!',
+						detail: 'Не удалось назначить отель'
 					})
 					return
 				}
 
-				hotelTourApi.create({
-					tourId: response.id,
-					hotelId: data.hotelId
-				})
+				hotelTourApi
+					.create({
+						tourId: response.id,
+						hotelId: data.hotelId
+					})
+					.then(() => {
+						toast.current?.show({
+							severity: 'success',
+							summary: 'Успешно!',
+							detail: 'Тур успешно добавлен'
+						})
+					})
 			})
 	}
 
@@ -95,8 +104,6 @@ export const TourAddForm = () => {
 		errors[name] ? (
 			<small className="p-error">{errors[name]?.message}</small>
 		) : null
-
-	const toast = useRef<Toast>(null)
 
 	const onUpload = (event: FileUploadUploadEvent) => {
 		if (event.xhr.status === 200) {
