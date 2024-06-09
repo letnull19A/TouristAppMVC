@@ -37,7 +37,7 @@ export const CityCreate = () => {
 			toast.current?.show({
 				severity: 'success',
 				summary: 'Успех!',
-				detail: 'ПГород успешно добавлен!'
+				detail: 'Город успешно добавлен!'
 			})
 		})
 
