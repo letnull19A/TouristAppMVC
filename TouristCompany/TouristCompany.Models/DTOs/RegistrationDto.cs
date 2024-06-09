@@ -21,5 +21,6 @@ public sealed class RegistrationDto
     [Required]
     public string ConfirmPassword { get; set; } = string.Empty;
 
+    [Required]
     public string Login { get; set; } = string.Empty;
 }
