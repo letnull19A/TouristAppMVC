@@ -50,7 +50,7 @@ const AirportsDropdown = (props: TAirportsDropdownProps) => {
 				onChange?.(e)
 			}}
 			options={airports}
-			optionLabel="city"
+			optionLabel="displayName"
 			placeholder="Выберете аэропорт"
 		/>
 	)

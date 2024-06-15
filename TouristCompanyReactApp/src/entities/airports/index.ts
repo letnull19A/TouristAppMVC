@@ -3,4 +3,5 @@ export type TAirport = {
     city: string
     name: string
     countryId: number
+    displayName: string
 }
