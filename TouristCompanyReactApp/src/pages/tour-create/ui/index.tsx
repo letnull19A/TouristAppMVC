@@ -4,7 +4,7 @@ import { AdminPageTitle } from "@widgets"
 
 export const TourCreate = () => {
 
-	useTitle('Создание теров')
+	useTitle('Создание туров')
 	
 	return (
 		<div className="px-4">
